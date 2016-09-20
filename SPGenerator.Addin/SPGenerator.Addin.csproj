@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B00F85D7-E4FD-446F-AD42-A5921F4EF0E8}</ProjectGuid>
+    <ProjectGuid>{93C447F4-EB3A-4084-81D2-347EF645F663}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SPGenerator.Addin</RootNamespace>
@@ -17,11 +17,11 @@
     <MinimumOfficeToolsVersion>12.2</MinimumOfficeToolsVersion>
     <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
     <ProjectMode>SharePointApp</ProjectMode>
-    <AppFeaturePartId>{ab54d32a-aefe-4af8-a21f-39ab834943f3}</AppFeaturePartId>
-    <WspPartId>{38064482-709d-42c1-8f04-69c9070f61c4}</WspPartId>
-    <WorkflowPartId>{5d143977-1b50-4f38-80f0-c066347089df}</WorkflowPartId>
-    <CspkgPartId>{3e7e1adb-3793-492d-bc28-f30ede30b5e8}</CspkgPartId>
-    <SqlPackagePartId>{e66cfe33-83d0-4b13-9f0a-4715bb8580b4}</SqlPackagePartId>
+    <AppFeaturePartId>{6283276a-fe83-4fe4-bcda-b4772adfbc30}</AppFeaturePartId>
+    <WspPartId>{557e03c2-a816-4aeb-9e2d-e6c7de57da8a}</WspPartId>
+    <WorkflowPartId>{4f1f7e5f-0251-4b6b-b6fb-7e3bc0d74cd2}</WorkflowPartId>
+    <CspkgPartId>{06473b37-575f-4823-8c43-38bb70044cca}</CspkgPartId>
+    <SqlPackagePartId>{bdae26e3-244f-46b2-9668-e8acf24a279c}</SqlPackagePartId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SPGenerator.AddinWeb\SPGenerator.AddinWeb.csproj">
-      <Project>{0790C218-A5B1-4D85-91C4-F52D47461CA5}</Project>
+      <Project>{D8CF4D43-85A3-4688-9439-CD83FEADC51B}</Project>
       <Name>SPGenerator.AddinWeb</Name>
       <Private>True</Private>
       <RoleType>Web</RoleType>

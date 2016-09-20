@@ -2,7 +2,7 @@
 <!--Created:cb85b80c-f585-40ff-8bfc-12ff4d0e34a9-->
 <App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest"
      Name="SPGeneratorAddin"
-     ProductID="{1f6f1313-1a22-4c03-960a-eed6c73f1b7d}"
+     ProductID="{4b63def4-81e6-4f18-9187-6549097e8172}"
      Version="1.0.0.0"
      SharePointMinVersion="16.0.0.0"
 >
