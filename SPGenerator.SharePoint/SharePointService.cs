@@ -1,9 +1,11 @@
-﻿using SPGenerator.Model;
+﻿using Microsoft.SharePoint.Client;
+using SPGenerator.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SPGenerator.SharePoint
 {
@@ -12,13 +14,33 @@ namespace SPGenerator.SharePoint
     /// </summary>
     public class SharePointService
     {
+        private readonly SharePointContextHelper contextHelper;
+        private ModelTranslator modelTranslator;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="httpContext">Http context which will be used to communicate
+        /// with SharePoint.</param>
+        public SharePointService(SharePointContextHelper contextHelper, 
+            ModelTranslator modelTranslator)
+        {
+            this.contextHelper = contextHelper;
+            this.modelTranslator = modelTranslator;
+        }
+
         /// <summary>
         /// Used for fetching all SharePoint lists from site collection.
         /// </summary>
         /// <returns>List of all SharePoint lists from site collection.</returns>
-        public List<SPGList> GetSPGList()
+        public List<SPGList> GetAllSPGLists()
         {
-            throw new NotImplementedException();
+            using (var context = contextHelper.ClientContext)
+            {
+                context.Load(context.Web.Lists);
+                context.ExecuteQuery();
+                return modelTranslator.TranslateToAppDomain(context.Web.Lists);
+            }
         }
 
         /// <summary>

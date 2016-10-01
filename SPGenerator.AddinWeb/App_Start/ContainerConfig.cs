@@ -20,6 +20,8 @@ namespace SPGenerator.AddinWeb.App_Start
         {
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            container.Register<ModelTranslator>();
+            container.Register<SharePointContextHelper>();
             container.Register<SharePointService>();
             container.Register<DataGenerator>();
             container.Register<ColumnDataGeneratorFactory>();
