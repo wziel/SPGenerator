@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.SharePoint.Client;
+using System;
+using System.Net;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Configuration;
 
-namespace SPGenerator.SharePoint.Context
+namespace SPGenerator.SharePoint
 {
     /// <summary>
     /// Encapsulates all the information from SharePoint.
@@ -210,7 +213,7 @@ namespace SPGenerator.SharePoint.Context
         }
 
         /// <summary>
-        /// Gets the database connection string from SharePoint for autohosted app.
+        /// Gets the database connection string from SharePoint for autohosted add-in.
         /// This method is deprecated because the autohosted option is no longer available.
         /// </summary>
         [ObsoleteAttribute("This method is deprecated because the autohosted option is no longer available.", true)]

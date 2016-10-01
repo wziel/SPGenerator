@@ -27,9 +27,9 @@ namespace SPGenerator.SharePoint
         /// </summary>
         /// <param name="listName">Name of the list to fetch.</param>
         /// <returns>Detailed information about a SharePoint list.</returns>
-        public SPGListDetails GetSPGListDetails(string listName)
+        public SPGList GetSPGList(string listName)
         {
-            throw new NotFiniteNumberException();
+            throw new NotImplementedException();
         }
         
         /// <summary>

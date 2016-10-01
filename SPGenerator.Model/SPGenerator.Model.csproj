@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Column\SPGColumn.cs" />
     <Compile Include="List\SPGList.cs" />
-    <Compile Include="List\SPGListDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SPGEntry.cs" />
   </ItemGroup>

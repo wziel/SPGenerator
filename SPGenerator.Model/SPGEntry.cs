@@ -1,4 +1,4 @@
-﻿using SPGenerator.Logic.Model.Column;
+﻿using SPGenerator.Model.Column;
 using System;
 using System.Collections.Generic;
 using System.Linq;
