@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SPGenerator.Generator;
+using SPGenerator.SharePoint;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +15,15 @@ namespace SPGenerator.AddinWeb.Controllers
     /// </summary>
     public class HomeController : Controller
     {
+        private readonly DataGenerator dataGenerator;
+        private readonly SharePointService sharePointService;
+
+        public HomeController(SharePointService sharePointService, DataGenerator dataGenerator)
+        {
+            this.sharePointService = sharePointService;
+            this.dataGenerator = dataGenerator;
+        }
+
         [SharePointContextFilter]
         public ActionResult Index()
         {

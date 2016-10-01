@@ -1,7 +1,7 @@
 ﻿using SPGenerator.Model.Column;
 using System.Collections.Generic;
 
-namespace SPGenerator.Model.List
+namespace SPGenerator.Model
 {
     /// <summary>
     /// A SharePoint list.

@@ -1,5 +1,4 @@
 ﻿using SPGenerator.Model;
-using SPGenerator.Model.List;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace SPGenerator.SharePoint
     /// <summary>
     /// Class used for all communication with SharePoint.
     /// </summary>
-    internal class SharePointService
+    public class SharePointService
     {
         /// <summary>
         /// Used for fetching all SharePoint lists from site collection.
