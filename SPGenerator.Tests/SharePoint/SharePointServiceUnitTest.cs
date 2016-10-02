@@ -13,7 +13,7 @@ namespace SPGenerator.Tests.SharePoint
     {
         private SharePointService sharePointSerivce;
         private ShimClientContext shimContext;
-        private ShimModelTranslator shimModelTranslator;
+        private ShimClientRuntimeContext shimRuntimeContext;
 
         [TestCleanup]
         public override void CleanUpClass()
@@ -32,9 +32,13 @@ namespace SPGenerator.Tests.SharePoint
         private void InitializeShimClientContext()
         {
             shimContext = new ShimClientContext();
-            var shimRuntimeContext = new ShimClientRuntimeContext(shimContext);
+            shimRuntimeContext = new ShimClientRuntimeContext(shimContext);
             shimContext.ExecuteQuery = () => { };
             shimRuntimeContext.LoadQueryOf1ClientObjectCollectionOfM0<ClientObject>(delegate { return null; });
+            var shimWeb = new ShimWeb();
+            var shimListCollection = new ShimListCollection();
+            shimContext.WebGet = () => shimWeb;
+            shimWeb.ListsGet = () => shimListCollection;
         }
 
         private void InitializeSharePointSerivce()
@@ -43,8 +47,8 @@ namespace SPGenerator.Tests.SharePoint
             {
                 ClientContextGet = () => shimContext
             };
-            shimModelTranslator = new ShimModelTranslator();
-            sharePointSerivce = new SharePointService(shimCtxHelper, shimModelTranslator);
+            var modelTranslator = new ModelTranslator();
+            sharePointSerivce = new SharePointService(shimCtxHelper, modelTranslator);
         }
 
         /// <summary>
@@ -56,22 +60,25 @@ namespace SPGenerator.Tests.SharePoint
         public void GetAllSPGLists()
         {
             //given
-            ListCollection toTranslate = null;
-            var translated = new System.Collections.Generic.List<Model.SPGList>();
-            var shimWeb = new ShimWeb();
-            var shimListCollection = new ShimListCollection();
-            shimContext.WebGet = () => shimWeb;
-            shimWeb.ListsGet = () => shimListCollection;
-            shimModelTranslator.TranslateToAppDomainListCollection = (listCollection) =>
+            var lists = new System.Collections.Generic.List<List>()
             {
-                toTranslate = listCollection;
-                return translated;
+                new ShimList() { TitleGet = () => "List1", DefaultViewUrlGet = () => "DefaultView1" }
             };
+            shimRuntimeContext.LoadQueryOf1IQueryableOfM0<ClientObject>((query) => lists);
             //when
-            var allSPGLists = sharePointSerivce.GetAllSPGLists();
+            var allSPGLists = sharePointSerivce.AllSPGLists;
             //then
-            Assert.AreEqual(shimListCollection, toTranslate);
-            Assert.AreEqual(allSPGLists, translated);
+            Assert.AreEqual(lists[0].Title, allSPGLists[0].Title);
+            Assert.AreEqual(lists[0].DefaultViewUrl, allSPGLists[0].ServerRelativeUrl);
+        }
+
+        /// <summary>
+        /// Test if SharePointService retrieves host web url properly.
+        /// </summary>
+        [TestMethod]
+        public void GetHostWebUrl()
+        {
+            throw new NotImplementedException();
         }
     }
 }

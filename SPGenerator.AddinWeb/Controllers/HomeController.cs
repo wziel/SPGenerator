@@ -1,4 +1,5 @@
-﻿using SPGenerator.Generator;
+﻿using SPGenerator.AddinWeb.ViewModels.Home;
+using SPGenerator.Generator;
 using SPGenerator.SharePoint;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,21 @@ namespace SPGenerator.AddinWeb.Controllers
             this.dataGenerator = dataGenerator;
         }
 
+        /// <summary>
+        /// View for selection on SPGLists.
+        /// </summary>
+        /// <returns></returns>
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            ViewBag.UserName = "Mock user name";
-            return View();
+            var allLists = sharePointService.AllSPGLists;
+            var hostWebUrl = sharePointService.HostWebUrl;
+            return View(new IndexVM()
+            {
+                SPGLists = allLists,
+                HostWebUrl = hostWebUrl,
+                SelectedSPGList = allLists.FirstOrDefault()
+            });
         }
     }
 }

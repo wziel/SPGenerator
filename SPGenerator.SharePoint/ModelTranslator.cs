@@ -19,12 +19,12 @@ namespace SPGenerator.SharePoint
         /// </summary>
         /// <param name="listCollection">Collection to be translated.</param>
         /// <returns>List of translated SPGLists</returns>
-        public List<SPGList> TranslateToAppDomain(ListCollection listCollection)
+        public List<SPGList> TranslateToAppDomain(IEnumerable<List> listCollection)
         {
-            IEnumerable<List> enumerableLists = listCollection;
-            return enumerableLists.Select(list => new SPGList()
+            return listCollection.Select(list => new SPGList()
             {
-                ListName = list.Title
+                Title = list.Title,
+                ServerRelativeUrl = list.DefaultViewUrl
             }).ToList();
         }
     }

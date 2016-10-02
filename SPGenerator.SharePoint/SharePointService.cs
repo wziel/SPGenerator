@@ -22,7 +22,7 @@ namespace SPGenerator.SharePoint
         /// </summary>
         /// <param name="httpContext">Http context which will be used to communicate
         /// with SharePoint.</param>
-        public SharePointService(SharePointContextHelper contextHelper, 
+        public SharePointService(SharePointContextHelper contextHelper,
             ModelTranslator modelTranslator)
         {
             this.contextHelper = contextHelper;
@@ -30,16 +30,37 @@ namespace SPGenerator.SharePoint
         }
 
         /// <summary>
-        /// Used for fetching all SharePoint lists from site collection.
+        /// Url of SharePoint's site collection web url.
         /// </summary>
-        /// <returns>List of all SharePoint lists from site collection.</returns>
-        public List<SPGList> GetAllSPGLists()
+        public string HostWebUrl
         {
-            using (var context = contextHelper.ClientContext)
+            get
             {
-                context.Load(context.Web.Lists);
-                context.ExecuteQuery();
-                return modelTranslator.TranslateToAppDomain(context.Web.Lists);
+                using (var context = contextHelper.ClientContext)
+                {
+                    context.Load(context.Web);
+                    context.ExecuteQuery();
+                    return context.Web.Url;
+                }
+            }
+        }
+
+        /// <summary>
+        /// All SharePoint Lists in site collection.
+        /// </summary>
+        public List<SPGList> AllSPGLists
+        {
+            get
+            {
+                using (var context = contextHelper.ClientContext)
+                {
+                    var query = context.Web.Lists
+                        .Where(list => !list.Hidden)
+                        .Include(list => list.Title, list => list.DefaultViewUrl);
+                    var lists = context.LoadQuery(query);
+                    context.ExecuteQuery();
+                    return modelTranslator.TranslateToAppDomain(lists);
+                }
             }
         }
 
@@ -52,7 +73,7 @@ namespace SPGenerator.SharePoint
         {
             throw new NotImplementedException();
         }
-        
+
         /// <summary>
         /// Used for saving collection of entries to SharePoint list.
         /// </summary>
