@@ -55,6 +55,7 @@ namespace SPGenerator.SharePoint
                 using (var context = contextHelper.ClientContext)
                 {
                     var query = context.Web.Lists
+                        .Select(list => list)
                         .Where(list => !list.Hidden)
                         .Include(list => list.Title, list => list.DefaultViewUrl);
                     var lists = context.LoadQuery(query);

@@ -11,16 +11,16 @@ namespace SPGenerator.Tests
     /// <summary>
     /// Abstract unit test that uses Shims (Microsoft Fakes).
     /// </summary>
-    public abstract class ShimTest
+    public abstract class ShimTests
     {
         private IDisposable shimContext;
         
-        public virtual void InitializeClass()
+        public virtual void TestInitialize()
         {
             shimContext = ShimsContext.Create();
         }
 
-        public virtual void CleanUpClass()
+        public virtual void TestCleanup()
         {
             shimContext.Dispose();
         }
