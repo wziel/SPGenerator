@@ -51,7 +51,7 @@ namespace SPGenerator.SharePoint
         {
             get
             {
-                var lists = GetLists(list => true);
+                var lists = GetLists(list => !list.Hidden);
                 return TranslateToAppDomain(lists);
             }
         }
@@ -63,7 +63,7 @@ namespace SPGenerator.SharePoint
         /// <returns>Detailed information about a SharePoint list. Null if list not found.</returns>
         public SPGList GetSPGList(string listTitle)
         {
-            var lists = GetLists(l => l.Title == listTitle);
+            var lists = GetLists(l => l.Title == listTitle && !l.Hidden);
             var list = lists.FirstOrDefault();
             if (list == null)
             {
@@ -118,7 +118,6 @@ namespace SPGenerator.SharePoint
             {
                 var listQuery = context.Web.Lists
                                     .Select(list => list)
-                                    .Where(list => !list.Hidden)
                                     .Where(wherePredicate)
                                     .Include(list => list.Title, list => list.DefaultViewUrl);
                 return GetByQuery(listQuery, context);

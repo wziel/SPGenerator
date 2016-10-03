@@ -26,7 +26,7 @@ namespace SPGenerator.AddinWeb.Controllers
         }
 
         /// <summary>
-        /// View for selection on SPGLists.
+        /// Initial view that allows to select list to display.
         /// </summary>
         /// <returns></returns>
         [SharePointContextFilter]
@@ -37,8 +37,23 @@ namespace SPGenerator.AddinWeb.Controllers
             return View(new IndexVM()
             {
                 SPGLists = allLists,
-                HostWebUrl = hostWebUrl,
-                SelectedSPGList = allLists.FirstOrDefault()
+                HostWebUrl = hostWebUrl
+            });
+        }
+
+        /// <summary>
+        /// Reacts to list selection and downloads list fields to display;
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult List()
+        {
+            var allLists = sharePointService.AllSPGLists;
+            var hostWebUrl = sharePointService.HostWebUrl;
+            return View("Index", new IndexVM()
+            {
+                SPGLists = allLists,
+                HostWebUrl = hostWebUrl
             });
         }
     }
