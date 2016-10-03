@@ -117,7 +117,6 @@
     <Compile Include="SharePointContextHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePointContext.cs" />
-    <Compile Include="ModelTranslator.cs" />
     <Compile Include="SharePointService.cs" />
     <Compile Include="TokenHelper.cs" />
   </ItemGroup>
