@@ -16,7 +16,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         /// Default constructor of column data generator.
         /// </summary>
         /// <param name="column">Column for which data will be generated.</param>
-        public ColumnDataGenerator(SPGColumn column)
+        public ColumnDataGenerator(ColumnPOCO column)
         {
             throw new NotImplementedException();
         }

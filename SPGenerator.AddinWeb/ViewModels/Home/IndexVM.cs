@@ -17,7 +17,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         /// <summary>
         /// Lists available for generation in Site Collection.
         /// </summary>
-        public List<SPGList> SPGLists { get; set; }
+        public List<ListPOCO> ListPOCOs { get; set; }
 
         /// <summary>
         /// Relative of SharePoint site collection's host web.
@@ -25,13 +25,13 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         public string HostWebUrl { get; set; }
 
         /// <summary>
-        /// Title of the selected SPGList.
+        /// Title of the selected ListPOCO.
         /// </summary>
         [DisplayName("Lista docelowa")]
-        public string SelectedSPGListTitle { get; set; }
+        public string SelectedListPOCOTitle { get; set; }
 
         /// <summary>
-        /// Number of SPGEntry objects to generate.
+        /// Number of EntryPOCO objects to generate.
         /// </summary>
         [DisplayName("Liczba rekordów")]
         [Range(1, 2000)]
@@ -40,19 +40,19 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         /// <summary>
         /// List selected for data generation.
         /// </summary>
-        public SPGList SelectedSPGList { get; set; }
+        public ListPOCO SelectedListPOCO { get; set; }
 
         /// <summary>
         /// Url to currently selected list's default view.
         /// </summary>
-        public string SelectedSPGListAbsoluteUrl
+        public string SelectedListPOCOAbsoluteUrl
         {
             get
             {
-                if(SelectedSPGList != null)
+                if(SelectedListPOCO != null)
                 {
                     var serverUrl = HostWebUrl.Split(new string[] { "/sites" }, StringSplitOptions.None).First();
-                    return serverUrl + SelectedSPGList.ServerRelativeUrl;
+                    return serverUrl + SelectedListPOCO.ServerRelativeUrl;
                 }
                 return null;
             }
@@ -61,25 +61,25 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         /// <summary>
         /// Data for List selector in the view.
         /// </summary>
-        public SelectList SPGListsSelectList
+        public SelectList ListPOCOSelectList
         {
             get
             {
-                var selectListItems = SPGLists.Select(spgList => new SelectListItem()
+                var selectListItems = ListPOCOs.Select(listPOCO => new SelectListItem()
                 {
-                    Text = spgList.Title,
-                    Value = spgList.Title,
-                    Selected = spgList == SelectedSPGList
+                    Text = listPOCO.Title,
+                    Value = listPOCO.Title,
+                    Selected = listPOCO == SelectedListPOCO
                 }).ToList();
                 return new SelectList(selectListItems, "Text", "Value");
             }
         }
 
-        public bool ShowSPGLists
+        public bool ShowListPOCOs
         {
             get
             {
-                return SPGLists != null && SPGLists.Any();
+                return ListPOCOs != null && ListPOCOs.Any();
             }
         }
     }

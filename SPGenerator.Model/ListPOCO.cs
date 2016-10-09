@@ -6,7 +6,7 @@ namespace SPGenerator.Model
     /// <summary>
     /// A SharePoint list.
     /// </summary>
-    public class SPGList
+    public class ListPOCO
     {
         /// <summary>
         /// Name of the list.
@@ -16,7 +16,7 @@ namespace SPGenerator.Model
         /// <summary>
         /// List of all columns in this list.
         /// </summary>
-        public List<SPGColumn> SPGColumns { get; set; }
+        public List<ColumnPOCO> ColumnPOCOList { get; set; }
 
         /// <summary>
         /// Url for default view of this list.

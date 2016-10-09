@@ -18,7 +18,7 @@ namespace SPGenerator.Generator
         /// <param name="list">List for which entries will be generated..</param>
         /// <param name="recordsCount">Number of entries to generate.</param>
         /// <returns>Generated entries.</returns>
-        public IEnumerable<SPGEntry> GenerateData(SPGList list, int recordsCount)
+        public IEnumerable<EntryPOCO> GenerateData(ListPOCO list, int recordsCount)
         {
             throw new NotImplementedException();
         }
@@ -32,6 +32,6 @@ namespace SPGenerator.Generator
         /// <param name="list">List for which entries will be generated..</param>
         /// <param name="recordsCount">Number of entries to generate.</param>
         /// <returns>Generated entries.</returns>
-        IEnumerable<SPGEntry> GenerateData(SPGList list, int recordsCount);
+        IEnumerable<EntryPOCO> GenerateData(ListPOCO list, int recordsCount);
     }
 }

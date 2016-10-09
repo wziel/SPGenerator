@@ -32,11 +32,11 @@ namespace SPGenerator.AddinWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            var allLists = sharePointService.AllSPGLists;
+            var allLists = sharePointService.AllListPOCO;
             var hostWebUrl = sharePointService.HostWebUrl;
             return View(new IndexVM()
             {
-                SPGLists = allLists,
+                ListPOCOs = allLists,
                 HostWebUrl = hostWebUrl
             });
         }
@@ -49,11 +49,11 @@ namespace SPGenerator.AddinWeb.Controllers
         public ActionResult List()
         {
             //TODO zmienić nazwę akcji na ListSelect
-            var allLists = sharePointService.AllSPGLists;
+            var allLists = sharePointService.AllListPOCO;
             var hostWebUrl = sharePointService.HostWebUrl;
             return View("Index", new IndexVM()
             {
-                SPGLists = allLists,
+                ListPOCOs = allLists,
                 HostWebUrl = hostWebUrl
             });
         }

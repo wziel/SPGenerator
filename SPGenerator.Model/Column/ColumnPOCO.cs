@@ -9,7 +9,7 @@ namespace SPGenerator.Model.Column
     /// <summary>
     /// A column definition in a list.
     /// </summary>
-    public class SPGColumn
+    public class ColumnPOCO
     {
         /// <summary>
         /// Name of this column.

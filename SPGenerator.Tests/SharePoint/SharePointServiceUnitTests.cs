@@ -41,7 +41,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks if hidden lists are not returned from SharePoint.
         /// </summary>
         [TestMethod]
-        public void TestAllSPGLists_DoesntReturnHiddenLists()
+        public void TestAllListPOCO_DoesntReturnHiddenLists()
         {
             //given
             var lists = new List<List>()
@@ -50,9 +50,9 @@ namespace SPGenerator.Tests.SharePoint
             };
             InitializeShimLinq(lists);
             //when
-            var allSPGLists = sharePointSerivce.AllSPGLists;
+            var allListPOCO = sharePointSerivce.AllListPOCO;
             //then
-            Assert.IsFalse(allSPGLists.Any());
+            Assert.IsFalse(allListPOCO.Any());
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace SPGenerator.Tests.SharePoint
         /// fetching all lists.
         /// </summary>
         [TestMethod]
-        public void TestAllSPGLists_ReturnsVisibleLists()
+        public void TestAllListPOCO_ReturnsVisibleLists()
         {
             //given
             var lists = new List<List>()
@@ -69,9 +69,9 @@ namespace SPGenerator.Tests.SharePoint
             };
             InitializeShimLinq(lists);
             //when
-            var allSPGLists = sharePointSerivce.AllSPGLists;
+            var allListPOCO = sharePointSerivce.AllListPOCO;
             //then
-            Assert.AreEqual(1, allSPGLists.Count);
+            Assert.AreEqual(1, allListPOCO.Count);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace SPGenerator.Tests.SharePoint
         /// to application domain models.
         /// </summary>
         [TestMethod]
-        public void TestAllSPGLists_TranslatesLists()
+        public void TestAllListPOCO_TranslatesLists()
         {
             //given
             var lists = new List<List>()
@@ -88,17 +88,17 @@ namespace SPGenerator.Tests.SharePoint
             };
             InitializeShimLinq(lists);
             //when
-            var allSPGLists = sharePointSerivce.AllSPGLists;
+            var allListPOCO = sharePointSerivce.AllListPOCO;
             //then
-            Assert.AreEqual(lists[0].Title, allSPGLists[0].Title);
-            Assert.AreEqual(lists[0].DefaultViewUrl, allSPGLists[0].ServerRelativeUrl);
+            Assert.AreEqual(lists[0].Title, allListPOCO[0].Title);
+            Assert.AreEqual(lists[0].DefaultViewUrl, allListPOCO[0].ServerRelativeUrl);
         }
 
         /// <summary>
         /// Test that checks that nothing is returned if list is not found.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_DoesntReturnNonExistentList()
+        public void TestGetListPOCO_DoesntReturnNonExistentList()
         {
             //given
             var otherListTitle = "OtherListTitle";
@@ -106,32 +106,32 @@ namespace SPGenerator.Tests.SharePoint
             var nonExistentList = GetShimList(listTitle: listTitle);
             InitializeShimLinq(new List[] { nonExistentList });
             //when
-            var spgList = sharePointSerivce.GetSPGList(otherListTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(otherListTitle);
             //then
-            Assert.IsNull(spgList);
+            Assert.IsNull(listPOCO);
         }
         
         /// <summary>
         /// Test that checks that hidden list is not returned from SharePoint.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_DoesntReturnHiddenList()
+        public void TestGetListPOCO_DoesntReturnHiddenList()
         {
             //given
             var listTitle = "ListTitle";
             var hiddenList = GetShimList(hidden: true, listTitle: listTitle);
             InitializeShimLinq(new List[] { hiddenList });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.IsNull(spgList);
+            Assert.IsNull(listPOCO);
         }
 
         /// <summary>
         /// Test that checks that visible list is returned from SharePoint.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_ReturnsVisibleList()
+        public void TestGetListPOCO_ReturnsVisibleList()
         {
             //given
             var listTitle = "ListTitle";
@@ -139,80 +139,80 @@ namespace SPGenerator.Tests.SharePoint
             InitializeShimLinq(new List[] { list });
             InitializeShimLinq(new Field[] { });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.IsNotNull(spgList);
+            Assert.IsNotNull(listPOCO);
         }
 
         /// <summary>
         /// Test that checks if non-required fields from base list type are not returned.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_DoesntReturnNonRequiredFieldsFromBaseListType()
+        public void TestGetListPOCO_DoesntReturnNonRequiredFieldsFromBaseListType()
         {
             //given
             var listTitle = "ListTitle";
             InitializeShimLinq(new List[] { GetShimList(listTitle) });
             InitializeShimLinq(new Field[] { GetShimField(required: false, fromBaseType: true) });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.IsFalse(spgList.SPGColumns.Any());
+            Assert.IsFalse(listPOCO.ColumnPOCOList.Any());
         }
 
         /// <summary>
         /// Test that checks if required fields from base type are returned.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_ReturnsRequiredFieldsFromBaseListType()
+        public void TestGetListPOCO_ReturnsRequiredFieldsFromBaseListType()
         {
             //given
             var listTitle = "listTitle";
             InitializeShimLinq(new List[] { GetShimList(listTitle) });
             InitializeShimLinq(new Field[] { GetShimField(required: true, fromBaseType: true) });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.IsTrue(spgList.SPGColumns.Any());
+            Assert.IsTrue(listPOCO.ColumnPOCOList.Any());
         }
 
         /// <summary>
         /// Test that checks if not required fields not from base type are returned.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_ReturnsNotRequiredFieldsNotFromBaseType()
+        public void TestGetListPOCO_ReturnsNotRequiredFieldsNotFromBaseType()
         {
             //given
             var listTitle = "listTitle";
             InitializeShimLinq(new List[] { GetShimList(listTitle) });
             InitializeShimLinq(new Field[] { GetShimField(required: false, fromBaseType: false) });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.IsTrue(spgList.SPGColumns.Any());
+            Assert.IsTrue(listPOCO.ColumnPOCOList.Any());
         }
 
         /// <summary>
         /// Test that checks if required fields not from base type are returned.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_ReturnsRequiredFieldsNotFromBaseType()
+        public void TestGetListPOCO_ReturnsRequiredFieldsNotFromBaseType()
         {
             //given
             var listTitle = "listTitle";
             InitializeShimLinq(new List[] { GetShimList(listTitle) });
             InitializeShimLinq(new Field[] { GetShimField(required: true, fromBaseType: false) });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.IsTrue(spgList.SPGColumns.Any());
+            Assert.IsTrue(listPOCO.ColumnPOCOList.Any());
         }
 
         /// <summary>
         /// Tests that list properties are properly translated.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_TranslatesList()
+        public void TestGetListPOCO_TranslatesList()
         {
             //given
             var listTitle = "listTitle";
@@ -221,17 +221,17 @@ namespace SPGenerator.Tests.SharePoint
             InitializeShimLinq(new List[] { shimList });
             InitializeShimLinq(new Field[] { });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.AreEqual(shimList.Title, spgList.Title);
-            Assert.AreEqual(shimList.DefaultViewUrl, spgList.ServerRelativeUrl);
+            Assert.AreEqual(shimList.Title, listPOCO.Title);
+            Assert.AreEqual(shimList.DefaultViewUrl, listPOCO.ServerRelativeUrl);
         }
 
         /// <summary>
         /// Tests that fields properties of list are properly translated.
         /// </summary>
         [TestMethod]
-        public void TestGetSPGList_TranslatesFields()
+        public void TestGetListPOCO_TranslatesFields()
         {
             //given
             var listTitle = "listTitle";
@@ -240,9 +240,9 @@ namespace SPGenerator.Tests.SharePoint
             InitializeShimLinq(new List[] { GetShimList(listTitle) });
             InitializeShimLinq(new Field[] { shimField });
             //when
-            var spgList = sharePointSerivce.GetSPGList(listTitle);
+            var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.AreEqual(spgList.SPGColumns.First().ColumnName, shimField.Title);
+            Assert.AreEqual(listPOCO.ColumnPOCOList.First().ColumnName, shimField.Title);
         }
 
         /// <summary>

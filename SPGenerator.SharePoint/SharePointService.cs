@@ -47,7 +47,7 @@ namespace SPGenerator.SharePoint
         /// <summary>
         /// All SharePoint Lists in site collection.
         /// </summary>
-        public List<SPGList> AllSPGLists
+        public List<ListPOCO> AllListPOCO
         {
             get
             {
@@ -61,7 +61,7 @@ namespace SPGenerator.SharePoint
         /// </summary>
         /// <param name="listTitle">Title of the list to fetch.</param>
         /// <returns>Detailed information about a SharePoint list. Null if list not found.</returns>
-        public SPGList GetSPGList(string listTitle)
+        public ListPOCO GetListPOCO(string listTitle)
         {
             var lists = GetLists(l => l.Title == listTitle && !l.Hidden);
             var list = lists.FirstOrDefault();
@@ -74,13 +74,13 @@ namespace SPGenerator.SharePoint
         }
 
         /// <summary>
-        /// Translates IEnumerable of List to List of SPGList.
+        /// Translates IEnumerable of List to List of ListPOCO.
         /// </summary>
         /// <param name="lists">Lists to be translated.</param>
         /// <returns>Translation result.</returns>
-        private static List<SPGList> TranslateToAppDomain(IEnumerable<List> lists)
+        private static List<ListPOCO> TranslateToAppDomain(IEnumerable<List> lists)
         {
-            return lists.Select(list => new SPGList()
+            return lists.Select(list => new ListPOCO()
             {
                 Title = list.Title,
                 ServerRelativeUrl = list.DefaultViewUrl
@@ -88,18 +88,18 @@ namespace SPGenerator.SharePoint
         }
 
         /// <summary>
-        /// Translates List with Fields to SPGList.
+        /// Translates List with Fields to ListPOCO.
         /// </summary>
         /// <param name="spList">List to be translated.</param>
         /// <param name="fields">Fields of list to be translated.</param>
         /// <returns>Translation result.</returns>
-        private static SPGList TranslateToAppDomain(List spList, IEnumerable<Field> fields)
+        private static ListPOCO TranslateToAppDomain(List spList, IEnumerable<Field> fields)
         {
-            return new SPGList()
+            return new ListPOCO()
             {
                 Title = spList.Title,
                 ServerRelativeUrl = spList.DefaultViewUrl,
-                SPGColumns = fields.Select(field => new SPGColumn()
+                ColumnPOCOList = fields.Select(field => new ColumnPOCO()
                 {
                     ColumnName = field.Title
                 }).ToList()
@@ -159,7 +159,7 @@ namespace SPGenerator.SharePoint
         /// </summary>
         /// <param name="entries">Collection of entries to save.</param>
         /// <param name="list">Target list for entries to be saved to.</param>
-        public void Save(IEnumerable<SPGEntry> entries, SPGList list)
+        public void Save(IEnumerable<EntryPOCO> entries, ListPOCO list)
         {
             throw new NotImplementedException();
         }
@@ -175,20 +175,20 @@ namespace SPGenerator.SharePoint
         /// <summary>
         /// All SharePoint Lists in site collection.
         /// </summary>
-        List<SPGList> AllSPGLists { get; }
+        List<ListPOCO> AllListPOCO { get; }
 
         /// <summary>
         /// Used for fetching detailed information about a SharePoint list.
         /// </summary>
         /// <param name="listTitle">Title of the list to fetch.</param>
         /// <returns>Detailed information about a SharePoint list. Null if list not found.</returns>
-        SPGList GetSPGList(string listTitle);
+        ListPOCO GetListPOCO(string listTitle);
 
         /// <summary>
         /// Used for saving collection of entries to SharePoint list.
         /// </summary>
         /// <param name="entries">Collection of entries to save.</param>
         /// <param name="list">Target list for entries to be saved to.</param>
-        void Save(IEnumerable<SPGEntry> entries, SPGList list);
+        void Save(IEnumerable<EntryPOCO> entries, ListPOCO list);
     }
 }

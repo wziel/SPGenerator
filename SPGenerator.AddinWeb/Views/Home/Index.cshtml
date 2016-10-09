@@ -9,19 +9,19 @@
     </div>
 </div>
 <div class="container">
-    @if (Model.ShowSPGLists)
+    @if (Model.ShowListPOCOs)
     {
         using(Html.BeginForm("List", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] }, 
             FormMethod.Post, new { @id = "mainForm", @class = "form-horizontal" }))
         {
             <div class="form-group">
-                @Html.LabelFor(m => m.SelectedSPGListTitle, new { @class = "control-label col-md-2" })
+                @Html.LabelFor(m => m.SelectedListPOCOTitle, new { @class = "control-label col-md-2" })
                 <div class="col-md-7">
-                    @Html.DropDownListFor(m => m.SelectedSPGListTitle, Model.SPGListsSelectList, "",
+                    @Html.DropDownListFor(m => m.SelectedListPOCOTitle, Model.ListPOCOSelectList, "",
                    new { @class = "form-control pull-right", @onchange = "mainForm.submit()" })
                 </div>
-                <a href="@(Model.SelectedSPGList == null ? "" : Model.SelectedSPGListAbsoluteUrl)"
-                   class="btn btn-info col-md-3 @(Model.SelectedSPGList == null ? "disabled" : "")">
+                <a href="@(Model.SelectedListPOCO == null ? "" : Model.SelectedListPOCOAbsoluteUrl)"
+                   class="btn btn-info col-md-3 @(Model.SelectedListPOCO == null ? "disabled" : "")">
                     <span class="glyphicon glyphicon-list-alt pull-left"></span>
                     Idź do  wybranej listy
                 </a>
