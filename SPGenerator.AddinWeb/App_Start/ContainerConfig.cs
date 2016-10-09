@@ -19,11 +19,11 @@ namespace SPGenerator.AddinWeb.App_Start
         public static void ConfigureContainer()
         {
             var container = new Container();
+            container.Register<ISharePointContextHelper, SharePointContextHelper>();
+            container.Register<ISharePointService, SharePointService>();
+            container.Register<IDataGenerator, DataGenerator>();
+            container.Register<IColumnDataGeneratorFactory, ColumnDataGeneratorFactory>();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
-            container.Register<SharePointContextHelper>();
-            container.Register<SharePointService>();
-            container.Register<DataGenerator>();
-            container.Register<ColumnDataGeneratorFactory>();
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
     }

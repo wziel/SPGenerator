@@ -10,7 +10,7 @@ namespace SPGenerator.Generator
     /// <summary>
     /// Class of objects responsible for generating entries for lists.
     /// </summary>
-    public class DataGenerator
+    public class DataGenerator : IDataGenerator
     {
         /// <summary>
         /// Generates entries for list.
@@ -22,5 +22,16 @@ namespace SPGenerator.Generator
         {
             throw new NotImplementedException();
         }
+    }
+
+    public interface IDataGenerator
+    {
+        /// <summary>
+        /// Generates entries for list.
+        /// </summary>
+        /// <param name="list">List for which entries will be generated..</param>
+        /// <param name="recordsCount">Number of entries to generate.</param>
+        /// <returns>Generated entries.</returns>
+        IEnumerable<SPGEntry> GenerateData(SPGList list, int recordsCount);
     }
 }

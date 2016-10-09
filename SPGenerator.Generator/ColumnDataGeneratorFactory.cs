@@ -9,7 +9,11 @@ namespace SPGenerator.Generator
     /// <summary>
     /// Factory responsible for creating column data generators.
     /// </summary>
-    public class ColumnDataGeneratorFactory
+    public class ColumnDataGeneratorFactory : IColumnDataGeneratorFactory
+    {
+    }
+
+    public interface IColumnDataGeneratorFactory
     {
     }
 }

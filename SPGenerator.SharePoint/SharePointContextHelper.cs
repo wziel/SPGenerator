@@ -11,7 +11,7 @@ namespace SPGenerator.SharePoint
     /// <summary>
     /// Component responsible for delivering information about current sharepoint context.
     /// </summary>
-    public class SharePointContextHelper
+    public class SharePointContextHelper : ISharePointContextHelper
     {
         /// <summary>
         /// Sharepoint host's client context. Should be disposed after usage.
@@ -25,5 +25,13 @@ namespace SPGenerator.SharePoint
                 return spContext.CreateUserClientContextForSPHost();
             }
         }
+    }
+
+    public interface ISharePointContextHelper
+    {
+        /// <summary>
+        /// Sharepoint host's client context. Should be disposed after usage.
+        /// </summary>
+        ClientContext ClientContext { get; }
     }
 }

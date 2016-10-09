@@ -16,10 +16,10 @@ namespace SPGenerator.AddinWeb.Controllers
     /// </summary>
     public class HomeController : Controller
     {
-        private readonly DataGenerator dataGenerator;
-        private readonly SharePointService sharePointService;
+        private readonly IDataGenerator dataGenerator;
+        private readonly ISharePointService sharePointService;
 
-        public HomeController(SharePointService sharePointService, DataGenerator dataGenerator)
+        public HomeController(ISharePointService sharePointService, IDataGenerator dataGenerator)
         {
             this.sharePointService = sharePointService;
             this.dataGenerator = dataGenerator;
@@ -48,6 +48,7 @@ namespace SPGenerator.AddinWeb.Controllers
         [HttpPost]
         public ActionResult List()
         {
+            //TODO zmienić nazwę akcji na ListSelect
             var allLists = sharePointService.AllSPGLists;
             var hostWebUrl = sharePointService.HostWebUrl;
             return View("Index", new IndexVM()
@@ -55,6 +56,16 @@ namespace SPGenerator.AddinWeb.Controllers
                 SPGLists = allLists,
                 HostWebUrl = hostWebUrl
             });
+        }
+
+        /// <summary>
+        /// Initiates data generation for list and columns specified in VM.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GenerateData()
+        {
+            throw new NotImplementedException();
         }
     }
 }

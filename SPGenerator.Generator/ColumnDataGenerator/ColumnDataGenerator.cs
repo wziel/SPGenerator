@@ -10,7 +10,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator
     /// <summary>
     /// Class of objects that generate values for column.
     /// </summary>
-    public class ColumnDataGenerator
+    public class ColumnDataGenerator : IColumnDataGenerator
     {
         /// <summary>
         /// Default constructor of column data generator.
@@ -30,5 +30,15 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         {
             throw new NotImplementedException();
         }
+    }
+
+    public interface IColumnDataGenerator
+    {
+        /// <summary>
+        /// Generates data.
+        /// </summary>
+        /// <param name="recordsCount">Number of records to generated.</param>
+        /// <returns>Generated data.</returns>
+        IEnumerable<string> GenerateData(int recordsCount);
     }
 }

@@ -37,7 +37,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         [Range(1, 2000)]
         public int RecordsToGenerateCount { get; set; }
 
-
         /// <summary>
         /// List selected for data generation.
         /// </summary>

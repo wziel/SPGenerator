@@ -14,16 +14,16 @@ namespace SPGenerator.SharePoint
     /// <summary>
     /// Class used for all communication with SharePoint.
     /// </summary>
-    public class SharePointService
+    public class SharePointService : ISharePointService
     {
-        private readonly SharePointContextHelper contextHelper;
+        private readonly ISharePointContextHelper contextHelper;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
         /// <param name="httpContext">Http context which will be used to communicate
         /// with SharePoint.</param>
-        public SharePointService(SharePointContextHelper contextHelper)
+        public SharePointService(ISharePointContextHelper contextHelper)
         {
             this.contextHelper = contextHelper;
         }
@@ -163,5 +163,32 @@ namespace SPGenerator.SharePoint
         {
             throw new NotImplementedException();
         }
+    }
+
+    public interface ISharePointService
+    {
+        /// <summary>
+        /// Url of SharePoint's site collection web url.
+        /// </summary>
+        string HostWebUrl { get; }
+
+        /// <summary>
+        /// All SharePoint Lists in site collection.
+        /// </summary>
+        List<SPGList> AllSPGLists { get; }
+
+        /// <summary>
+        /// Used for fetching detailed information about a SharePoint list.
+        /// </summary>
+        /// <param name="listTitle">Title of the list to fetch.</param>
+        /// <returns>Detailed information about a SharePoint list. Null if list not found.</returns>
+        SPGList GetSPGList(string listTitle);
+
+        /// <summary>
+        /// Used for saving collection of entries to SharePoint list.
+        /// </summary>
+        /// <param name="entries">Collection of entries to save.</param>
+        /// <param name="list">Target list for entries to be saved to.</param>
+        void Save(IEnumerable<SPGEntry> entries, SPGList list);
     }
 }

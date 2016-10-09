@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SPGenerator.SharePoint;
-using SPGenerator.SharePoint.Fakes;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Fakes;
 using System.Linq.Fakes;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System;
+using NSubstitute;
 
 namespace SPGenerator.Tests.SharePoint
 {
@@ -32,8 +32,9 @@ namespace SPGenerator.Tests.SharePoint
             ShimClientContext.AllInstances.ExecuteQuery = (a) => { };
             ShimClientContext.AllInstances.WebGet = (a) => new ShimWeb();
             ShimWeb.AllInstances.ListsGet = (a) => new ShimListCollection();
-            ShimSharePointContextHelper.AllInstances.ClientContextGet = (a) => new ShimClientContext();
-            sharePointSerivce = new SharePointService(new ShimSharePointContextHelper());
+            var spContextHelper = Substitute.For<ISharePointContextHelper>();
+            spContextHelper.ClientContext.Returns(new ShimClientContext());
+            sharePointSerivce = new SharePointService(spContextHelper);
         }
 
         /// <summary>
@@ -253,7 +254,7 @@ namespace SPGenerator.Tests.SharePoint
             //given
             var url = "Test url";
             ShimWeb.AllInstances.UrlGet = (a) => url;
-            ShimClientRuntimeContext.AllInstances.LoadQueryOf1IQueryableOfM0<List>((a, qb) => null);
+            ShimClientRuntimeContext.AllInstances.LoadQueryOf1IQueryableOfM0<List>((a, b) => null);
             //when
             var hostWebUrl = sharePointSerivce.HostWebUrl;
             //then
