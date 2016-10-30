@@ -1,47 +1,123 @@
 ﻿@model SPGenerator.AddinWeb.ViewModels.Home.IndexVM
+@using SPGenerator.Model.Column
 
 <div class="container">
-    <div class="row">
-        <a href="@Model.HostWebUrl" class="btn btn-info col-md-3 col-md-offset-9">
-            <span class="glyphicon glyphicon-arrow-left pull-left"></span>
-            Powrót do zbioru witryn
-        </a>
-    </div>
+    @Header()
 </div>
 <div class="container">
-    @if (Model.ShowListPOCOs)
-    {
-        using(Html.BeginForm("List", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] }, 
-            FormMethod.Post, new { @id = "mainForm", @class = "form-horizontal" }))
-        {
+    @MainForm()
+</div>
+
+@helper Header()
+{
+    <div class="row">
+        <a href="@Model.HostWebUrl" class="btn btn-info col-sm-3 col-sm-offset-9" target="_blank">
+            <span class="glyphicon glyphicon-arrow-left pull-left"></span>
+            Idź do zbioru witryn
+        </a>
+    </div>
+}
+
+@helper MainForm()
+{
+var listSelectActionUrl = Url.Action("ListSelect", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
+var generateDataActionUrl = Url.Action("GenerateData", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
+if (Model.ShowListPOCOs)
+{
+        <form action="@listSelectActionUrl" method="post" id="mainForm" class="form-horizontal">
             <div class="form-group">
-                @Html.LabelFor(m => m.SelectedListPOCOTitle, new { @class = "control-label col-md-2" })
-                <div class="col-md-7">
+                @Html.LabelFor(m => m.SelectedListPOCOTitle, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-6">
                     @Html.DropDownListFor(m => m.SelectedListPOCOTitle, Model.ListPOCOSelectList, "",
-                   new { @class = "form-control pull-right", @onchange = "mainForm.submit()" })
+                       new { @class = "form-control", @onchange = "mainForm.submit()" })
                 </div>
                 <a href="@(Model.SelectedListPOCO == null ? "" : Model.SelectedListPOCOAbsoluteUrl)"
-                   class="btn btn-info col-md-3 @(Model.SelectedListPOCO == null ? "disabled" : "")">
+                   class="btn btn-info col-sm-3 @(Model.SelectedListPOCO == null ? "disabled" : "")" target="_blank">
                     <span class="glyphicon glyphicon-list-alt pull-left"></span>
                     Idź do  wybranej listy
                 </a>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.RecordsToGenerateCount, new { @class = "control-label col-md-2" })
-                <div class="col-md-7">
+                @Html.LabelFor(m => m.RecordsToGenerateCount, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-6">
                     @Html.TextBoxFor(m => m.RecordsToGenerateCount,
-                   new { @class = "form-control pull-right", @type = "number", @min = "1", @max = "2000" })
+                       new { @class = "form-control", @type = "number", @min = "1", @max = "2000" })
                 </div>
             </div>
-        }
-    }
-    else
-    {
+            @Columns()
+        </form>
+}
+else
+{
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 Nie znaleziono w zbiorze witryn żadnej listy na którą
                 możliwe byłoby wygenerowanie danych
             </div>
         </div>
-    }
-</div>
+}
+}
+
+@helper Columns()
+{
+if (Model.SelectedListPOCO != null && Model.SelectedListPOCO.ColumnPOCOList.Any())
+{
+    var helperDictionary = new Dictionary<Type, Func<ColumnPOCO, HelperResult>>()
+    {
+        { typeof(TextColumnPOCO), TextColumn },
+        { typeof(NumberColumnPOCO), NumberColumn },
+    };
+    var columnSequence = 0;
+        <div class="row">
+            <label class="col-sm-3 control-label">Pola listy</label>
+        </div>
+        <div class="row">
+            <div class="panel-group col-sm-offset-3 col-sm-6" id="accordion" role="tablist" aria-multiselectable="true">
+                @foreach (var column in Model.SelectedListPOCO.ColumnPOCOList)
+                {
+                    var columnId = "column" + columnSequence++;
+                    HelperResult result = helperDictionary[column.GetType()].Invoke(column);
+                    @ColumnCollapse(column.ColumnName, columnId, result)
+                }
+            </div>
+        </div>
+}
+}
+
+@helper TextColumn(ColumnPOCO column)
+{
+var textColumn = (TextColumnPOCO)column;
+    <div class="form-group">
+        <label class="col-sm-5">Typ</label>
+        <div class="col-sm-7"><span class="pull-right">Text</span></div>
+    </div>
+}
+
+@helper NumberColumn(ColumnPOCO column)
+{
+var numColumn = (NumberColumnPOCO)column;
+    <div class="form-group">
+        <label class="col-sm-5">Typ</label>
+        <div class="col-sm-7"><span class="pull-right">Number</span></div>
+    </div>
+}
+
+@helper ColumnCollapse(string columnName, string columnId, HelperResult innerContent)
+{
+var headingId = columnId + "heading";
+var collapseId = columnId + "collapse";
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="@headingId">
+            <span class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
+                    @columnName
+                </a>
+            </span>
+        </div>
+        <div id="@collapseId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@headingId">
+            <div class="panel-body">
+                @innerContent
+            </div>
+        </div>
+    </div>
+}

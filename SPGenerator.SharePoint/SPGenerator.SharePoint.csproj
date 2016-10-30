@@ -114,6 +114,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnMapping\ColumnMapping.cs" />
+    <Compile Include="ColumnMapping\ColumnMappingResolver.cs" />
+    <Compile Include="ColumnMapping\NumberColumnMapping.cs" />
+    <Compile Include="ColumnMapping\TextColumnMapping.cs" />
     <Compile Include="SharePointContextHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePointContext.cs" />

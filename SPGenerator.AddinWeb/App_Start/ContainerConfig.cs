@@ -3,6 +3,7 @@ using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using SPGenerator.Generator;
 using SPGenerator.SharePoint;
+using SPGenerator.SharePoint.ColumnMapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,12 @@ namespace SPGenerator.AddinWeb.App_Start
         public static void ConfigureContainer()
         {
             var container = new Container();
+            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.Register<ISharePointContextHelper, SharePointContextHelper>();
             container.Register<ISharePointService, SharePointService>();
             container.Register<IDataGenerator, DataGenerator>();
             container.Register<IColumnDataGeneratorFactory, ColumnDataGeneratorFactory>();
-            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            container.Register<IColumnMappingResolver, ColumnMappingResolver>();
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
     }

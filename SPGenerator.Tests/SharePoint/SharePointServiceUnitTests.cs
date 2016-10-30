@@ -8,6 +8,8 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System;
 using NSubstitute;
+using SPGenerator.SharePoint.ColumnMapping;
+using SPGenerator.Model.Column;
 
 namespace SPGenerator.Tests.SharePoint
 {
@@ -18,6 +20,7 @@ namespace SPGenerator.Tests.SharePoint
     public class SharePointServiceUnitTests : ShimTests
     {
         private SharePointService sharePointSerivce;
+        private IColumnMappingResolver fakeColumnMapping;
 
         [TestCleanup]
         public override void TestCleanup()
@@ -34,7 +37,8 @@ namespace SPGenerator.Tests.SharePoint
             ShimWeb.AllInstances.ListsGet = (a) => new ShimListCollection();
             var spContextHelper = Substitute.For<ISharePointContextHelper>();
             spContextHelper.ClientContext.Returns(new ShimClientContext());
-            sharePointSerivce = new SharePointService(spContextHelper);
+            fakeColumnMapping = Substitute.For<IColumnMappingResolver>();
+            sharePointSerivce = new SharePointService(spContextHelper, fakeColumnMapping);
         }
 
         /// <summary>
@@ -235,14 +239,15 @@ namespace SPGenerator.Tests.SharePoint
         {
             //given
             var listTitle = "listTitle";
-            var fieldName = "field name";
-            Field shimField = GetShimField(fieldName);
+            Field shimField = GetShimField();
             InitializeShimLinq(new List[] { GetShimList(listTitle) });
             InitializeShimLinq(new Field[] { shimField });
+            var expectedResult = new TextColumnPOCO();
+            fakeColumnMapping.Map(shimField).Returns(expectedResult);
             //when
             var listPOCO = sharePointSerivce.GetListPOCO(listTitle);
             //then
-            Assert.AreEqual(listPOCO.ColumnPOCOList.First().ColumnName, shimField.Title);
+            Assert.AreEqual(listPOCO.ColumnPOCOList.First(), expectedResult);
         }
 
         /// <summary>
