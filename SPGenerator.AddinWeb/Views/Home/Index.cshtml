@@ -1,5 +1,4 @@
 ﻿@model SPGenerator.AddinWeb.ViewModels.Home.IndexVM
-@using SPGenerator.Model.Column
 
 <div class="container">
     @Header()
@@ -20,19 +19,30 @@
 
 @helper MainForm()
 {
-var listSelectActionUrl = Url.Action("ListSelect", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
-var generateDataActionUrl = Url.Action("GenerateData", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
-if (Model.ShowListPOCOs)
+if (Model.ShowListVMs)
 {
-        <form action="@listSelectActionUrl" method="post" id="mainForm" class="form-horizontal">
+    var selectListItems = Model.ListVMs.Select(listVM => new SelectListItem()
+    {
+        Text = listVM.Title,
+        Value = listVM.Title,
+        Selected = listVM == Model.SelectedListVM
+    }).ToList();
+    var selectList = new SelectList(selectListItems, "Text", "Value");
+        <form method="post" id="mainForm" class="form-horizontal">
+            @for (var i = 0; i < Model.ListVMs.Count; ++i)
+            {
+                @Html.HiddenFor(m => m.ListVMs[i].Title)
+                @Html.HiddenFor(m => m.ListVMs[i].ServerRelativeUrl)
+            }
+            @Html.HiddenFor(m => m.HostWebUrl)
             <div class="form-group">
-                @Html.LabelFor(m => m.SelectedListPOCOTitle, new { @class = "control-label col-sm-3" })
+                @Html.LabelFor(m => m.SelectedListVM.Title, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-6">
-                    @Html.DropDownListFor(m => m.SelectedListPOCOTitle, Model.ListPOCOSelectList, "",
-                       new { @class = "form-control", @onchange = "mainForm.submit()" })
+                    @Html.DropDownListFor(m => m.SelectedListVM.Title, selectList, "",
+                       new { @class = "form-control", @onchange = "selectList()" })
                 </div>
-                <a href="@(Model.SelectedListPOCO == null ? "" : Model.SelectedListPOCOAbsoluteUrl)"
-                   class="btn btn-info col-sm-3 @(Model.SelectedListPOCO == null ? "disabled" : "")" target="_blank">
+                <a href="@(Model.SelectedListVM == null ? "" : Model.SelectedListAbsoluteUrl)"
+                   class="btn btn-info col-sm-3 @(Model.SelectedListVM == null ? "disabled" : "")" target="_blank">
                     <span class="glyphicon glyphicon-list-alt pull-left"></span>
                     Idź do  wybranej listy
                 </a>
@@ -45,6 +55,11 @@ if (Model.ShowListPOCOs)
                 </div>
             </div>
             @Columns()
+            <a class="btn btn-info col-sm-offset-9 col-sm-3 
+                    @(Model.SelectedListVM == null ? "disabled" : "")" href="javascript:generateData()">
+                    <span class="glyphicon glyphicon-save pull-left"></span>
+                Generuj dane
+            </a>
         </form>
 }
 else
@@ -60,49 +75,26 @@ else
 
 @helper Columns()
 {
-if (Model.SelectedListPOCO != null && Model.SelectedListPOCO.ColumnPOCOList.Any())
+if (Model.SelectedListVM != null && Model.SelectedListVM.ColumnVMList.Any())
 {
-    var helperDictionary = new Dictionary<Type, Func<ColumnPOCO, HelperResult>>()
-    {
-        { typeof(TextColumnPOCO), TextColumn },
-        { typeof(NumberColumnPOCO), NumberColumn },
-    };
     var columnSequence = 0;
         <div class="row">
             <label class="col-sm-3 control-label">Pola listy</label>
         </div>
         <div class="row">
             <div class="panel-group col-sm-offset-3 col-sm-6" id="accordion" role="tablist" aria-multiselectable="true">
-                @foreach (var column in Model.SelectedListPOCO.ColumnPOCOList)
+                @for (var i = 0; i < Model.SelectedListVM.ColumnVMList.Count; ++i)
                 {
                     var columnId = "column" + columnSequence++;
-                    HelperResult result = helperDictionary[column.GetType()].Invoke(column);
-                    @ColumnCollapse(column.ColumnName, columnId, result)
+                    MvcHtmlString result = Html.EditorFor(m => m.SelectedListVM.ColumnVMList[i]);
+                    @ColumnCollapse(Model.SelectedListVM.ColumnVMList[i].ColumnName, columnId, result);
                 }
             </div>
         </div>
 }
 }
 
-@helper TextColumn(ColumnPOCO column)
-{
-var textColumn = (TextColumnPOCO)column;
-    <div class="form-group">
-        <label class="col-sm-5">Typ</label>
-        <div class="col-sm-7"><span class="pull-right">Text</span></div>
-    </div>
-}
-
-@helper NumberColumn(ColumnPOCO column)
-{
-var numColumn = (NumberColumnPOCO)column;
-    <div class="form-group">
-        <label class="col-sm-5">Typ</label>
-        <div class="col-sm-7"><span class="pull-right">Number</span></div>
-    </div>
-}
-
-@helper ColumnCollapse(string columnName, string columnId, HelperResult innerContent)
+@helper ColumnCollapse(string columnName, string columnId, MvcHtmlString innerContent)
 {
 var headingId = columnId + "heading";
 var collapseId = columnId + "collapse";
@@ -121,3 +113,18 @@ var collapseId = columnId + "collapse";
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    @{
+        var listSelectActionUrl = Url.Action("ListSelect", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
+        var generateDataActionUrl = Url.Action("GenerateData", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
+    }
+    selectList = function () {
+        mainForm.action = "@listSelectActionUrl";
+        mainForm.submit();
+    }
+    generateData = function () {
+        mainForm.action = "@generateDataActionUrl";
+        mainForm.submit();
+    }
+</script>

@@ -15,6 +15,8 @@ namespace SPGenerator.SharePoint.ColumnMapping
             return new NumberColumnPOCO()
             {
                 ColumnName = field.Title,
+                MinValue = 0,
+                MaxValue = 100
             };
         }
     }

@@ -1,0 +1,17 @@
+﻿@model SPGenerator.AddinWeb.ViewModels.Home.Column.TextColumnVM
+
+@Html.HiddenFor(m => m.InternalMaxLength)
+<div class="form-group">
+    @Html.Label("", "Typ", new { @class = "control-label col-sm-5" })
+    <span class="form-control-static col-sm-7">Text</span>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.MinLength, new { @class = "control-label col-sm-5" })
+    @Html.TextBoxFor(m => m.MinLength,
+                       new { @class = "form-control col-sm-7", @type = "number", @max = Model.InternalMaxLength })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.MaxLength, new { @class = "control-label col-sm-5" })
+    @Html.TextBoxFor(m => m.MaxLength,
+                       new { @class = "form-control col-sm-7", @type = "number", @max = Model.InternalMaxLength })
+</div>

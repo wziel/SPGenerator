@@ -12,9 +12,13 @@ namespace SPGenerator.SharePoint.ColumnMapping
     {
         public override ColumnPOCO Map(Field field)
         {
+            var textField = (FieldText)field;
             return new TextColumnPOCO()
             {
-                ColumnName = field.Title,
+                ColumnName = textField.Title,
+                MinLength = Math.Min(5, textField.MaxLength),
+                MaxLength = Math.Min(100, textField.MaxLength),
+                InternalMaxLength = textField.MaxLength
             };
         }
     }

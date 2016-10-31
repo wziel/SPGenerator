@@ -32,7 +32,15 @@ namespace SPGenerator.AddinWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            return View(GetDefaultIndexVM());
+            var allLists = sharePointService.AllListPOCO;
+            var hostWebUrl = sharePointService.HostWebUrl;
+            var indexVM = new IndexVM()
+            {
+                ListVMs = allLists.Select(l => new ListVM(l)).ToList(),
+                HostWebUrl = hostWebUrl,
+                RecordsToGenerateCount = 10,
+            };
+            return View(indexVM);
         }
 
         /// <summary>
@@ -42,9 +50,8 @@ namespace SPGenerator.AddinWeb.Controllers
         [HttpPost]
         public ActionResult ListSelect(IndexVM indexVM)
         {
-            var newIndexVM = GetDefaultIndexVM();
-            newIndexVM.SelectedListPOCO = sharePointService.GetListPOCO(indexVM.SelectedListPOCOTitle);
-            return View("Index", newIndexVM);
+            indexVM.SelectedListVM = new ListVM(sharePointService.GetListPOCO(indexVM.SelectedListVM.Title));
+            return View("Index", indexVM);
         }
 
         /// <summary>
@@ -52,20 +59,13 @@ namespace SPGenerator.AddinWeb.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult GenerateData()
+        public ActionResult GenerateData(IndexVM indexVM)
         {
-            throw new NotImplementedException();
-        }
-
-        private IndexVM GetDefaultIndexVM()
-        {
-            var allLists = sharePointService.AllListPOCO;
-            var hostWebUrl = sharePointService.HostWebUrl;
-            return new IndexVM()
+            if(ModelState.IsValid)
             {
-                ListPOCOs = allLists,
-                HostWebUrl = hostWebUrl
-            };
+                return RedirectToAction("Index");
+            }
+            return View("Index", indexVM);
         }
     }
 }

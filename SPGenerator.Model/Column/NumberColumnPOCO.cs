@@ -8,5 +8,8 @@ namespace SPGenerator.Model.Column
 {
     public class NumberColumnPOCO : ColumnPOCO
     {
+        public int MinValue { get; set; }
+        
+        public int MaxValue { get; set; }
     }
 }
