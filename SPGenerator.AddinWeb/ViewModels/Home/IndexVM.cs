@@ -1,4 +1,5 @@
-﻿using SPGenerator.Model;
+﻿using SPGenerator.AddinWeb.ViewModels.Home.Column;
+using SPGenerator.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,5 +60,16 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 return ListVMs != null && ListVMs.Any();
             }
         }
+
+        public bool ShowColumnVMs
+        {
+            get
+            {
+                return TextColumnVMs.Any() || NumberColumnVMs.Any();
+            }
+        }
+
+        public List<TextColumnVM> TextColumnVMs { get; set; } = new List<TextColumnVM>();
+        public List<NumberColumnVM> NumberColumnVMs { get; set; } = new List<NumberColumnVM>();
     }
 }

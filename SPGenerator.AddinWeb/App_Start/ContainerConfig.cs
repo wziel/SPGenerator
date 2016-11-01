@@ -1,6 +1,7 @@
 ﻿using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
+using SPGenerator.AddinWeb.ViewModels.Home;
 using SPGenerator.Generator;
 using SPGenerator.SharePoint;
 using SPGenerator.SharePoint.ColumnMapping;
@@ -21,6 +22,7 @@ namespace SPGenerator.AddinWeb.App_Start
         {
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            container.Register<IIndexVMFactory, IndexVMFactory>();
             container.Register<ISharePointContextHelper, SharePointContextHelper>();
             container.Register<ISharePointService, SharePointService>();
             container.Register<IDataGenerator, DataGenerator>();

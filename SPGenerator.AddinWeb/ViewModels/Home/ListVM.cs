@@ -22,7 +22,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         {
             Title = listPOCO.Title;
             ServerRelativeUrl = listPOCO.ServerRelativeUrl;
-            ColumnVMList = listPOCO.ColumnPOCOList?.Select(c => ColumnVMFactory.GetColumnVM(c)).ToList();
         }
 
         /// <summary>
@@ -30,11 +29,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         /// </summary>
         [DisplayName("Lista docelowa")]
         public string Title { get; set; }
-
-        /// <summary>
-        /// List of all columns in this list.
-        /// </summary>
-        public List<ColumnVM> ColumnVMList { get; set; }
 
         /// <summary>
         /// Url for default view of this list.
@@ -49,7 +43,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 {
                     Title = Title,
                     ServerRelativeUrl = ServerRelativeUrl,
-                    ColumnPOCOList = ColumnVMList.Select(c => c.ColumnPOCO).ToList()
                 };
             }
         }

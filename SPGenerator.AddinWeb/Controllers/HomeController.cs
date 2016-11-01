@@ -18,11 +18,14 @@ namespace SPGenerator.AddinWeb.Controllers
     {
         private readonly IDataGenerator dataGenerator;
         private readonly ISharePointService sharePointService;
+        private readonly IIndexVMFactory indexVMFactory;
 
-        public HomeController(ISharePointService sharePointService, IDataGenerator dataGenerator)
+        public HomeController(ISharePointService sharePointService, IDataGenerator dataGenerator,
+            IIndexVMFactory indexVMFactory)
         {
             this.sharePointService = sharePointService;
             this.dataGenerator = dataGenerator;
+            this.indexVMFactory = indexVMFactory;
         }
 
         /// <summary>
@@ -34,12 +37,7 @@ namespace SPGenerator.AddinWeb.Controllers
         {
             var allLists = sharePointService.AllListPOCO;
             var hostWebUrl = sharePointService.HostWebUrl;
-            var indexVM = new IndexVM()
-            {
-                ListVMs = allLists.Select(l => new ListVM(l)).ToList(),
-                HostWebUrl = hostWebUrl,
-                RecordsToGenerateCount = 10,
-            };
+            var indexVM = indexVMFactory.GetDefaultIndexVM(allLists, hostWebUrl);
             return View(indexVM);
         }
 
@@ -50,7 +48,8 @@ namespace SPGenerator.AddinWeb.Controllers
         [HttpPost]
         public ActionResult ListSelect(IndexVM indexVM)
         {
-            indexVM.SelectedListVM = new ListVM(sharePointService.GetListPOCO(indexVM.SelectedListVM.Title));
+            var selectedList = sharePointService.GetListPOCO(indexVM.SelectedListVM.Title);
+            indexVM = indexVMFactory.GetIndexVMWithSelectedList(indexVM, selectedList);
             return View("Index", indexVM);
         }
 

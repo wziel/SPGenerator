@@ -75,7 +75,7 @@ else
 
 @helper Columns()
 {
-if (Model.SelectedListVM != null && Model.SelectedListVM.ColumnVMList.Any())
+if (Model.ShowColumnVMs)
 {
     var columnSequence = 0;
         <div class="row">
@@ -83,11 +83,17 @@ if (Model.SelectedListVM != null && Model.SelectedListVM.ColumnVMList.Any())
         </div>
         <div class="row">
             <div class="panel-group col-sm-offset-3 col-sm-6" id="accordion" role="tablist" aria-multiselectable="true">
-                @for (var i = 0; i < Model.SelectedListVM.ColumnVMList.Count; ++i)
+                @for (var i = 0; i < Model.TextColumnVMs.Count; ++i)
                 {
                     var columnId = "column" + columnSequence++;
-                    MvcHtmlString result = Html.EditorFor(m => m.SelectedListVM.ColumnVMList[i]);
-                    @ColumnCollapse(Model.SelectedListVM.ColumnVMList[i].ColumnName, columnId, result);
+                    MvcHtmlString result = Html.EditorFor(m => m.TextColumnVMs[i]);
+                    @ColumnCollapse(Model.TextColumnVMs[i].ColumnName, columnId, result)                ;
+                }
+                @for (var i = 0; i < Model.NumberColumnVMs.Count; ++i)
+                {
+                    var columnId = "column" + columnSequence++;
+                    MvcHtmlString result = Html.EditorFor(m => m.NumberColumnVMs[i]);
+                    @ColumnCollapse(Model.NumberColumnVMs[i].ColumnName, columnId, result);
                 }
             </div>
         </div>
