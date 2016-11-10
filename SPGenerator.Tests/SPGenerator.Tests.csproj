@@ -116,9 +116,11 @@
     <Reference Include="System.4.0.0.0.Fakes">
       <HintPath>FakesAssemblies\System.4.0.0.0.Fakes.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core.4.0.0.0.Fakes">
       <HintPath>FakesAssemblies\System.Core.4.0.0.0.Fakes.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -135,13 +137,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AddinWeb\Controllers\HomeControllerUnitTests.cs" />
+    <Compile Include="AddinWeb\ViewModels\Home\Column\NumberColumnVMUnitTests.cs" />
+    <Compile Include="AddinWeb\ViewModels\Home\Column\TextColumnVMUnitTests.cs" />
+    <Compile Include="AddinWeb\ViewModels\Home\IndexVMFactoryUnitTests.cs" />
+    <Compile Include="AddinWeb\ViewModels\Home\IndexVMUnitTests.cs" />
+    <Compile Include="AddinWeb\ViewModels\Home\ListVMUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePoint\ColumnMappingUnitTests.cs" />
     <Compile Include="SharePoint\SharePointServiceUnitTests.cs" />
     <Compile Include="ShimTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AddinWeb\" />
     <Folder Include="Generator\" />
     <Folder Include="Model\" />
   </ItemGroup>
@@ -159,6 +166,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SPGenerator.AddinWeb\SPGenerator.AddinWeb.csproj">
+      <Project>{D8CF4D43-85A3-4688-9439-CD83FEADC51B}</Project>
+      <Name>SPGenerator.AddinWeb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SPGenerator.Generator\SPGenerator.Generator.csproj">
+      <Project>{ECF11DFC-C0B7-40C3-B786-DDA55678A137}</Project>
+      <Name>SPGenerator.Generator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SPGenerator.Model\SPGenerator.Model.csproj">
       <Project>{94977b08-9f6a-401d-ba98-c744d90cb92a}</Project>
       <Name>SPGenerator.Model</Name>

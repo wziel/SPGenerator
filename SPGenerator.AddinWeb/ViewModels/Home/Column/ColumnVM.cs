@@ -17,7 +17,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 
         protected ColumnVM(ColumnPOCO columnPOCO)
         {
-            ColumnName = columnPOCO.ColumnName;
+            InternalName = columnPOCO.InternalName;
+            DisplayName = columnPOCO.DisplayName;
             GenerateData = true;
             Required = columnPOCO.Required;
         }
@@ -25,7 +26,12 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         /// <summary>
         /// Name of this column.
         /// </summary>
-        public string ColumnName { get; set; }
+        public string InternalName { get; set; }
+
+        /// <summary>
+        /// Display name of this column.
+        /// </summary>
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Should data generator generate data for this column.

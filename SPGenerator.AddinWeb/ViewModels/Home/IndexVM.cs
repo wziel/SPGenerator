@@ -1,5 +1,6 @@
 ﻿using SPGenerator.AddinWeb.ViewModels.Home.Column;
 using SPGenerator.Model;
+using SPGenerator.Model.Column;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,6 +67,17 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
             get
             {
                 return TextColumnVMs.Any() || NumberColumnVMs.Any();
+            }
+        }
+
+        public List<ColumnVM> AllColumnVMs
+        {
+            get
+            {
+                var allColumnVMs = new List<ColumnVM>();
+                allColumnVMs.AddRange(TextColumnVMs);
+                allColumnVMs.AddRange(NumberColumnVMs);
+                return allColumnVMs;
             }
         }
 

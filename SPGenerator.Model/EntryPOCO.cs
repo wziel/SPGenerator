@@ -12,14 +12,27 @@ namespace SPGenerator.Model
     /// </summary>
     public class EntryPOCO
     {
+        private Dictionary<ColumnPOCO, object> columnValues
+            = new Dictionary<ColumnPOCO, object>();
+
         /// <summary>
         /// Returns a value of a specified column.
         /// </summary>
         /// <param name="column">Column for which a value is to be returned.</param>
         /// <returns>Value of a specified column.</returns>
-        public string GetValue(ColumnPOCO column)
+        public object GetValue(ColumnPOCO column)
         {
-            throw new NotImplementedException();
+            return columnValues[column];
+        }
+
+        /// <summary>
+        /// Adds value of a column to this entry.
+        /// </summary>
+        /// <param name="column">Column for which value is to be added.</param>
+        /// <param name="value">Value of the column.</param>
+        public void AddValue(ColumnPOCO column, object value)
+        {
+            columnValues.Add(column, value);
         }
     }
 }

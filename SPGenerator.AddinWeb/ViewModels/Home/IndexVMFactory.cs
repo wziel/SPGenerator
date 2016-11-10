@@ -32,11 +32,22 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
             selectedList.ColumnPOCOList.ForEach(c => addColumnStrategies[c.GetType()].Invoke(indexVM, c));
             return indexVM;
         }
+
+        public ListPOCO GetListPOCOFromIndexVM(IndexVM indexVM)
+        {
+            return new ListPOCO()
+            {
+                Title = indexVM.SelectedListVM.Title,
+                ServerRelativeUrl = indexVM.SelectedListVM.ServerRelativeUrl,
+                ColumnPOCOList = indexVM.AllColumnVMs.Select(c => c.ColumnPOCO).ToList()
+            };
+        }
     }
 
     public interface IIndexVMFactory
     {
         IndexVM GetDefaultIndexVM(List<ListPOCO> allLists, string hostWebUrl);
         IndexVM GetIndexVMWithSelectedList(IndexVM indexVM, ListPOCO selectedList);
+        ListPOCO GetListPOCOFromIndexVM(IndexVM indexVM);
     }
 }

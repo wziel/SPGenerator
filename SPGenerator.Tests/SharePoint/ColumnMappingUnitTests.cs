@@ -40,7 +40,7 @@ namespace SPGenerator.Tests.SharePoint
             //when
             var column = columnMappingResolver.Map(field);
             //then
-            Assert.AreEqual(field.Title, column.ColumnName);
+            Assert.AreEqual(field.Title, column.InternalName);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace SPGenerator.Tests.SharePoint
             //when
             var column = columnMappingResolver.Map(field);
             //then
-            Assert.AreEqual(field.Title, column.ColumnName);
+            Assert.AreEqual(field.Title, column.InternalName);
         }
 
         /// <summary>

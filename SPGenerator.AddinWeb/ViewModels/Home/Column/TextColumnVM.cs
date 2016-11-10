@@ -39,6 +39,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             {
                 return new TextColumnPOCO()
                 {
+                    InternalName = InternalName,
+                    DisplayName = DisplayName,
                     MaxLength = MaxLength,
                     MinLength = MinLength,
                     InternalMaxLength = InternalMaxLength

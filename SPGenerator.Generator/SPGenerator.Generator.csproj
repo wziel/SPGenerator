@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="ColumnDataGeneratorFactory.cs" />
     <Compile Include="ColumnDataGenerator\ColumnDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\DoubleDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\IntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Text\ConstantTextDataGenerator.cs" />
     <Compile Include="DataGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

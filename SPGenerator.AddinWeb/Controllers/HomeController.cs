@@ -63,7 +63,9 @@ namespace SPGenerator.AddinWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                var listPOCO = indexVMFactory.GetListPOCOFromIndexVM(indexVM);
+                var data = dataGenerator.GenerateData(listPOCO, indexVM.RecordsToGenerateCount);
+                sharePointService.Save(data, listPOCO);
             }
             return View("Index", indexVM);
         }

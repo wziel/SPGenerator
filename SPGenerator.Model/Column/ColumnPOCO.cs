@@ -12,9 +12,14 @@ namespace SPGenerator.Model.Column
     public abstract class ColumnPOCO
     {
         /// <summary>
-        /// Name of this column.
+        /// SharePoint internal name of this column.
         /// </summary>
-        public string ColumnName { get; set; }
+        public string InternalName { get; set; }
+
+        /// <summary>
+        /// Display name of this column.
+        /// </summary>
+        public string DisplayName { get; set; }
 
         public bool Required { get; set; }
     }

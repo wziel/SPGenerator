@@ -13,6 +13,7 @@ namespace SPGenerator.Model.Column
 
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
+        public bool OnlyIntegers { get; set; }
         public double InternalMinValue { get; set; }
         public double InternalMaxValue { get; set; }
     }

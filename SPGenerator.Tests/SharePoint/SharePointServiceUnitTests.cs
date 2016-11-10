@@ -10,6 +10,7 @@ using System;
 using NSubstitute;
 using SPGenerator.SharePoint.ColumnMapping;
 using SPGenerator.Model.Column;
+using SPGenerator.Model;
 
 namespace SPGenerator.Tests.SharePoint
 {

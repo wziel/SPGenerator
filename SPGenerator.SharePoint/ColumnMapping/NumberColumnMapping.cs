@@ -15,7 +15,8 @@ namespace SPGenerator.SharePoint.ColumnMapping
             var numberField = (FieldNumber)field;
             return new NumberColumnPOCO()
             {
-                ColumnName = field.Title,
+                InternalName = field.InternalName,
+                DisplayName = field.Title,
                 Required = field.Required,
                 InternalMaxValue = numberField.MaximumValue,
                 InternalMinValue = numberField.MinimumValue,

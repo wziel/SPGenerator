@@ -19,6 +19,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             MinValue = columnPOCO.MinValue;
             MaxValue = columnPOCO.MaxValue;
+            OnlyIntegers = columnPOCO.OnlyIntegers;
             InternalMinValue = columnPOCO.InternalMinValue;
             InternalMaxValue = columnPOCO.InternalMaxValue;
         }
@@ -31,6 +32,9 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         [Range(NumberColumnPOCO.MIN_VALUE, NumberColumnPOCO.MAX_VALUE)]
         public double MaxValue { get; set; }
 
+        [DisplayName("Tylko całkowite")]
+        public bool OnlyIntegers { get; set; }
+
         public double InternalMinValue { get; set; }
 
         public double InternalMaxValue { get; set; }
@@ -41,8 +45,11 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             {
                 return new NumberColumnPOCO()
                 {
+                    InternalName = InternalName,
+                    DisplayName = DisplayName,
                     MaxValue = MaxValue,
-                    MinValue = MinValue
+                    MinValue = MinValue,
+                    OnlyIntegers = OnlyIntegers,
                 };
             }
         }
@@ -52,7 +59,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             if (MaxValue < MinValue)
             {
                 yield return new ValidationResult("Minimalna wartość nie może być większa niż maksymalna",
-                    new[] { nameof(MinValue) });
+                    new[] { nameof(MinValue), nameof(MaxValue) });
             }
         }
     }

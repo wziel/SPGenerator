@@ -72,9 +72,7 @@ namespace SPGenerator.SharePoint
         {
             using (var context = contextHelper.ClientContext)
             {
-                var lists = GetLists(l => l.Title == listTitle && !l.Hidden, context);
-                context.ExecuteQuery();
-                var list = lists.FirstOrDefault();
+                var list = GetList(listTitle, context);
                 if (list == null)
                 {
                     return null;
@@ -83,6 +81,18 @@ namespace SPGenerator.SharePoint
                 context.ExecuteQuery();
                 return TranslateToAppDomain(list, fields);
             }
+        }
+
+        /// <summary>
+        /// Gets single list with specified title.
+        /// </summary>
+        /// <param name="listTitle">Title of the list to get.</param>
+        /// <returns>sharePoint List</returns>
+        private List GetList(string listTitle, ClientContext context)
+        {
+            var lists = GetLists(l => l.Title == listTitle && !l.Hidden, context);
+            context.ExecuteQuery();
+            return lists.FirstOrDefault();
         }
 
         /// <summary>
@@ -147,10 +157,37 @@ namespace SPGenerator.SharePoint
         /// Used for saving collection of entries to SharePoint list.
         /// </summary>
         /// <param name="entries">Collection of entries to save.</param>
-        /// <param name="list">Target list for entries to be saved to.</param>
-        public void Save(IEnumerable<EntryPOCO> entries, ListPOCO list)
+        /// <param name="listPOCO">Target list for entries to be saved to.</param>
+        public void Save(IEnumerable<EntryPOCO> entries, ListPOCO listPOCO)
         {
-            throw new NotImplementedException();
+            if(entries.Any())
+            {
+                using (var context = contextHelper.ClientContext)
+                {
+                    var list = GetList(listPOCO.Title, context);
+                    foreach (var entry in entries)
+                    {
+                        SaveEntry(entry, list, listPOCO);
+                    }
+                    context.ExecuteQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates one entry in SP List.
+        /// </summary>
+        /// <param name="entry">entry to create</param>
+        /// <param name="spList">list to which entry should be saved</param>
+        /// <param name="listPOCO">poco model of the list</param>
+        private void SaveEntry(EntryPOCO entry, List spList, ListPOCO listPOCO)
+        {
+            var item = spList.AddItem(new ListItemCreationInformation());
+            foreach (var columnPOCO in listPOCO.ColumnPOCOList)
+            {
+                item[columnPOCO.InternalName] = entry.GetValue(columnPOCO);
+            }
+            item.Update();
         }
     }
 
