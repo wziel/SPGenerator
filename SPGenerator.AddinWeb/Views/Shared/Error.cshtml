@@ -12,8 +12,17 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h2>An unexpected error has occurred.</h2>
-            <p>Please try again by launching the app installed on your site.</p>
+            @if (ViewBag.Error != null)
+            {
+                <h2>Wystąpił błąd w aplikacji.</h2>
+                <p>Proszę skontaktować się z administartorem w celu rozwiązania problemu.</p>
+                <p>@ViewBag.Error</p>
+            }
+            else
+            {
+                <h2>Wystąpił nieoczekiwany błąd w aplikacji.</h2>
+                <p>Proszę spróbować ponownie poprzez uruchomienie aplikacji z poziomu zbioru witryn.</p>
+            }
         </div>
     </div>
 </body>

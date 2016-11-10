@@ -19,13 +19,21 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             MinValue = columnPOCO.MinValue;
             MaxValue = columnPOCO.MaxValue;
+            InternalMinValue = columnPOCO.InternalMinValue;
+            InternalMaxValue = columnPOCO.InternalMaxValue;
         }
 
         [DisplayName("Minimalna wartość")]
-        public int MinValue { get; set; }
+        [Range(NumberColumnPOCO.MIN_VALUE, NumberColumnPOCO.MAX_VALUE)]
+        public double MinValue { get; set; }
 
         [DisplayName("Maksymalna wartość")]
-        public int MaxValue { get; set; }
+        [Range(NumberColumnPOCO.MIN_VALUE, NumberColumnPOCO.MAX_VALUE)]
+        public double MaxValue { get; set; }
+
+        public double InternalMinValue { get; set; }
+
+        public double InternalMaxValue { get; set; }
 
         public override ColumnPOCO ColumnPOCO
         {
@@ -44,7 +52,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             if (MaxValue < MinValue)
             {
                 yield return new ValidationResult("Minimalna wartość nie może być większa niż maksymalna",
-                    new[] { nameof(MinValue), nameof(MinValue) });
+                    new[] { nameof(MinValue) });
             }
         }
     }

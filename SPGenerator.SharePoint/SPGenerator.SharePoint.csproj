@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColumnMapping\ColumnMapping.cs" />
+    <Compile Include="ColumnMapping\ColumnMappingNotFoundException.cs" />
     <Compile Include="ColumnMapping\ColumnMappingResolver.cs" />
     <Compile Include="ColumnMapping\NumberColumnMapping.cs" />
     <Compile Include="ColumnMapping\TextColumnMapping.cs" />

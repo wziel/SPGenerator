@@ -23,8 +23,7 @@ namespace SPGenerator.SharePoint.ColumnMapping
             columnMappings.TryGetValue(field.GetType(), out mapping);
             if(mapping == null)
             {
-                throw new GUIVisibleException("Lista zawiera niewspieraną kolumnę typu "
-                    + field.GetType().ToString());
+                throw new ColumnMappingNotFoundException(field.GetType());
             }
             return mapping.Map(field);
         }

@@ -1,5 +1,6 @@
 ﻿using SPGenerator.AddinWeb.ViewModels.Home;
 using SPGenerator.Generator;
+using SPGenerator.Model;
 using SPGenerator.SharePoint;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace SPGenerator.AddinWeb.Controllers
         [HttpPost]
         public ActionResult GenerateData(IndexVM indexVM)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return RedirectToAction("Index");
             }

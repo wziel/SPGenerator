@@ -21,13 +21,14 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             MinLength = columnPOCO.MinLength;
             InternalMaxLength = columnPOCO.InternalMaxLength;
         }
+        
 
         [DisplayName("Maksymalna długość")]
-        [Range(1, 1024)]
+        [Range(0, TextColumnPOCO.MAX_LENGTH)]
         public int MaxLength { get; set; }
 
         [DisplayName("Minimalna długość")]
-        [Range(1, 1024)]
+        [Range(0, TextColumnPOCO.MAX_LENGTH)]
         public int MinLength { get; set; }
 
         public int InternalMaxLength { get; set; }
@@ -51,11 +52,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             {
                 yield return new ValidationResult("Minimalna długość nie może być większa niż maksymalna",
                     new[] { nameof(MaxLength), nameof(MinLength) });
-            }
-            if (MaxLength > InternalMaxLength)
-            {
-                yield return new ValidationResult("Maksymalna długość nie moze być większa niż " + InternalMaxLength,
-                    new[] { nameof(MaxLength) });
             }
         }
     }

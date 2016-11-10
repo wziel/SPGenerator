@@ -15,5 +15,7 @@ namespace SPGenerator.Model.Column
         /// Name of this column.
         /// </summary>
         public string ColumnName { get; set; }
+
+        public bool Required { get; set; }
     }
 }

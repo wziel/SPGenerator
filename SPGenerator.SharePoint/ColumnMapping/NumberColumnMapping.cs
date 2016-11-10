@@ -12,11 +12,15 @@ namespace SPGenerator.SharePoint.ColumnMapping
     {
         public override ColumnPOCO Map(Field field)
         {
+            var numberField = (FieldNumber)field;
             return new NumberColumnPOCO()
             {
                 ColumnName = field.Title,
-                MinValue = 0,
-                MaxValue = 100
+                Required = field.Required,
+                InternalMaxValue = numberField.MaximumValue,
+                InternalMinValue = numberField.MinimumValue,
+                MinValue = Math.Max(numberField.MinimumValue, NumberColumnPOCO.MIN_VALUE),
+                MaxValue = Math.Min(numberField.MaximumValue, NumberColumnPOCO.MAX_VALUE)
             };
         }
     }
