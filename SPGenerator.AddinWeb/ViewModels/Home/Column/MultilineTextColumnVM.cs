@@ -37,11 +37,11 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         }
 
         [DisplayName("Maksymalna długość")]
-        [Range(TextColumnPOCO.MIN_LENGTH, TextColumnPOCO.MAX_LENGTH)]
+        [Range(MultilineTextColumnPOCO.MIN_LENGTH, MultilineTextColumnPOCO.MAX_LENGTH)]
         public int MaxLength { get; set; }
 
         [DisplayName("Minimalna długość")]
-        [Range(TextColumnPOCO.MIN_LENGTH, TextColumnPOCO.MAX_LENGTH)]
+        [Range(MultilineTextColumnPOCO.MIN_LENGTH, MultilineTextColumnPOCO.MAX_LENGTH)]
         public int MinLength { get; set; }
 
 

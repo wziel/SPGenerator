@@ -59,6 +59,7 @@ namespace SPGenerator.Generator
             return new List<IColumnDataGenerator>()
             {
                 new ConstantTextDataGenerator(textColumnPOCO),
+                new TextDataGenerator(textColumnPOCO),
             };
         }
 
