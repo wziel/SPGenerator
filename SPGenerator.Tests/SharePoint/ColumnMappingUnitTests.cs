@@ -36,11 +36,11 @@ namespace SPGenerator.Tests.SharePoint
         {
             //given
             FieldNumber field = new ShimFieldNumber();
-            setUpShimField("test title");
+            setUpShimField(internalName: "test title");
             //when
             var column = columnMappingResolver.Map(field);
             //then
-            Assert.AreEqual(field.Title, column.InternalName);
+            Assert.AreEqual(field.InternalName, column.InternalName);
         }
 
         [TestMethod]
@@ -48,20 +48,21 @@ namespace SPGenerator.Tests.SharePoint
         {
             //given
             Field field = new ShimFieldText();
-            setUpShimField("test title");
+            setUpShimField(internalName: "test title");
             //when
             var column = columnMappingResolver.Map(field);
             //then
-            Assert.AreEqual(field.Title, column.InternalName);
+            Assert.AreEqual(field.InternalName, column.InternalName);
         }
 
         /// <summary>
         /// Sets up all ShimField objects to return given properties.
         /// </summary>
         /// <param name="title">title of shim field</param>
-        private void setUpShimField(string title)
+        private void setUpShimField(string title = "", string internalName = "")
         {
             ShimField.AllInstances.TitleGet = (a) => title;
+            ShimField.AllInstances.InternalNameGet = (a) => internalName;
         }
     }
 }

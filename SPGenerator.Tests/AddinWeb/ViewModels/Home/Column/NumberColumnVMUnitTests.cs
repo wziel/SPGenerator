@@ -48,18 +48,24 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             {
                 InternalName = "test column name",
                 DisplayName = "test column display name",
+                Required = true,
                 MinValue = 10,
                 MaxValue = 100,
                 OnlyIntegers = true,
+                InternalMinValue = 10,
+                InternalMaxValue = 100
             };
             //when
             var columnPOCO = columnVM.ColumnPOCO as NumberColumnPOCO;
             //then
             Assert.AreEqual(columnPOCO.InternalName, columnVM.InternalName);
             Assert.AreEqual(columnPOCO.DisplayName, columnVM.DisplayName);
+            Assert.AreEqual(columnPOCO.Required, columnVM.Required);
             Assert.AreEqual(columnPOCO.MinValue, columnVM.MinValue);
             Assert.AreEqual(columnPOCO.MaxValue, columnVM.MaxValue);
             Assert.AreEqual(columnPOCO.OnlyIntegers, columnVM.OnlyIntegers);
+            Assert.AreEqual(columnPOCO.InternalMinValue, columnVM.InternalMinValue);
+            Assert.AreEqual(columnPOCO.InternalMaxValue, columnVM.InternalMaxValue);
         }
 
         [TestMethod]

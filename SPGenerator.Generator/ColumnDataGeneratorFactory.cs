@@ -24,7 +24,19 @@ namespace SPGenerator.Generator
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
         {
-            return getGeneratorsStrategies[columnPOCO.GetType()].Invoke(columnPOCO);
+            var specificGenerators = getGeneratorsStrategies[columnPOCO.GetType()].Invoke(columnPOCO);
+            var commonGenerators = getCommonGenerators(columnPOCO);
+            return specificGenerators.Concat(commonGenerators);
+        }
+
+        private static IEnumerable<IColumnDataGenerator> getCommonGenerators(ColumnPOCO columnPOCO)
+        {
+            var commonGenerators = new List<IColumnDataGenerator>();
+            if(!columnPOCO.Required)
+            {
+                commonGenerators.Add(new NullDataGenerator(columnPOCO));
+            }
+            return commonGenerators;
         }
 
         private static IEnumerable<IColumnDataGenerator> GetNumberDataGenerators(ColumnPOCO columnPOCO)

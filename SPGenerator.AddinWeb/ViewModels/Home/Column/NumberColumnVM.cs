@@ -47,9 +47,12 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                 {
                     InternalName = InternalName,
                     DisplayName = DisplayName,
+                    Required = Required,
                     MaxValue = MaxValue,
                     MinValue = MinValue,
                     OnlyIntegers = OnlyIntegers,
+                    InternalMaxValue = InternalMaxValue,
+                    InternalMinValue = InternalMinValue
                 };
             }
         }

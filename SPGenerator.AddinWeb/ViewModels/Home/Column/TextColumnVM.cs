@@ -41,6 +41,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                 {
                     InternalName = InternalName,
                     DisplayName = DisplayName,
+                    Required = Required,
                     MaxLength = MaxLength,
                     MinLength = MinLength,
                     InternalMaxLength = InternalMaxLength

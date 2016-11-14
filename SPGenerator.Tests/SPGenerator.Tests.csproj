@@ -137,19 +137,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AddinWeb\Controllers\HomeControllerUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\Column\NumberColumnVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\Column\TextColumnVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\IndexVMFactoryUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\IndexVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\ListVMUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\NullDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\DoubleDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\IntegerDataGeneratorUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePoint\ColumnMappingUnitTests.cs" />
     <Compile Include="SharePoint\SharePointServiceUnitTests.cs" />
     <Compile Include="ShimTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Generator\" />
+    <Folder Include="Generator\ColumnDataGenerator\Text\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>

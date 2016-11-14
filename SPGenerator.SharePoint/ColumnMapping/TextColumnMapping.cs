@@ -20,7 +20,7 @@ namespace SPGenerator.SharePoint.ColumnMapping
                 Required = textField.Required,
                 MinLength = 0,
                 MaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, textField.MaxLength),
-                InternalMaxLength = textField.MaxLength
+                InternalMaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, textField.MaxLength)
             };
         }
     }
