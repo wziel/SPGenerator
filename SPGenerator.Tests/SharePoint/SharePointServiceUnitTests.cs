@@ -46,7 +46,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks if hidden lists are not returned from SharePoint.
         /// </summary>
         [TestMethod]
-        public void TestAllListPOCO_DoesntReturnHiddenLists()
+        public void AllListPOCO_DoesntReturnHiddenLists()
         {
             //given
             var lists = new List<List>()
@@ -65,7 +65,7 @@ namespace SPGenerator.Tests.SharePoint
         /// fetching all lists.
         /// </summary>
         [TestMethod]
-        public void TestAllListPOCO_ReturnsVisibleLists()
+        public void AllListPOCO_ReturnsVisibleLists()
         {
             //given
             var lists = new List<List>()
@@ -84,7 +84,7 @@ namespace SPGenerator.Tests.SharePoint
         /// to application domain models.
         /// </summary>
         [TestMethod]
-        public void TestAllListPOCO_TranslatesLists()
+        public void AllListPOCO_TranslatesLists()
         {
             //given
             var lists = new List<List>()
@@ -103,7 +103,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks that nothing is returned if list is not found.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_DoesntReturnNonExistentList()
+        public void GetListPOCO_DoesntReturnNonExistentList()
         {
             //given
             var otherListTitle = "OtherListTitle";
@@ -120,7 +120,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks that hidden list is not returned from SharePoint.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_DoesntReturnHiddenList()
+        public void GetListPOCO_DoesntReturnHiddenList()
         {
             //given
             var listTitle = "ListTitle";
@@ -136,7 +136,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks that visible list is returned from SharePoint.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_ReturnsVisibleList()
+        public void GetListPOCO_ReturnsVisibleList()
         {
             //given
             var listTitle = "ListTitle";
@@ -153,7 +153,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks if non-required fields from base list type are not returned.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_DoesntReturnNonRequiredFieldsFromBaseListType()
+        public void GetListPOCO_DoesntReturnNonRequiredFieldsFromBaseListType()
         {
             //given
             var listTitle = "ListTitle";
@@ -169,7 +169,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks if required fields from base type are returned.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_ReturnsRequiredFieldsFromBaseListType()
+        public void GetListPOCO_ReturnsRequiredFieldsFromBaseListType()
         {
             //given
             var listTitle = "listTitle";
@@ -185,7 +185,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks if not required fields not from base type are returned.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_ReturnsNotRequiredFieldsNotFromBaseType()
+        public void GetListPOCO_ReturnsNotRequiredFieldsNotFromBaseType()
         {
             //given
             var listTitle = "listTitle";
@@ -201,7 +201,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test that checks if required fields not from base type are returned.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_ReturnsRequiredFieldsNotFromBaseType()
+        public void GetListPOCO_ReturnsRequiredFieldsNotFromBaseType()
         {
             //given
             var listTitle = "listTitle";
@@ -217,7 +217,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Tests that list properties are properly translated.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_TranslatesList()
+        public void GetListPOCO_TranslatesList()
         {
             //given
             var listTitle = "listTitle";
@@ -236,7 +236,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Tests that fields properties of list are properly translated.
         /// </summary>
         [TestMethod]
-        public void TestGetListPOCO_TranslatesFields()
+        public void GetListPOCO_TranslatesFields()
         {
             //given
             var listTitle = "listTitle";
@@ -255,7 +255,7 @@ namespace SPGenerator.Tests.SharePoint
         /// Test if SharePointService retrieves host web url properly.
         /// </summary>
         [TestMethod]
-        public void TestHostWebUrl()
+        public void HostWebUrl()
         {
             //given
             var url = "Test url";

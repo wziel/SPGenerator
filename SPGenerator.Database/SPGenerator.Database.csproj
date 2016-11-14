@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ECF11DFC-C0B7-40C3-B786-DDA55678A137}</ProjectGuid>
+    <ProjectGuid>{F6EDC8AD-CD38-479F-A6B2-01E9AA1BBE1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SPGenerator.Generator</RootNamespace>
-    <AssemblyName>SPGenerator.Generator</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>SPGenerator.Database</RootNamespace>
+    <AssemblyName>SPGenerator.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,21 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColumnDataGeneratorFactory.cs" />
-    <Compile Include="ColumnDataGenerator\ColumnDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\MultilineText\ConstantMultilinetextDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\NullDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Number\DoubleDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Number\IntegerDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Text\ConstantTextDataGenerator.cs" />
-    <Compile Include="DataGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SPGenerator.Model\SPGenerator.Model.csproj">
-      <Project>{94977b08-9f6a-401d-ba98-c744d90cb92a}</Project>
-      <Name>SPGenerator.Model</Name>
-    </ProjectReference>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Model.Column
 {
-    public class TextColumnPOCO : ColumnPOCO
+    public class MultilineTextColumnPOCO : ColumnPOCO
     {
-        public const int MAX_LENGTH = 255;
+        public const int MAX_LENGTH = 1000;
         public const int MIN_LENGTH = 1;
 
         public int MaxLength { get; set; }
         public int MinLength { get; set; }
-        public int InternalMaxLength { get; set; }
     }
 }

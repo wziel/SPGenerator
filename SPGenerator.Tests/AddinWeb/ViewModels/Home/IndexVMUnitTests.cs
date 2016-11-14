@@ -19,12 +19,13 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
             var vm = new IndexVM()
             {
                 NumberColumnVMs = new List<NumberColumnVM>() { new NumberColumnVM() },
-                TextColumnVMs = new List<TextColumnVM>() { new TextColumnVM() }
+                TextColumnVMs = new List<TextColumnVM>() { new TextColumnVM() },
+                MultilineTextColumnVMs = new List<MultilineTextColumnVM>() { new MultilineTextColumnVM() }
             };
             //when
             var columns = vm.AllColumnVMs;
             //then
-            Assert.AreEqual(2, columns.Count);
+            Assert.AreEqual(3, columns.Count);
         }
     }
 }

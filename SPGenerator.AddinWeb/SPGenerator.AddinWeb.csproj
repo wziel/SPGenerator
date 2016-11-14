@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Home\Column\MultilineTextColumnVM.cs" />
     <Compile Include="ViewModels\Home\IndexVMFactory.cs" />
     <Compile Include="ViewModels\Home\Column\NumberColumnVM.cs" />
     <Compile Include="ViewModels\Home\Column\TextColumnVM.cs" />

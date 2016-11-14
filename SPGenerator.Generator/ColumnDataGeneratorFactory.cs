@@ -1,4 +1,5 @@
 ﻿using SPGenerator.Generator.ColumnDataGenerator;
+using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
 using SPGenerator.Generator.ColumnDataGenerator.Text;
 using SPGenerator.Model.Column;
@@ -19,7 +20,8 @@ namespace SPGenerator.Generator
             = new Dictionary<Type, Func<ColumnPOCO, IEnumerable<IColumnDataGenerator>>>()
             {
                 { typeof(NumberColumnPOCO), GetNumberDataGenerators },
-                { typeof(TextColumnPOCO), GetTextDataGenerators }
+                { typeof(TextColumnPOCO), GetTextDataGenerators },
+                { typeof(MultilineTextColumnPOCO), GetMultilineTextDataGenerators }
             };
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
@@ -57,6 +59,15 @@ namespace SPGenerator.Generator
             return new List<IColumnDataGenerator>()
             {
                 new ConstantTextDataGenerator(textColumnPOCO),
+            };
+        }
+
+        private static IEnumerable<IColumnDataGenerator> GetMultilineTextDataGenerators(ColumnPOCO columnPOCO)
+        {
+            var multilineTextColumnPOCO = columnPOCO as MultilineTextColumnPOCO;
+            return new List<IColumnDataGenerator>()
+            {
+                new ConstantMultilinetextDataGenerator(multilineTextColumnPOCO),
             };
         }
     }

@@ -1,25 +1,39 @@
-﻿using SPGenerator.Model.Column;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using SPGenerator.Model.Column;
+using System.ComponentModel;
 
 namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 {
-    public class TextColumnVM : ColumnVM
+    public class MultilineTextColumnVM : ColumnVM
     {
-        public TextColumnVM()
+        public MultilineTextColumnVM()
         {
-            //intentionally left empty, constructor for Razor
+            //intentionally left empty, constructor for razor
         }
 
-        public TextColumnVM(TextColumnPOCO columnPOCO) : base(columnPOCO)
+        public MultilineTextColumnVM(MultilineTextColumnPOCO columnPOCO) : base(columnPOCO)
         {
             MaxLength = columnPOCO.MaxLength;
             MinLength = columnPOCO.MinLength;
-            InternalMaxLength = columnPOCO.InternalMaxLength;
+        }
+
+        public override ColumnPOCO ColumnPOCO
+        {
+            get
+            {
+                return new MultilineTextColumnPOCO()
+                {
+                    InternalName = InternalName,
+                    DisplayName = DisplayName,
+                    Required = Required,
+                    MaxLength = MaxLength,
+                    MinLength = MinLength,
+                };
+            }
         }
 
         [DisplayName("Maksymalna długość")]
@@ -30,23 +44,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         [Range(TextColumnPOCO.MIN_LENGTH, TextColumnPOCO.MAX_LENGTH)]
         public int MinLength { get; set; }
 
-        public int InternalMaxLength { get; set; }
-
-        public override ColumnPOCO ColumnPOCO
-        {
-            get
-            {
-                return new TextColumnPOCO()
-                {
-                    InternalName = InternalName,
-                    DisplayName = DisplayName,
-                    Required = Required,
-                    MaxLength = MaxLength,
-                    MinLength = MinLength,
-                    InternalMaxLength = InternalMaxLength
-                };
-            }
-        }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

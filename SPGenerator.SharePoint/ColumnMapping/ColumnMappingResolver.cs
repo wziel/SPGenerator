@@ -15,6 +15,7 @@ namespace SPGenerator.SharePoint.ColumnMapping
         {
             { typeof(FieldText), new TextColumnMapping() },
             { typeof(FieldNumber), new NumberColumnMapping() },
+            { typeof(FieldMultiLineText), new MultilineTextColumnMapping() },
         };
 
         public ColumnPOCO Map(Field field)

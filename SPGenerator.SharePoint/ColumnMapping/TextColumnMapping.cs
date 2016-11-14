@@ -18,7 +18,7 @@ namespace SPGenerator.SharePoint.ColumnMapping
                 InternalName = textField.InternalName,
                 DisplayName = textField.Title,
                 Required = textField.Required,
-                MinLength = 0,
+                MinLength = TextColumnPOCO.MIN_LENGTH,
                 MaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, textField.MaxLength),
                 InternalMaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, textField.MaxLength)
             };

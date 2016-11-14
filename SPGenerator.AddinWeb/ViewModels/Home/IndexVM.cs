@@ -66,7 +66,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         {
             get
             {
-                return TextColumnVMs.Any() || NumberColumnVMs.Any();
+                return TextColumnVMs.Any() || NumberColumnVMs.Any() || MultilineTextColumnVMs.Any();
             }
         }
 
@@ -77,11 +77,13 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 var allColumnVMs = new List<ColumnVM>();
                 allColumnVMs.AddRange(TextColumnVMs);
                 allColumnVMs.AddRange(NumberColumnVMs);
+                allColumnVMs.AddRange(MultilineTextColumnVMs);
                 return allColumnVMs;
             }
         }
 
         public List<TextColumnVM> TextColumnVMs { get; set; } = new List<TextColumnVM>();
+        public List<MultilineTextColumnVM> MultilineTextColumnVMs { get; set; } = new List<MultilineTextColumnVM>();
         public List<NumberColumnVM> NumberColumnVMs { get; set; } = new List<NumberColumnVM>();
     }
 }

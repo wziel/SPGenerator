@@ -55,6 +55,18 @@ namespace SPGenerator.Tests.SharePoint
             Assert.AreEqual(field.InternalName, column.InternalName);
         }
 
+        [TestMethod]
+        public void MultilineTextColumn_TranslatedProperly()
+        {
+            //given
+            Field field = new ShimFieldMultiLineText();
+            setUpShimField(internalName: "test title");
+            //when
+            var column = columnMappingResolver.Map(field);
+            //then
+            Assert.AreEqual(field.InternalName, column.InternalName);
+        }
+
         /// <summary>
         /// Sets up all ShimField objects to return given properties.
         /// </summary>
