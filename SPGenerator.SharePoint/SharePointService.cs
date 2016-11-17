@@ -18,7 +18,7 @@ namespace SPGenerator.SharePoint
     public class SharePointService : ISharePointService
     {
         private readonly ISharePointContextHelper contextHelper;
-        private IColumnMappingResolver columnMapping;
+        private readonly IColumnMappingResolver columnMapping;
 
         /// <summary>
         /// Default constructor.

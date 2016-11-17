@@ -15,7 +15,7 @@ namespace SPGenerator.Generator
     public class DataGenerator : IDataGenerator
     {
         private static readonly Random RANDOM = new Random();
-        private IColumnDataGeneratorFactory columnDataGeneratorFactory;
+        private readonly IColumnDataGeneratorFactory columnDataGeneratorFactory;
 
         public DataGenerator(IColumnDataGeneratorFactory columnDataGeneratorFactory)
         {

@@ -26,31 +26,21 @@ namespace SPGenerator.Generator
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
         {
-            var specificGenerators = getGeneratorsStrategies[columnPOCO.GetType()].Invoke(columnPOCO);
-            var commonGenerators = getCommonGenerators(columnPOCO);
-            return specificGenerators.Concat(commonGenerators);
-        }
-
-        private static IEnumerable<IColumnDataGenerator> getCommonGenerators(ColumnPOCO columnPOCO)
-        {
-            var commonGenerators = new List<IColumnDataGenerator>();
-            if(!columnPOCO.Required)
-            {
-                commonGenerators.Add(new NullDataGenerator(columnPOCO));
-            }
-            return commonGenerators;
+            var generators = getGeneratorsStrategies[columnPOCO.GetType()].Invoke(columnPOCO);
+            return generators.Where(g => g.CanGenerateData);
         }
 
         private static IEnumerable<IColumnDataGenerator> GetNumberDataGenerators(ColumnPOCO columnPOCO)
         {
             var numberColumnPOCO = (NumberColumnPOCO)columnPOCO;
-            var generators = new List<IColumnDataGenerator>();
-            generators.Add(new IntegerDataGenerator(numberColumnPOCO));
-            if(!numberColumnPOCO.OnlyIntegers)
+            return new List<IColumnDataGenerator>()
             {
-                generators.Add(new DoubleDataGenerator(numberColumnPOCO));
-            }
-            return generators;
+                new RandomIntegerDataGenerator(numberColumnPOCO),
+                new RandomDoubleDataGenerator(numberColumnPOCO),
+                new BoundaryDoubleDataGenerator(numberColumnPOCO),
+                new BoundaryIntegerDataGenerator(numberColumnPOCO),
+                new NullDataGenerator(columnPOCO),
+            };
         }
 
         private static IEnumerable<IColumnDataGenerator> GetTextDataGenerators(ColumnPOCO columnPOCO)
@@ -58,8 +48,8 @@ namespace SPGenerator.Generator
             var textColumnPOCO = (TextColumnPOCO)columnPOCO;
             return new List<IColumnDataGenerator>()
             {
-                new ConstantTextDataGenerator(textColumnPOCO),
-                new TextDataGenerator(textColumnPOCO),
+                new DbPlainTextDataGenerator(textColumnPOCO),
+                new NullDataGenerator(columnPOCO),
             };
         }
 
@@ -68,7 +58,8 @@ namespace SPGenerator.Generator
             var multilineTextColumnPOCO = columnPOCO as MultilineTextColumnPOCO;
             return new List<IColumnDataGenerator>()
             {
-                new ConstantMultilinetextDataGenerator(multilineTextColumnPOCO),
+                new DbPlainMultilineTextDataGenerator(multilineTextColumnPOCO),
+                new NullDataGenerator(columnPOCO),
             };
         }
     }

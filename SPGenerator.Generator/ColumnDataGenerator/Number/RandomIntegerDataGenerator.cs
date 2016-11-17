@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Number
 {
-    public class IntegerDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
+    public class RandomIntegerDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
     {
-        public IntegerDataGenerator(NumberColumnPOCO column) : base(column)
+        public RandomIntegerDataGenerator(NumberColumnPOCO column) : base(column)
         {
-            //intentionally left empty
+            //left empty
+        }
+
+        public override bool CanGenerateData
+        {
+            get
+            {
+                return column.MaxValue - column.MinValue >= 1;
+            }
         }
 
         public override IEnumerable<object> GenerateData(int recordsCount)
@@ -24,7 +32,6 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Number
             }
             return data;
         }
-
 
         private int GenerateDataElement()
         {

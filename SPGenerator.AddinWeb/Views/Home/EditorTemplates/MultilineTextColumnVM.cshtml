@@ -1,9 +1,8 @@
-﻿@model SPGenerator.AddinWeb.ViewModels.Home.Column.TextColumnVM
+﻿@model SPGenerator.AddinWeb.ViewModels.Home.Column.MultilineTextColumnVM
 
 @Html.HiddenFor(m => m.InternalName)
 @Html.HiddenFor(m => m.DisplayName)
 @Html.HiddenFor(m => m.Required)
-@Html.HiddenFor(m => m.InternalMaxLength)
 <div class="form-group">
     @Html.Label("", "Typ", new { @class = "control-label col-sm-5" })
     <span class="form-control-static col-sm-7">Text</span>

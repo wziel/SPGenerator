@@ -53,12 +53,13 @@
     <Compile Include="ColumnDataGeneratorFactory.cs" />
     <Compile Include="ColumnDataGenerator\ColumnDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DbColumnDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\MultilineText\ConstantMultilinetextDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\MultilineText\DbPlainMultilineTextDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\NullDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Number\DoubleDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Number\IntegerDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Text\ConstantTextDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Text\TextDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\BoundaryDoubleDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\BoundaryIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\RandomDoubleDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\RandomIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Text\DbPlainTextDataGenerator.cs" />
     <Compile Include="Database\Model\Text.cs" />
     <Compile Include="DataGenerator.cs" />
     <Compile Include="Database\GeneratorDbContext.cs" />
@@ -75,6 +76,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

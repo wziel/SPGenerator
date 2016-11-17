@@ -10,10 +10,9 @@ namespace SPGenerator.Generator.ColumnDataGenerator
 {
     public abstract class DbColumnDataGenerator<TColumnPOCO> : ColumnDataGenerator<TColumnPOCO> where TColumnPOCO : ColumnPOCO
     {
-        protected static readonly Random RANDOM = new Random();
-
-        public DbColumnDataGenerator(TColumnPOCO column) : base(column)
+        protected DbColumnDataGenerator(TColumnPOCO column) : base(column)
         {
+            //left empty
         }
 
         public sealed override IEnumerable<object> GenerateData(int recordsCount)

@@ -144,8 +144,8 @@
     <Compile Include="AddinWeb\ViewModels\Home\IndexVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\ListVMUnitTests.cs" />
     <Compile Include="Generator\ColumnDataGenerator\NullDataGeneratorUnitTests.cs" />
-    <Compile Include="Generator\ColumnDataGenerator\Number\DoubleDataGeneratorUnitTests.cs" />
-    <Compile Include="Generator\ColumnDataGenerator\Number\IntegerDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\RandomDoubleDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\RandomIntegerDataGeneratorUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePoint\ColumnMappingUnitTests.cs" />
     <Compile Include="SharePoint\SharePointServiceUnitTests.cs" />

@@ -190,6 +190,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\EditorTemplates\TextColumnVM.cshtml" />
     <Content Include="Views\Home\EditorTemplates\NumberColumnVM.cshtml" />
+    <Content Include="Views\Home\EditorTemplates\MultilineTextColumnVM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -64,6 +64,11 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                 yield return new ValidationResult("Minimalna wartość nie może być większa niż maksymalna",
                     new[] { nameof(MinValue), nameof(MaxValue) });
             }
+            if(OnlyIntegers && (MaxValue - MinValue < 1))
+            {
+                yield return new ValidationResult("Przedział musi zawierać co najmniej jedną wartość całkowitą",
+                    new[] { nameof(MinValue), nameof(MaxValue), nameof(OnlyIntegers) });
+            }
         }
     }
 }

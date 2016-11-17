@@ -7,17 +7,25 @@ using SPGenerator.Model.Column;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Number
 {
-    public class DoubleDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
+    public class RandomDoubleDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
     {
-        public DoubleDataGenerator(NumberColumnPOCO column) : base(column)
+        public RandomDoubleDataGenerator(NumberColumnPOCO column) : base(column)
         {
-            //intentionally left empty
+            //left empty
+        }
+
+        public override bool CanGenerateData
+        {
+            get
+            {
+                return !column.OnlyIntegers;
+            }
         }
 
         public override IEnumerable<object> GenerateData(int recordsCount)
         {
             var data = new List<object>(recordsCount);
-            while(recordsCount-- > 0)
+            while (recordsCount-- > 0)
             {
                 var dataElement = GenerateDataElement();
                 data.Add(dataElement);

@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
 {
     [TestClass]
-    public class IntegerDataGeneratorUnitTests
+    public class RandomDoubleDataGeneratorUnitTests
     {
         private NumberColumnPOCO column;
-        private IntegerDataGenerator generator;
+        private RandomDoubleDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -23,11 +23,11 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
                 MaxValue = 100,
                 MinValue = -10
             };
-            generator = new IntegerDataGenerator(column);
+            generator = new RandomDoubleDataGenerator(column);
         }
 
         [TestMethod]
-        public void GenerateData_ReturnIntegersOnly()
+        public void GenerateData_ReturnsDoublesOnly()
         {
             //given
             var recordsCount = 100;
@@ -36,7 +36,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //then
             foreach (var dataPiece in data)
             {
-                Assert.IsTrue(dataPiece is int);
+                Assert.IsTrue(dataPiece is double);
             }
         }
 
@@ -59,9 +59,9 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //when
             var data = generator.GenerateData(recordsCount);
             //then
-            foreach (var dataPiece in data)
+            foreach(var dataPiece in data)
             {
-                var doubleVale = (int)dataPiece;
+                var doubleVale = (double)dataPiece;
                 Assert.IsTrue(column.MinValue <= doubleVale);
                 Assert.IsTrue(column.MaxValue >= doubleVale);
             }

@@ -16,10 +16,10 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         protected TColumnPOCO column;
 
         /// <summary>
-        /// Default constructor of column data generator.
+        /// Default constructor.
         /// </summary>
         /// <param name="column">Column for which data will be generated.</param>
-        public ColumnDataGenerator(TColumnPOCO column)
+        protected ColumnDataGenerator(TColumnPOCO column)
         {
             this.column = column;
         }
@@ -30,6 +30,11 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         /// <param name="recordsCount">Number of records to generated.</param>
         /// <returns>Generated data.</returns>
         public abstract IEnumerable<object> GenerateData(int recordsCount);
+        
+        /// <summary>
+        /// Checks if data can be generated.
+        /// </summary>
+        public abstract bool CanGenerateData { get; }
     }
 
     public interface IColumnDataGenerator
@@ -37,8 +42,14 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         /// <summary>
         /// Generates data.
         /// </summary>
+        /// <param name="column">Column for which data will be generated.</param>
         /// <param name="recordsCount">Number of records to generated.</param>
         /// <returns>Generated data.</returns>
         IEnumerable<object> GenerateData(int recordsCount);
+
+        /// <summary>
+        /// Checks if data can be generated.
+        /// </summary>
+        bool CanGenerateData { get; }
     }
 }

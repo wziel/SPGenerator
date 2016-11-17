@@ -6,13 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using SPGenerator.Generator.Database;
 
-namespace SPGenerator.Generator.ColumnDataGenerator.Text
+namespace SPGenerator.Generator.ColumnDataGenerator.MultilineText
 {
-    public class TextDataGenerator : DbColumnDataGenerator<TextColumnPOCO>
+    public class DbPlainMultilineTextDataGenerator : DbColumnDataGenerator<MultilineTextColumnPOCO>
     {
-        public TextDataGenerator(TextColumnPOCO column) : base(column)
+        public DbPlainMultilineTextDataGenerator(MultilineTextColumnPOCO column) : base(column)
         {
-            //intentionally left empty
+            //left empty
+        }
+
+        public override bool CanGenerateData
+        {
+            get
+            {
+                return true;
+            }
         }
 
         protected override IEnumerable<object> GenerateData(GeneratorDbContext db, int recordsCount)

@@ -87,13 +87,19 @@ if (Model.ShowColumnVMs)
                 {
                     var columnId = "column" + columnSequence++;
                     MvcHtmlString result = Html.EditorFor(m => m.TextColumnVMs[i]);
-                    @ColumnCollapse(Model.TextColumnVMs[i].DisplayName, columnId, result)                ;
+                    @ColumnCollapse(Model.TextColumnVMs[i].DisplayName, columnId, result)                                ;
                 }
                 @for (var i = 0; i < Model.NumberColumnVMs.Count; ++i)
                 {
                     var columnId = "column" + columnSequence++;
                     MvcHtmlString result = Html.EditorFor(m => m.NumberColumnVMs[i]);
-                    @ColumnCollapse(Model.NumberColumnVMs[i].DisplayName, columnId, result);
+                    @ColumnCollapse(Model.NumberColumnVMs[i].DisplayName, columnId, result)                ;
+                }
+                @for (var i = 0; i < Model.MultilineTextColumnVMs.Count; ++i)
+                {
+                    var columnId = "column" + columnSequence++;
+                    MvcHtmlString result = Html.EditorFor(m => m.MultilineTextColumnVMs[i]);
+                    @ColumnCollapse(Model.MultilineTextColumnVMs[i].DisplayName, columnId, result);
                 }
             </div>
         </div>
