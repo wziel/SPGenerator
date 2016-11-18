@@ -114,6 +114,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnMapping\ChoiceColumnMapping.cs" />
     <Compile Include="ColumnMapping\ColumnMapping.cs" />
     <Compile Include="ColumnMapping\ColumnMappingNotFoundException.cs" />
     <Compile Include="ColumnMapping\ColumnMappingResolver.cs" />

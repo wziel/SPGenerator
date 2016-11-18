@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColumnDataGeneratorFactory.cs" />
+    <Compile Include="ColumnDataGenerator\Choice\RandomChoiceDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\ColumnDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DbColumnDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\MultilineText\DbPlainMultilineTextDataGenerator.cs" />

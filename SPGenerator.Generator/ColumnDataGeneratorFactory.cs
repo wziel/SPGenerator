@@ -1,4 +1,5 @@
 ﻿using SPGenerator.Generator.ColumnDataGenerator;
+using SPGenerator.Generator.ColumnDataGenerator.Choice;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
 using SPGenerator.Generator.ColumnDataGenerator.Text;
@@ -21,7 +22,8 @@ namespace SPGenerator.Generator
             {
                 { typeof(NumberColumnPOCO), GetNumberDataGenerators },
                 { typeof(TextColumnPOCO), GetTextDataGenerators },
-                { typeof(MultilineTextColumnPOCO), GetMultilineTextDataGenerators }
+                { typeof(MultilineTextColumnPOCO), GetMultilineTextDataGenerators },
+                { typeof(ChoiceColumnPOCO), GetChoiceDataGenerators }
             };
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
@@ -60,6 +62,16 @@ namespace SPGenerator.Generator
             {
                 new DbPlainMultilineTextDataGenerator(multilineTextColumnPOCO),
                 new NullDataGenerator(columnPOCO),
+            };
+        }
+
+        private static IEnumerable<IColumnDataGenerator> GetChoiceDataGenerators(ColumnPOCO columnPOCO)
+        {
+            var choiceColumnPOCO = columnPOCO as ChoiceColumnPOCO;
+            return new List<IColumnDataGenerator>()
+            {
+                new RandomChoiceDataGenerator(choiceColumnPOCO),
+                new NullDataGenerator(choiceColumnPOCO),
             };
         }
     }

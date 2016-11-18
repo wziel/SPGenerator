@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Home\Column\ChoiceColumnVM.cs" />
     <Compile Include="ViewModels\Home\Column\MultilineTextColumnVM.cs" />
     <Compile Include="ViewModels\Home\IndexVMFactory.cs" />
     <Compile Include="ViewModels\Home\Column\NumberColumnVM.cs" />
@@ -191,6 +192,7 @@
     <Content Include="Views\Home\EditorTemplates\TextColumnVM.cshtml" />
     <Content Include="Views\Home\EditorTemplates\NumberColumnVM.cshtml" />
     <Content Include="Views\Home\EditorTemplates\MultilineTextColumnVM.cshtml" />
+    <Content Include="Views\Home\EditorTemplates\ChoiceColumnVM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
