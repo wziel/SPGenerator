@@ -31,18 +31,17 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         public IndexVM GetIndexVMWithSelectedList(IndexVM indexVM, ListPOCO selectedList)
         {
             indexVM.SelectedListVM = new ListVM(selectedList);
+            ClearAllColumnVMs(indexVM);
             selectedList.ColumnPOCOList.ForEach(c => addColumnStrategies[c.GetType()].Invoke(indexVM, c));
             return indexVM;
         }
 
-        public ListPOCO GetListPOCOFromIndexVM(IndexVM indexVM)
+        private void ClearAllColumnVMs(IndexVM indexVM)
         {
-            return new ListPOCO()
-            {
-                Title = indexVM.SelectedListVM.Title,
-                ServerRelativeUrl = indexVM.SelectedListVM.ServerRelativeUrl,
-                ColumnPOCOList = indexVM.AllColumnVMs.Select(c => c.ColumnPOCO).ToList()
-            };
+            indexVM.NumberColumnVMs = new List<NumberColumnVM>();
+            indexVM.TextColumnVMs = new List<TextColumnVM>();
+            indexVM.MultilineTextColumnVMs = new List<MultilineTextColumnVM>();
+            indexVM.ChoiceColumnVMs = new List<ChoiceColumnVM>();
         }
     }
 
@@ -50,6 +49,5 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
     {
         IndexVM GetDefaultIndexVM(List<ListPOCO> allLists, string hostWebUrl);
         IndexVM GetIndexVMWithSelectedList(IndexVM indexVM, ListPOCO selectedList);
-        ListPOCO GetListPOCOFromIndexVM(IndexVM indexVM);
     }
 }

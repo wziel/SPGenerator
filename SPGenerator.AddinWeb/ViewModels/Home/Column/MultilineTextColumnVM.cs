@@ -5,10 +5,11 @@ using System.Linq;
 using System.Web;
 using SPGenerator.Model.Column;
 using System.ComponentModel;
+using SPGenerator.Model;
 
 namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 {
-    public class MultilineTextColumnVM : ColumnVM
+    public class MultilineTextColumnVM : ColumnVM<MultilineTextColumnPOCO>, IMultilineTextColumnVM
     {
         public MultilineTextColumnVM()
         {
@@ -21,22 +22,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             MinLength = columnPOCO.MinLength;
         }
 
-        public override ColumnPOCO ColumnPOCO
-        {
-            get
-            {
-                return new MultilineTextColumnPOCO()
-                {
-                    InternalName = InternalName,
-                    DisplayName = DisplayName,
-                    Required = Required,
-                    MaxLength = MaxLength,
-                    MinLength = MinLength,
-                    GenerateData = GenerateData,
-                };
-            }
-        }
-
         [DisplayName("Maksymalna długość")]
         [Range(MultilineTextColumnPOCO.MIN_LENGTH, MultilineTextColumnPOCO.MAX_LENGTH)]
         public int MaxLength { get; set; }
@@ -45,6 +30,28 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         [Range(MultilineTextColumnPOCO.MIN_LENGTH, MultilineTextColumnPOCO.MAX_LENGTH)]
         public int MinLength { get; set; }
 
+        public override void ApplyTo(ColumnPOCO columnPOCO)
+        {
+            base.ApplyTo(columnPOCO);
+            var multilineTextColumnPOCO = columnPOCO as MultilineTextColumnPOCO;
+            multilineTextColumnPOCO.MaxLength = MaxLength;
+            multilineTextColumnPOCO.MinLength = MinLength;
+        }
+
+        public override void AssertCanApplyTo(ColumnPOCO columnPOCO)
+        {
+            base.AssertCanApplyTo(columnPOCO);
+            if (MaxLength > MultilineTextColumnPOCO.MAX_LENGTH)
+            {
+                throw new GUIVisibleException("Długość wartości kolumny " + InternalName + " typu Wiele wierszy tesktu nie może przekraczać " +
+                    MultilineTextColumnPOCO.MAX_LENGTH + " znaków");
+            }
+            if(MinLength < MultilineTextColumnPOCO.MIN_LENGTH)
+            {
+                throw new GUIVisibleException("Długość wartości kolumny " + InternalName + " typu Wiele wierszy tesktu nie może być mniejsza od " +
+                    MultilineTextColumnPOCO.MIN_LENGTH + " znaków");
+            }
+        }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -54,5 +61,18 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                     new[] { nameof(MaxLength), nameof(MinLength) });
             }
         }
+    }
+
+    public interface IMultilineTextColumnVM : IColumnVM
+    {
+        /// <summary>
+        /// Maximum length of column text.
+        /// </summary>
+        int MaxLength { get; set; }
+        
+        /// <summary>
+        /// Minimum length of column text.
+        /// </summary>
+        int MinLength { get; set; }
     }
 }

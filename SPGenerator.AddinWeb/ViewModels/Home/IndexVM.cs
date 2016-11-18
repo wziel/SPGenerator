@@ -66,15 +66,29 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         {
             get
             {
-                return TextColumnVMs.Any() || NumberColumnVMs.Any() || MultilineTextColumnVMs.Any();
+                return AllColumnVMs.Any();
             }
         }
 
-        public List<ColumnVM> AllColumnVMs
+        internal void ApplyTo(ListPOCO listPOCO)
+        {
+            foreach(var columnVM in AllColumnVMs)
+            {
+                var columnPOCO = listPOCO.ColumnPOCOList.FirstOrDefault(c => c.InternalName == columnVM.InternalName);
+                if (columnPOCO == null)
+                {
+                    throw new GUIVisibleException("Nie znaleziono kolumny o nazwie " + columnVM.InternalName);
+                }
+                columnVM.AssertCanApplyTo(columnPOCO);
+                columnVM.ApplyTo(columnPOCO);
+            }
+        }
+
+        public List<IColumnVM> AllColumnVMs
         {
             get
             {
-                var allColumnVMs = new List<ColumnVM>();
+                var allColumnVMs = new List<IColumnVM>();
                 allColumnVMs.AddRange(TextColumnVMs);
                 allColumnVMs.AddRange(NumberColumnVMs);
                 allColumnVMs.AddRange(MultilineTextColumnVMs);

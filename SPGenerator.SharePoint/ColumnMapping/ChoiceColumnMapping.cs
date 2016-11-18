@@ -18,7 +18,8 @@ namespace SPGenerator.SharePoint.ColumnMapping
                 InternalName = field.InternalName,
                 DisplayName = field.Title,
                 Required = field.Required,
-                Choices = choiceField.Choices
+                Choices = choiceField.Choices,
+                GenerateData = true,
             };
         }
     }

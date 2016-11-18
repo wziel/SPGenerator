@@ -20,6 +20,7 @@ namespace SPGenerator.SharePoint.ColumnMapping
                 Required = field.Required,
                 MinLength = MultilineTextColumnPOCO.MIN_LENGTH,
                 MaxLength = MultilineTextColumnPOCO.MAX_LENGTH,
+                GenerateData = true,
             };
         }
     }

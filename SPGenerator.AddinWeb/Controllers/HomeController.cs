@@ -61,12 +61,14 @@ namespace SPGenerator.AddinWeb.Controllers
         [HttpPost]
         public ActionResult GenerateData(IndexVM indexVM)
         {
+            var listPOCO = sharePointService.GetListPOCO(indexVM.SelectedListVM.Title);
             if (ModelState.IsValid)
             {
-                var listPOCO = indexVMFactory.GetListPOCOFromIndexVM(indexVM);
+                indexVM.ApplyTo(listPOCO);
                 var data = dataGenerator.GenerateData(listPOCO, indexVM.RecordsToGenerateCount);
                 sharePointService.Save(data, listPOCO);
             }
+            indexVM = indexVMFactory.GetIndexVMWithSelectedList(indexVM, listPOCO);
             return View("Index", indexVM);
         }
     }

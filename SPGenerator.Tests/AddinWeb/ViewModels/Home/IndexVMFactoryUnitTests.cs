@@ -89,29 +89,5 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
             Assert.AreEqual(list.Title, indexVM.SelectedListVM.Title);
             Assert.AreEqual(indexVM.NumberColumnVMs[0].InternalName, list.ColumnPOCOList[0].InternalName);
         }
-
-        [TestMethod]
-        public void GetListPOCOFromIndexVM_AssignsList()
-        {
-            //given
-            var indexVM = new IndexVM()
-            {
-                SelectedListVM = new ListVM()
-                {
-                    Title = "test title",
-                    ServerRelativeUrl = "server relative url",
-                },
-                NumberColumnVMs = new List<NumberColumnVM>()
-                {
-                    new NumberColumnVM() { InternalName = "test column name" }
-                }
-            };
-            //when
-            var listPOCO = indexVMFactory.GetListPOCOFromIndexVM(indexVM);
-            //then
-            Assert.AreEqual(listPOCO.Title, indexVM.SelectedListVM.Title);
-            Assert.AreEqual(listPOCO.ServerRelativeUrl, indexVM.SelectedListVM.ServerRelativeUrl);
-            Assert.AreEqual(listPOCO.ColumnPOCOList[0].InternalName, indexVM.AllColumnVMs[0].InternalName);
-        }
     }
 }

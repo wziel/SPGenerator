@@ -21,7 +21,8 @@ namespace SPGenerator.SharePoint.ColumnMapping
                 InternalMaxValue = Math.Min(numberField.MaximumValue, NumberColumnPOCO.MAX_VALUE),
                 InternalMinValue = Math.Max(numberField.MinimumValue, NumberColumnPOCO.MIN_VALUE),
                 MinValue = Math.Max(numberField.MinimumValue, NumberColumnPOCO.MIN_VALUE),
-                MaxValue = Math.Min(numberField.MaximumValue, NumberColumnPOCO.MAX_VALUE)
+                MaxValue = Math.Min(numberField.MaximumValue, NumberColumnPOCO.MAX_VALUE),
+                GenerateData = true,
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using SPGenerator.Model.Column;
+﻿using SPGenerator.Model;
+using SPGenerator.Model.Column;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 {
-    public class NumberColumnVM : ColumnVM
+    public class NumberColumnVM : ColumnVM<NumberColumnPOCO>, INumberColumnVM
     {
         public NumberColumnVM()
         {
@@ -39,22 +40,28 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 
         public double InternalMaxValue { get; set; }
 
-        public override ColumnPOCO ColumnPOCO
+        public override void ApplyTo(ColumnPOCO columnPOCO)
         {
-            get
+            base.ApplyTo(columnPOCO);
+            var numberColumnPOCO = columnPOCO as NumberColumnPOCO;
+            numberColumnPOCO.MaxValue = MaxValue;
+            numberColumnPOCO.MinValue = MinValue;
+            numberColumnPOCO.OnlyIntegers = OnlyIntegers;
+        }
+
+        public override void AssertCanApplyTo(ColumnPOCO columnPOCO)
+        {
+            base.AssertCanApplyTo(columnPOCO);
+            var numberColumnPOCO = columnPOCO as NumberColumnPOCO;
+            if (MinValue < NumberColumnPOCO.MIN_VALUE)
             {
-                return new NumberColumnPOCO()
-                {
-                    InternalName = InternalName,
-                    DisplayName = DisplayName,
-                    Required = Required,
-                    MaxValue = MaxValue,
-                    MinValue = MinValue,
-                    OnlyIntegers = OnlyIntegers,
-                    InternalMaxValue = InternalMaxValue,
-                    InternalMinValue = InternalMinValue,
-                    GenerateData = GenerateData,
-                };
+                throw new GUIVisibleException("Wartość w kolumnie " + InternalName + " typu Liczba nie może być mniejsza od "
+                    + numberColumnPOCO.InternalMinValue);
+            }
+            if (MaxValue > NumberColumnPOCO.MAX_VALUE)
+            {
+                throw new GUIVisibleException("Wartość w kolumnie " + InternalName + " typu Liczba nie może przekraczać "
+                    + numberColumnPOCO.InternalMaxValue);
             }
         }
 
@@ -71,5 +78,33 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                     new[] { nameof(MinValue), nameof(MaxValue), nameof(OnlyIntegers) });
             }
         }
+    }
+
+    public interface INumberColumnVM : IColumnVM
+    {
+        /// <summary>
+        /// Minimum value of this column specified by user.
+        /// </summary>
+        double MinValue { get; set; }
+        
+        /// <summary>
+        /// Maximum value of this column specified by user.
+        /// </summary>
+        double MaxValue { get; set; }
+    
+        /// <summary>
+        /// Shoudl only integers be applied to this column?
+        /// </summary>
+        bool OnlyIntegers { get; set; }
+
+        /// <summary>
+        /// Minimum value of this column specified by system.
+        /// </summary>
+        double InternalMinValue { get; set; }
+
+        /// <summary>
+        /// Maximum value of this column specified by system.
+        /// </summary>
+        double InternalMaxValue { get; set; }
     }
 }
