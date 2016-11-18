@@ -109,13 +109,19 @@ if (Model.ShowColumnVMs)
                 {
                     var columnId = "column" + columnSequence++;
                     MvcHtmlString result = Html.EditorFor(m => m.ChoiceColumnVMs[i]);
-                    @ColumnCollapse(Model.ChoiceColumnVMs[i].DisplayName, columnId, result)                ;
+                    @ColumnCollapse(Model.ChoiceColumnVMs[i].DisplayName, columnId, result)                                ;
                 }
                 @for (var i = 0; i < Model.DateTimeColumnVMs.Count; ++i)
                 {
                     var columnId = "column" + columnSequence++;
                     MvcHtmlString result = Html.EditorFor(m => m.DateTimeColumnVMs[i]);
-                    @ColumnCollapse(Model.DateTimeColumnVMs[i].DisplayName, columnId, result);
+                    @ColumnCollapse(Model.DateTimeColumnVMs[i].DisplayName, columnId, result)                ;
+                }
+                @for (var i = 0; i < Model.BooleanColumnVMs.Count; ++i)
+                {
+                    var columnId = "column" + columnSequence++;
+                    MvcHtmlString result = Html.EditorFor(m => m.BooleanColumnVMs[i]);
+                    @ColumnCollapse(Model.BooleanColumnVMs[i].DisplayName, columnId, result);
                 }
             </div>
         </div>

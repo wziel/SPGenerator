@@ -1,4 +1,5 @@
 ﻿using SPGenerator.Generator.ColumnDataGenerator;
+using SPGenerator.Generator.ColumnDataGenerator.Boolean;
 using SPGenerator.Generator.ColumnDataGenerator.Choice;
 using SPGenerator.Generator.ColumnDataGenerator.DateTime;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
@@ -26,6 +27,7 @@ namespace SPGenerator.Generator
                 { typeof(MultilineTextColumnPOCO), GetMultilineTextDataGenerators },
                 { typeof(ChoiceColumnPOCO), GetChoiceDataGenerators },
                 { typeof(DateTimeColumnPOCO), GetDateTimeDataGeerators },
+                { typeof(BooleanColumnPOCO), GetBooleanDataGenerators },
             };
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
@@ -85,6 +87,16 @@ namespace SPGenerator.Generator
                 new RandomDateTimeDataGenerator(dateTimeColumnPOCO),
                 new BoundaryDateTimeDataGenerator(dateTimeColumnPOCO),
                 new NullDataGenerator(dateTimeColumnPOCO),
+            };
+        }
+
+        private static IEnumerable<IColumnDataGenerator> GetBooleanDataGenerators(ColumnPOCO columnPOCO)
+        {
+            var booleanColumn = columnPOCO as BooleanColumnPOCO;
+            return new List<IColumnDataGenerator>()
+            {
+                new RandomBooleanDataGenerator(booleanColumn),
+                new NullDataGenerator(booleanColumn),
             };
         }
     }

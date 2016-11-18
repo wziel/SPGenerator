@@ -18,6 +18,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 { typeof(MultilineTextColumnPOCO),  (indexVM, column) => indexVM.MultilineTextColumnVMs.Add(new MultilineTextColumnVM((MultilineTextColumnPOCO) column)) },
                 { typeof(ChoiceColumnPOCO), (indexVM, column) => indexVM.ChoiceColumnVMs.Add(new ChoiceColumnVM((ChoiceColumnPOCO) column)) },
                 { typeof(DateTimeColumnPOCO), (indexVM, column) => indexVM.DateTimeColumnVMs.Add(new DateTimeColumnVM((DateTimeColumnPOCO) column)) },
+                { typeof(BooleanColumnPOCO), (indexVM, column) => indexVM.BooleanColumnVMs.Add(new BooleanColumnVM((BooleanColumnPOCO) column)) },
             };
 
         public IndexVM GetDefaultIndexVM(List<ListPOCO> allLists, string hostWebUrl)
@@ -43,6 +44,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
             indexVM.TextColumnVMs = new List<TextColumnVM>();
             indexVM.MultilineTextColumnVMs = new List<MultilineTextColumnVM>();
             indexVM.ChoiceColumnVMs = new List<ChoiceColumnVM>();
+            indexVM.DateTimeColumnVMs = new List<DateTimeColumnVM>();
+            indexVM.BooleanColumnVMs = new List<BooleanColumnVM>();
         }
     }
 

@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Home\Column\BooleanColumnVM.cs" />
     <Compile Include="ViewModels\Home\Column\ChoiceColumnVM.cs" />
     <Compile Include="ViewModels\Home\Column\DateTimeColumnVM.cs" />
     <Compile Include="ViewModels\Home\Column\MultilineTextColumnVM.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="ViewModels\Home\IndexVM.cs" />
     <Compile Include="ViewModels\Home\Column\ColumnVM.cs" />
     <Compile Include="ViewModels\Home\ListVM.cs" />
+    <Content Include="Views\Home\EditorTemplates\BooleanColumnVM.cshtml" />
     <None Include="Views\Home\EditorTemplates\DateTimeColumnVM.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 {
-    public class DateTimeColumnVM : ColumnVM<DateTimeColumnPOCO>, IColumnVM
+    public class DateTimeColumnVM : ColumnVM<DateTimeColumnPOCO>, IDateTimeColumnVM
     {
         public DateTimeColumnVM()
         {

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Column\BooleanColumnPOCO.cs" />
     <Compile Include="Column\ChoiceColumnPOCO.cs" />
     <Compile Include="Column\ColumnPOCO.cs" />
     <Compile Include="Column\DateTimeColumnPOCO.cs" />

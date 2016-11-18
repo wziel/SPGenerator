@@ -11,22 +11,23 @@ namespace SPGenerator.SharePoint.ColumnMapping
 {
     public class ColumnMappingResolver : IColumnMappingResolver
     {
-        private Dictionary<Type, ICOlumnMapping> columnMappings = new Dictionary<Type, ICOlumnMapping>()
+        private Dictionary<FieldType, ICOlumnMapping> columnMappings = new Dictionary<FieldType, ICOlumnMapping>()
         {
-            { typeof(FieldText), new TextColumnMapping() },
-            { typeof(FieldNumber), new NumberColumnMapping() },
-            { typeof(FieldMultiLineText), new MultilineTextColumnMapping() },
-            { typeof(FieldChoice), new ChoiceColumnMapping() },
-            { typeof(FieldDateTime), new DateTimeColumnMapping() },
+            { FieldType.Text, new TextColumnMapping() },
+            { FieldType.Number, new NumberColumnMapping() },
+            { FieldType.Note, new MultilineTextColumnMapping() },
+            { FieldType.Choice, new ChoiceColumnMapping() },
+            { FieldType.DateTime, new DateTimeColumnMapping() },
+            { FieldType.Boolean, new BooleanColumnMapping() }
         };
 
         public ColumnPOCO Map(Field field)
         {
             ICOlumnMapping mapping;
-            columnMappings.TryGetValue(field.GetType(), out mapping);
+            columnMappings.TryGetValue(field.FieldTypeKind, out mapping);
             if(mapping == null)
             {
-                throw new GUIVisibleException("Lista zawiera niewspieraną kolumnę typu " + field.GetType());
+                throw new GUIVisibleException("Lista zawiera niewspieraną kolumnę typu " + field.FieldTypeKind);
             }
             return mapping.Map(field);
         }

@@ -19,11 +19,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             //left empty
         }
-
-        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return new List<ValidationResult>();
-        }
     }
 
     public interface IChoiceColumnVM : IColumnVM

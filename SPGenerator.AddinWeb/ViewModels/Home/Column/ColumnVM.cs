@@ -33,7 +33,10 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         
         public bool Required { get; set; }
 
-        public abstract IEnumerable<ValidationResult> Validate(ValidationContext validationContext);
+        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return new List<ValidationResult>();
+        }
 
         public virtual void ApplyTo(ColumnPOCO columnPOCO)
         {
