@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.SharePoint.Client;
 using SPGenerator.Model.Column;
 
 namespace SPGenerator.SharePoint.ColumnMapping
 {
-    class ChoiceColumnMapping : ColumnMapping
+    class ChoiceColumnMapping : ColumnMapping<FieldChoice, ChoiceColumnPOCO>
     {
-        public override ColumnPOCO Map(Field field)
+        protected sealed override void ApplyProperies(ChoiceColumnPOCO column, FieldChoice field)
         {
-            var choiceField = (FieldChoice) field;
-            return new ChoiceColumnPOCO()
-            {
-                InternalName = field.InternalName,
-                DisplayName = field.Title,
-                Required = field.Required,
-                Choices = choiceField.Choices,
-                GenerateData = true,
-            };
+            base.ApplyProperies(column, field);
+            column.Choices = field.Choices;
+        }
+
+        protected override ChoiceColumnPOCO CreateColumnPOCO()
+        {
+            return new ChoiceColumnPOCO();
         }
     }
 }

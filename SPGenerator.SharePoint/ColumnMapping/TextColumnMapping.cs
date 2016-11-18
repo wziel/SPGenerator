@@ -8,21 +8,19 @@ using SPGenerator.Model.Column;
 
 namespace SPGenerator.SharePoint.ColumnMapping
 {
-    class TextColumnMapping : ColumnMapping
+    class TextColumnMapping : ColumnMapping<FieldText, TextColumnPOCO>
     {
-        public override ColumnPOCO Map(Field field)
+        protected override void ApplyProperies(TextColumnPOCO column, FieldText field)
         {
-            var textField = (FieldText)field;
-            return new TextColumnPOCO()
-            {
-                InternalName = textField.InternalName,
-                DisplayName = textField.Title,
-                Required = textField.Required,
-                MinLength = TextColumnPOCO.MIN_LENGTH,
-                MaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, textField.MaxLength),
-                InternalMaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, textField.MaxLength),
-                GenerateData = true,
-            };
+            base.ApplyProperies(column, field);
+            column.MinLength = TextColumnPOCO.MIN_LENGTH;
+            column.MaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, field.MaxLength);
+            column.InternalMaxLength = Math.Min(TextColumnPOCO.MAX_LENGTH, field.MaxLength);
+        }
+
+        protected override TextColumnPOCO CreateColumnPOCO()
+        {
+            return new TextColumnPOCO();
         }
     }
 }

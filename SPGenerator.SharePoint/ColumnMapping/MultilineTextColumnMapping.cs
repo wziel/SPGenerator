@@ -8,20 +8,18 @@ using SPGenerator.Model.Column;
 
 namespace SPGenerator.SharePoint.ColumnMapping
 {
-    class MultilineTextColumnMapping : ColumnMapping
+    class MultilineTextColumnMapping : ColumnMapping<FieldMultiLineText, MultilineTextColumnPOCO>
     {
-        public override ColumnPOCO Map(Field field)
+        protected override void ApplyProperies(MultilineTextColumnPOCO column, FieldMultiLineText field)
         {
-            var textField = field as FieldMultiLineText;
-            return new MultilineTextColumnPOCO()
-            {
-                InternalName = field.InternalName,
-                DisplayName = field.Title,
-                Required = field.Required,
-                MinLength = MultilineTextColumnPOCO.MIN_LENGTH,
-                MaxLength = MultilineTextColumnPOCO.MAX_LENGTH,
-                GenerateData = true,
-            };
+            base.ApplyProperies(column, field);
+            column.MinLength = MultilineTextColumnPOCO.MIN_LENGTH;
+            column.MaxLength = MultilineTextColumnPOCO.MAX_LENGTH;
+        }
+
+        protected override MultilineTextColumnPOCO CreateColumnPOCO()
+        {
+            return new MultilineTextColumnPOCO();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Number
         {
             get
             {
-                return GetBoundaryValues().Any() && column.GenerateData;
+                return GetBoundaryValues().Any() && base.CanGenerateData;
             }
         }
 

@@ -8,22 +8,20 @@ using SPGenerator.Model.Column;
 
 namespace SPGenerator.SharePoint.ColumnMapping
 {
-    class NumberColumnMapping : ColumnMapping
+    class NumberColumnMapping : ColumnMapping<FieldNumber, NumberColumnPOCO>
     {
-        public override ColumnPOCO Map(Field field)
+        protected override void ApplyProperies(NumberColumnPOCO column, FieldNumber field)
         {
-            var numberField = (FieldNumber)field;
-            return new NumberColumnPOCO()
-            {
-                InternalName = field.InternalName,
-                DisplayName = field.Title,
-                Required = field.Required,
-                InternalMaxValue = Math.Min(numberField.MaximumValue, NumberColumnPOCO.MAX_VALUE),
-                InternalMinValue = Math.Max(numberField.MinimumValue, NumberColumnPOCO.MIN_VALUE),
-                MinValue = Math.Max(numberField.MinimumValue, NumberColumnPOCO.MIN_VALUE),
-                MaxValue = Math.Min(numberField.MaximumValue, NumberColumnPOCO.MAX_VALUE),
-                GenerateData = true,
-            };
+            base.ApplyProperies(column, field);
+            column.InternalMaxValue = Math.Min(field.MaximumValue, NumberColumnPOCO.MAX_VALUE);
+            column.InternalMinValue = Math.Max(field.MinimumValue, NumberColumnPOCO.MIN_VALUE);
+            column.MinValue = Math.Max(field.MinimumValue, NumberColumnPOCO.MIN_VALUE);
+            column.MaxValue = Math.Min(field.MaximumValue, NumberColumnPOCO.MAX_VALUE);
+        }
+
+        protected override NumberColumnPOCO CreateColumnPOCO()
+        {
+            return new NumberColumnPOCO();
         }
     }
 }

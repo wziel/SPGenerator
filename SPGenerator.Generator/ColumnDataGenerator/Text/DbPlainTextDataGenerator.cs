@@ -15,14 +15,6 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Text
             //left empty
         }
 
-        public override bool CanGenerateData
-        {
-            get
-            {
-                return column.GenerateData;
-            }
-        }
-
         protected override IEnumerable<object> GenerateData(GeneratorDbContext db, int recordsCount)
         {
             var textSamples = db.Texts.OrderBy(x => Guid.NewGuid()).Take(recordsCount).Select(x => x.Content).ToList();

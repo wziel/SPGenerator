@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Column\ChoiceColumnPOCO.cs" />
     <Compile Include="Column\ColumnPOCO.cs" />
+    <Compile Include="Column\DateTimeColumnPOCO.cs" />
     <Compile Include="Column\MultilineTextColumnPOCO.cs" />
     <Compile Include="Column\NumberColumnPOCO.cs" />
     <Compile Include="Column\TextColumnPOCO.cs" />

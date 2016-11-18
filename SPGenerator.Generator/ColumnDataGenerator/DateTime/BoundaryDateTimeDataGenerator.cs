@@ -5,21 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SPGenerator.Generator.ColumnDataGenerator.Number
+namespace SPGenerator.Generator.ColumnDataGenerator.DateTime
 {
-    public class BoundaryDoubleDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
+    public class BoundaryDateTimeDataGenerator : ColumnDataGenerator<DateTimeColumnPOCO>
     {
-        public BoundaryDoubleDataGenerator(NumberColumnPOCO column) : base(column)
+        public BoundaryDateTimeDataGenerator(DateTimeColumnPOCO column) : base(column)
         {
             //left empty
-        }
-
-        public override bool CanGenerateData
-        {
-            get
-            {
-                return !column.OnlyIntegers && base.CanGenerateData;
-            }
         }
 
         public override IEnumerable<object> GenerateData(int recordsCount)
@@ -34,9 +26,9 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Number
             return data;
         }
 
-        private List<double> GetBoundaryValues()
+        private List<System.DateTime> GetBoundaryValues()
         {
-            return new List<double>() { column.MinValue, column.MaxValue };
+            return new List<System.DateTime>() { column.MinValue, column.MaxValue };
         }
     }
 }

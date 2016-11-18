@@ -1,5 +1,6 @@
 ﻿using SPGenerator.Generator.ColumnDataGenerator;
 using SPGenerator.Generator.ColumnDataGenerator.Choice;
+using SPGenerator.Generator.ColumnDataGenerator.DateTime;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
 using SPGenerator.Generator.ColumnDataGenerator.Text;
@@ -23,7 +24,8 @@ namespace SPGenerator.Generator
                 { typeof(NumberColumnPOCO), GetNumberDataGenerators },
                 { typeof(TextColumnPOCO), GetTextDataGenerators },
                 { typeof(MultilineTextColumnPOCO), GetMultilineTextDataGenerators },
-                { typeof(ChoiceColumnPOCO), GetChoiceDataGenerators }
+                { typeof(ChoiceColumnPOCO), GetChoiceDataGenerators },
+                { typeof(DateTimeColumnPOCO), GetDateTimeDataGeerators },
             };
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
@@ -72,6 +74,17 @@ namespace SPGenerator.Generator
             {
                 new RandomChoiceDataGenerator(choiceColumnPOCO),
                 new NullDataGenerator(choiceColumnPOCO),
+            };
+        }
+
+        private static IEnumerable<IColumnDataGenerator> GetDateTimeDataGeerators(ColumnPOCO columnPOCO)
+        {
+            var dateTimeColumnPOCO = columnPOCO as DateTimeColumnPOCO;
+            return new List<IColumnDataGenerator>()
+            {
+                new RandomDateTimeDataGenerator(dateTimeColumnPOCO),
+                new BoundaryDateTimeDataGenerator(dateTimeColumnPOCO),
+                new NullDataGenerator(dateTimeColumnPOCO),
             };
         }
     }

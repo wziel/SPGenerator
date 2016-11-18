@@ -14,14 +14,6 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Choice
             //left empty
         }
 
-        public override bool CanGenerateData
-        {
-            get
-            {
-                return column.GenerateData;
-            }
-        }
-
         public override IEnumerable<object> GenerateData(int recordsCount)
         {
             var data = new List<object>(recordsCount);

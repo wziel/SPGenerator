@@ -93,6 +93,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 allColumnVMs.AddRange(NumberColumnVMs);
                 allColumnVMs.AddRange(MultilineTextColumnVMs);
                 allColumnVMs.AddRange(ChoiceColumnVMs);
+                allColumnVMs.AddRange(DateTimeColumnVMs);
                 return allColumnVMs;
             }
         }
@@ -101,5 +102,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         public List<MultilineTextColumnVM> MultilineTextColumnVMs { get; set; } = new List<MultilineTextColumnVM>();
         public List<NumberColumnVM> NumberColumnVMs { get; set; } = new List<NumberColumnVM>();
         public List<ChoiceColumnVM> ChoiceColumnVMs { get; set; } = new List<ChoiceColumnVM>();
+        public List<DateTimeColumnVM> DateTimeColumnVMs { get; set; } = new List<DateTimeColumnVM>();
     }
 }

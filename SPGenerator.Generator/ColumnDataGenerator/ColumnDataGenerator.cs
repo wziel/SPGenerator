@@ -30,11 +30,17 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         /// <param name="recordsCount">Number of records to generated.</param>
         /// <returns>Generated data.</returns>
         public abstract IEnumerable<object> GenerateData(int recordsCount);
-        
+
         /// <summary>
         /// Checks if data can be generated.
         /// </summary>
-        public abstract bool CanGenerateData { get; }
+        public virtual bool CanGenerateData
+        {
+            get
+            {
+                return column.GenerateData;
+            }
+        }
     }
 
     public interface IColumnDataGenerator

@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Home\Column\ChoiceColumnVM.cs" />
+    <Compile Include="ViewModels\Home\Column\DateTimeColumnVM.cs" />
     <Compile Include="ViewModels\Home\Column\MultilineTextColumnVM.cs" />
     <Compile Include="ViewModels\Home\IndexVMFactory.cs" />
     <Compile Include="ViewModels\Home\Column\NumberColumnVM.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="ViewModels\Home\IndexVM.cs" />
     <Compile Include="ViewModels\Home\Column\ColumnVM.cs" />
     <Compile Include="ViewModels\Home\ListVM.cs" />
+    <None Include="Views\Home\EditorTemplates\DateTimeColumnVM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
