@@ -43,7 +43,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                     Required = Required,
                     MaxLength = MaxLength,
                     MinLength = MinLength,
-                    InternalMaxLength = InternalMaxLength
+                    InternalMaxLength = InternalMaxLength,
+                    GenerateData = GenerateData,
                 };
             }
         }

@@ -18,7 +18,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Number
         {
             get
             {
-                return !column.OnlyIntegers;
+                return !column.OnlyIntegers && column.GenerateData;
             }
         }
 

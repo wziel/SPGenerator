@@ -52,7 +52,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                     MinValue = MinValue,
                     OnlyIntegers = OnlyIntegers,
                     InternalMaxValue = InternalMaxValue,
-                    InternalMinValue = InternalMinValue
+                    InternalMinValue = InternalMinValue,
+                    GenerateData = GenerateData,
                 };
             }
         }

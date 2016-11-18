@@ -21,6 +21,14 @@ namespace SPGenerator.Model.Column
         /// </summary>
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Is this column required.
+        /// </summary>
         public bool Required { get; set; }
+
+        /// <summary>
+        /// Should data be generated for this column.
+        /// </summary>
+        public bool GenerateData { get; set; }
     }
 }

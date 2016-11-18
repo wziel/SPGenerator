@@ -18,7 +18,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Number
         {
             get
             {
-                return column.MaxValue - column.MinValue >= 1;
+                return (column.MaxValue - column.MinValue >= 1) && column.GenerateData;
             }
         }
 

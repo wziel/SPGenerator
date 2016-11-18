@@ -32,6 +32,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                     Required = Required,
                     MaxLength = MaxLength,
                     MinLength = MinLength,
+                    GenerateData = GenerateData,
                 };
             }
         }

@@ -30,7 +30,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
                     InternalName = InternalName,
                     DisplayName = DisplayName,
                     Required = Required,
-                    Choices = Choices
+                    Choices = Choices,
+                    GenerateData = GenerateData,
                 };
             }
         }

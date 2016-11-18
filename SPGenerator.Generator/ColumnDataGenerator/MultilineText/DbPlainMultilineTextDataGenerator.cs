@@ -19,7 +19,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator.MultilineText
         {
             get
             {
-                return true;
+                return column.GenerateData;
             }
         }
 

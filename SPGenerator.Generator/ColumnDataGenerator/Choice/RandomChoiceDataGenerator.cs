@@ -18,7 +18,7 @@ namespace SPGenerator.Generator.ColumnDataGenerator.Choice
         {
             get
             {
-                return true;
+                return column.GenerateData;
             }
         }
 
