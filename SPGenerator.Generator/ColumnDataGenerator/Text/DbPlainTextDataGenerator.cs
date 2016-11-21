@@ -8,25 +8,21 @@ using SPGenerator.Generator.Database;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Text
 {
-    public class DbPlainTextDataGenerator : DbColumnDataGenerator<TextColumnPOCO>
+    public class DbPlainTextDataGenerator : DbColumnDataGenerator<TextColumnPOCO, string>, ITextDataGenerator
     {
-        public DbPlainTextDataGenerator(TextColumnPOCO column) : base(column)
+        protected override List<string> FetchData(GeneratorDbContext db, TextColumnPOCO column, int recordsCount)
         {
-            //left empty
+            return db.Texts.OrderBy(x => Guid.NewGuid()).Take(recordsCount).Select(x => x.Content).ToList();
         }
 
-        protected override IEnumerable<object> GenerateData(GeneratorDbContext db, int recordsCount)
+        protected override IEnumerable<object> GenerateData(List<string> textSamples, TextColumnPOCO column, int recordsCount)
         {
-            var textSamples = db.Texts.OrderBy(x => Guid.NewGuid()).Take(recordsCount).Select(x => x.Content).ToList();
-            var data = new List<object>(recordsCount);
             while (recordsCount-- > 0)
             {
-                var text = textSamples[recordsCount % textSamples.Count];
+                var text = textSamples[recordsCount % textSamples.Count()];
                 var length = RANDOM.Next(column.MinLength, column.MaxLength);
-                var substring = text.Substring(0, length);
-                data.Add(substring);
+                yield return text.Substring(0, length);
             }
-            return data;
         }
     }
 }

@@ -7,28 +7,21 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.DateTime
 {
-    public class BoundaryDateTimeDataGenerator : ColumnDataGenerator<DateTimeColumnPOCO>
+    public class BoundaryDateTimeDataGenerator : ColumnDataGenerator<DateTimeColumnPOCO>, IDateTimeDataGenerator
     {
-        public BoundaryDateTimeDataGenerator(DateTimeColumnPOCO column) : base(column)
+        protected override IEnumerable<object> GenerateData(DateTimeColumnPOCO column, int recordsCount)
         {
-            //left empty
-        }
-
-        public override IEnumerable<object> GenerateData(int recordsCount)
-        {
-            var boundaryValues = GetBoundaryValues();
-            var data = new List<object>(recordsCount);
+            var boundaryValues = GetBoundaryValues(column);
             while (recordsCount-- > 0)
             {
                 var i = recordsCount % boundaryValues.Count;
-                data.Add(boundaryValues[i]);
+                yield return boundaryValues[i];
             }
-            return data;
         }
 
-        private List<System.DateTime> GetBoundaryValues()
+        private List<System.DateTime> GetBoundaryValues(DateTimeColumnPOCO column)
         {
-            return new List<System.DateTime>() { column.MinValue, column.MaxValue };
+            return new List<System.DateTime>() { column.MinValue, column.MaxValue, System.DateTime.Now };
         }
     }
 }

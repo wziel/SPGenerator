@@ -7,34 +7,24 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Number
 {
-    public class BoundaryDoubleDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
+    public class BoundaryDoubleDataGenerator : ColumnDataGenerator<NumberColumnPOCO>, INumberDataGenerator
     {
-        public BoundaryDoubleDataGenerator(NumberColumnPOCO column) : base(column)
+        protected override bool CanGenerateData(NumberColumnPOCO column)
         {
-            //left empty
+            return !column.OnlyIntegers && base.CanGenerateData(column);
         }
 
-        public override bool CanGenerateData
+        protected override IEnumerable<object> GenerateData(NumberColumnPOCO column, int recordsCount)
         {
-            get
-            {
-                return !column.OnlyIntegers && base.CanGenerateData;
-            }
-        }
-
-        public override IEnumerable<object> GenerateData(int recordsCount)
-        {
-            var boundaryValues = GetBoundaryValues();
-            var data = new List<object>(recordsCount);
+            var boundaryValues = GetBoundaryValues(column);
             while (recordsCount-- > 0)
             {
                 var i = recordsCount % boundaryValues.Count;
-                data.Add(boundaryValues[i]);
+                yield return boundaryValues[i];
             }
-            return data;
         }
 
-        private List<double> GetBoundaryValues()
+        private List<double> GetBoundaryValues(NumberColumnPOCO column)
         {
             return new List<double>() { column.MinValue, column.MaxValue };
         }

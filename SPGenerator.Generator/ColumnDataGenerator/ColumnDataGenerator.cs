@@ -13,34 +13,29 @@ namespace SPGenerator.Generator.ColumnDataGenerator
     public abstract class ColumnDataGenerator<TColumnPOCO> : IColumnDataGenerator where TColumnPOCO : ColumnPOCO
     {
         protected static readonly Random RANDOM = new Random();
-        protected TColumnPOCO column;
 
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        /// <param name="column">Column for which data will be generated.</param>
-        protected ColumnDataGenerator(TColumnPOCO column)
+        public bool CanGenerateData(ColumnPOCO column)
         {
-            this.column = column;
-        }
-
-        /// <summary>
-        /// Generates data.
-        /// </summary>
-        /// <param name="recordsCount">Number of records to generated.</param>
-        /// <returns>Generated data.</returns>
-        public abstract IEnumerable<object> GenerateData(int recordsCount);
-
-        /// <summary>
-        /// Checks if data can be generated.
-        /// </summary>
-        public virtual bool CanGenerateData
-        {
-            get
+            if(!(column is TColumnPOCO))
             {
-                return column.GenerateData;
+                return false;
             }
+            var specificColumn = column as TColumnPOCO;
+            return CanGenerateData(specificColumn);
         }
+
+        protected virtual bool CanGenerateData(TColumnPOCO column)
+        {
+            return column.GenerateData;
+        }
+
+        public IEnumerable<object> GenerateData(ColumnPOCO column, int recordsCount)
+        {
+            var specificColumn = column as TColumnPOCO;
+            return GenerateData(specificColumn, recordsCount);
+        }
+
+        protected abstract IEnumerable<object> GenerateData(TColumnPOCO column, int recordsCount);
     }
 
     public interface IColumnDataGenerator
@@ -51,11 +46,11 @@ namespace SPGenerator.Generator.ColumnDataGenerator
         /// <param name="column">Column for which data will be generated.</param>
         /// <param name="recordsCount">Number of records to generated.</param>
         /// <returns>Generated data.</returns>
-        IEnumerable<object> GenerateData(int recordsCount);
+        IEnumerable<object> GenerateData(ColumnPOCO column, int recordsCount);
 
         /// <summary>
         /// Checks if data can be generated.
         /// </summary>
-        bool CanGenerateData { get; }
+        bool CanGenerateData(ColumnPOCO column);
     }
 }

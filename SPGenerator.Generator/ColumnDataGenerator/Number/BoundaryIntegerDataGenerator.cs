@@ -5,34 +5,24 @@ using System.Linq;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Number
 {
-    public class BoundaryIntegerDataGenerator : ColumnDataGenerator<NumberColumnPOCO>
+    public class BoundaryIntegerDataGenerator : ColumnDataGenerator<NumberColumnPOCO>, INumberDataGenerator
     {
-        public BoundaryIntegerDataGenerator(NumberColumnPOCO column) : base(column)
+        protected override bool CanGenerateData(NumberColumnPOCO column)
         {
-            //left empty
+            return GetBoundaryValues(column).Any() && base.CanGenerateData(column);
         }
 
-        public override bool CanGenerateData
+        protected override IEnumerable<object> GenerateData(NumberColumnPOCO column, int recordsCount)
         {
-            get
-            {
-                return GetBoundaryValues().Any() && base.CanGenerateData;
-            }
-        }
-
-        public override IEnumerable<object> GenerateData(int recordsCount)
-        {
-            var boundaryValues = GetBoundaryValues();
-            var data = new List<object>(recordsCount);
+            var boundaryValues = GetBoundaryValues(column);
             while (recordsCount-- > 0)
             {
                 var i = recordsCount % boundaryValues.Count;
-                data.Add(boundaryValues[i]);
+                yield return boundaryValues[i];
             }
-            return data;
         }
 
-        private List<int> GetBoundaryValues()
+        private List<int> GetBoundaryValues(NumberColumnPOCO column)
         {
             var maxVal = (int)Math.Floor(column.MaxValue);
             var minVal = (int)Math.Ceiling(column.MinValue);

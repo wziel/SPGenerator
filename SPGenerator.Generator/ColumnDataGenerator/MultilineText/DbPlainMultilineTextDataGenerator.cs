@@ -8,25 +8,22 @@ using SPGenerator.Generator.Database;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.MultilineText
 {
-    public class DbPlainMultilineTextDataGenerator : DbColumnDataGenerator<MultilineTextColumnPOCO>
+    public class DbPlainMultilineTextDataGenerator : DbColumnDataGenerator<MultilineTextColumnPOCO, string>,
+        IMultilineTextDataGenerator
     {
-        public DbPlainMultilineTextDataGenerator(MultilineTextColumnPOCO column) : base(column)
+        protected override List<string> FetchData(GeneratorDbContext db, MultilineTextColumnPOCO column, int recordsCount)
         {
-            //left empty
+            return db.Texts.OrderBy(x => Guid.NewGuid()).Take(recordsCount).Select(x => x.Content).ToList();
         }
 
-        protected override IEnumerable<object> GenerateData(GeneratorDbContext db, int recordsCount)
+        protected override IEnumerable<object> GenerateData(List<string> textSamples, MultilineTextColumnPOCO column, int recordsCount)
         {
-            var textSamples = db.Texts.OrderBy(x => Guid.NewGuid()).Take(recordsCount).Select(x => x.Content).ToList();
-            var data = new List<object>(recordsCount);
             while (recordsCount-- > 0)
             {
                 var text = textSamples[recordsCount % textSamples.Count];
                 var length = RANDOM.Next(column.MinLength, column.MaxLength);
-                var substring = text.Substring(0, length);
-                data.Add(substring);
+                yield return text.Substring(0, length);
             }
-            return data;
         }
     }
 }

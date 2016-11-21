@@ -63,7 +63,7 @@ namespace SPGenerator.Generator
                 foreach (var generator in columnGenerators)
                 {
                     var entryCount = entriesCountPerGenerator[generator];
-                    var generatorRawData = generator.GenerateData(entryCount);
+                    var generatorRawData = generator.GenerateData(column, entryCount);
                     columnRawData.AddRange(generatorRawData);
                 }
                 columnRawData = columnRawData.OrderBy(x => RANDOM.Next()).ToList();

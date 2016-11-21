@@ -41,34 +41,6 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
         }
 
         [TestMethod]
-        public void ColumnPOCO_TranslatesSelectedProperties()
-        {
-            //given
-            var columnVM = new NumberColumnVM()
-            {
-                InternalName = "test column name",
-                DisplayName = "test column display name",
-                Required = true,
-                MinValue = 10,
-                MaxValue = 100,
-                OnlyIntegers = true,
-                InternalMinValue = 10,
-                InternalMaxValue = 100
-            };
-            //when
-            var columnPOCO = columnVM.ColumnPOCO as NumberColumnPOCO;
-            //then
-            Assert.AreEqual(columnPOCO.InternalName, columnVM.InternalName);
-            Assert.AreEqual(columnPOCO.DisplayName, columnVM.DisplayName);
-            Assert.AreEqual(columnPOCO.Required, columnVM.Required);
-            Assert.AreEqual(columnPOCO.MinValue, columnVM.MinValue);
-            Assert.AreEqual(columnPOCO.MaxValue, columnVM.MaxValue);
-            Assert.AreEqual(columnPOCO.OnlyIntegers, columnVM.OnlyIntegers);
-            Assert.AreEqual(columnPOCO.InternalMinValue, columnVM.InternalMinValue);
-            Assert.AreEqual(columnPOCO.InternalMaxValue, columnVM.InternalMaxValue);
-        }
-
-        [TestMethod]
         public void Validate_MinMaxCondition()
         {
             //given
@@ -82,7 +54,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             //when
             var validationResults = columnVM.Validate(null);
             //then
-            Assert.AreEqual(validationResults.Count(), 1);
+            Assert.AreEqual(validationResults.Count(), 2);
             Assert.AreEqual(validationResults.First().ErrorMessage, "Minimalna wartość nie może być większa niż maksymalna");
         }
     }

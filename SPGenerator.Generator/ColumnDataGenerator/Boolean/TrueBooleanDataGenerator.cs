@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Boolean
 {
-    public class RandomBooleanDataGenerator : ColumnDataGenerator<BooleanColumnPOCO>, IBooleanDataGenerator
+    public class TrueBooleanDataGenerator : ColumnDataGenerator<BooleanColumnPOCO>, IBooleanDataGenerator
     {
         protected override IEnumerable<object> GenerateData(BooleanColumnPOCO column, int recordsCount)
         {
             while (recordsCount-- > 0)
             {
-                yield return RANDOM.Next(0, 2);
+                yield return true;
             }
         }
     }

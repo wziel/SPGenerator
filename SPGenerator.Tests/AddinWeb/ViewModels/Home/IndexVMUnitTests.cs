@@ -20,12 +20,15 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
             {
                 NumberColumnVMs = new List<NumberColumnVM>() { new NumberColumnVM() },
                 TextColumnVMs = new List<TextColumnVM>() { new TextColumnVM() },
-                MultilineTextColumnVMs = new List<MultilineTextColumnVM>() { new MultilineTextColumnVM() }
+                MultilineTextColumnVMs = new List<MultilineTextColumnVM>() { new MultilineTextColumnVM() },
+                ChoiceColumnVMs = new List<ChoiceColumnVM>() { new ChoiceColumnVM() },
+                BooleanColumnVMs = new List<BooleanColumnVM>() {  new BooleanColumnVM() },
+                DateTimeColumnVMs = new List<DateTimeColumnVM>() { new DateTimeColumnVM() },
             };
             //when
             var columns = vm.AllColumnVMs;
             //then
-            Assert.AreEqual(4, columns.Count);
+            Assert.AreEqual(6, columns.Count);
         }
 
         [TestMethod]

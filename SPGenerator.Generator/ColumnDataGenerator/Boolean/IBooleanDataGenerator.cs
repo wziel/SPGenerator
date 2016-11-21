@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SPGenerator.Generator.ColumnDataGenerator.Number
+namespace SPGenerator.Generator.ColumnDataGenerator.Boolean
 {
-    public class RandomIntegerDataGenerator : AbstractRandomIntegerDataGenerator
+    public interface IBooleanDataGenerator : IColumnDataGenerator
     {
         //left empty
     }

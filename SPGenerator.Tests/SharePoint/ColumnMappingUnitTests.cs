@@ -36,6 +36,7 @@ namespace SPGenerator.Tests.SharePoint
         {
             //given
             FieldNumber field = new ShimFieldNumber();
+            ShimField.AllInstances.FieldTypeKindGet = (a) => FieldType.Number;
             setUpShimField(internalName: "test title");
             //when
             var column = columnMappingResolver.Map(field);
@@ -48,6 +49,7 @@ namespace SPGenerator.Tests.SharePoint
         {
             //given
             Field field = new ShimFieldText();
+            ShimField.AllInstances.FieldTypeKindGet = (a) => FieldType.Text;
             setUpShimField(internalName: "test title");
             //when
             var column = columnMappingResolver.Map(field);
@@ -60,6 +62,7 @@ namespace SPGenerator.Tests.SharePoint
         {
             //given
             Field field = new ShimFieldMultiLineText();
+            ShimField.AllInstances.FieldTypeKindGet = (a) => FieldType.Note;
             setUpShimField(internalName: "test title");
             //when
             var column = columnMappingResolver.Map(field);

@@ -13,7 +13,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
     public class RandomDoubleDataGeneratorUnitTests
     {
         private NumberColumnPOCO column;
-        private RandomDoubleDataGenerator generator;
+        private AbstractRandomDoubleDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -23,7 +23,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
                 MaxValue = 100,
                 MinValue = -10
             };
-            generator = new RandomDoubleDataGenerator(column);
+            generator = new AbstractRandomDoubleDataGenerator();
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //given
             var recordsCount = 100;
             //when
-            var data = generator.GenerateData(recordsCount);
+            var data = generator.GenerateData(column, recordsCount);
             //then
             foreach (var dataPiece in data)
             {
@@ -46,7 +46,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //given
             var recordsCount = 100;
             //when
-            var data = generator.GenerateData(recordsCount);
+            var data = generator.GenerateData(column, recordsCount);
             //then
             Assert.AreEqual(recordsCount, data.Count());
         }
@@ -57,7 +57,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //given
             var recordsCount = 100;
             //when
-            var data = generator.GenerateData(recordsCount);
+            var data = generator.GenerateData(column, recordsCount);
             //then
             foreach(var dataPiece in data)
             {

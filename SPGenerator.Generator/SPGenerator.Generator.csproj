@@ -51,19 +51,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColumnDataGeneratorFactory.cs" />
+    <Compile Include="ColumnDataGenerator\Boolean\FalseBooleanDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Boolean\IBooleanDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Boolean\RandomBooleanDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Boolean\TrueBooleanDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Choice\IChoiceDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Choice\RandomChoiceDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\ColumnDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DateTime\BoundaryDateTimeDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\DateTime\IDateTimeDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DateTime\RandomDateTimeDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DbColumnDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\MultilineText\DbPlainMultilineTextDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\NullDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Number\BoundaryDoubleDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Number\BoundaryIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\MultilineText\IMultilineTextDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Number\RandomDoubleDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Number\RandomIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Shared\ISharedColumnDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Shared\NullDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\BoundaryDoubleDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\BoundaryIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\INumberDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\AbstractRandomDoubleDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\AbstractRandomIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\PositiveRandomIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\NegativeRandomIntegerDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\PositiveRandomDoubleDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Number\NegativeRandomDoubleDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Text\DbPlainTextDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Text\ITextDataGenerator.cs" />
     <Compile Include="Database\Model\Text.cs" />
     <Compile Include="DataGenerator.cs" />
     <Compile Include="Database\GeneratorDbContext.cs" />

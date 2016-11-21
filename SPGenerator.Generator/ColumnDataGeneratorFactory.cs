@@ -5,6 +5,7 @@ using SPGenerator.Generator.ColumnDataGenerator.DateTime;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
 using SPGenerator.Generator.ColumnDataGenerator.Text;
+using SPGenerator.Model;
 using SPGenerator.Model.Column;
 using System;
 using System.Collections.Generic;
@@ -19,85 +20,37 @@ namespace SPGenerator.Generator
     /// </summary>
     public class ColumnDataGeneratorFactory : IColumnDataGeneratorFactory
     {
-        private Dictionary<Type, Func<ColumnPOCO, IEnumerable<IColumnDataGenerator>>> getGeneratorsStrategies
-            = new Dictionary<Type, Func<ColumnPOCO, IEnumerable<IColumnDataGenerator>>>()
-            {
-                { typeof(NumberColumnPOCO), GetNumberDataGenerators },
-                { typeof(TextColumnPOCO), GetTextDataGenerators },
-                { typeof(MultilineTextColumnPOCO), GetMultilineTextDataGenerators },
-                { typeof(ChoiceColumnPOCO), GetChoiceDataGenerators },
-                { typeof(DateTimeColumnPOCO), GetDateTimeDataGeerators },
-                { typeof(BooleanColumnPOCO), GetBooleanDataGenerators },
-            };
+        private Dictionary<Type, IEnumerable<IColumnDataGenerator>> generatorsDic
+            = new Dictionary<Type, IEnumerable<IColumnDataGenerator>>();
+        
+        public ColumnDataGeneratorFactory(
+            IEnumerable<IBooleanDataGenerator> booleanGenerators,
+            IEnumerable<IChoiceDataGenerator> choiceGenerators,
+            IEnumerable<IDateTimeDataGenerator> dateTimeGenerators,
+            IEnumerable<IMultilineTextDataGenerator> multilineTextGenerators,
+            IEnumerable<INumberDataGenerator> numberGenerators,
+            IEnumerable<ITextDataGenerator> textGenerators)
+        {
+            generatorsDic.Add(typeof(BooleanColumnPOCO), booleanGenerators.ToList());
+            generatorsDic.Add(typeof(ChoiceColumnPOCO), choiceGenerators.ToList());
+            generatorsDic.Add(typeof(DateTimeColumnPOCO), dateTimeGenerators.ToList());
+            generatorsDic.Add(typeof(MultilineTextColumnPOCO), multilineTextGenerators.ToList());
+            generatorsDic.Add(typeof(NumberColumnPOCO), numberGenerators.ToList());
+            generatorsDic.Add(typeof(TextColumnPOCO), textGenerators.ToList());
+        }
 
         public IEnumerable<IColumnDataGenerator> GetDataGenerators(ColumnPOCO columnPOCO)
         {
-            var generators = getGeneratorsStrategies[columnPOCO.GetType()].Invoke(columnPOCO);
-            return generators.Where(g => g.CanGenerateData);
-        }
-
-        private static IEnumerable<IColumnDataGenerator> GetNumberDataGenerators(ColumnPOCO columnPOCO)
-        {
-            var numberColumnPOCO = (NumberColumnPOCO)columnPOCO;
-            return new List<IColumnDataGenerator>()
+            var generators = generatorsDic[columnPOCO.GetType()];
+            if(generators != null)
             {
-                new RandomIntegerDataGenerator(numberColumnPOCO),
-                new RandomDoubleDataGenerator(numberColumnPOCO),
-                new BoundaryDoubleDataGenerator(numberColumnPOCO),
-                new BoundaryIntegerDataGenerator(numberColumnPOCO),
-                new NullDataGenerator(columnPOCO),
-            };
-        }
-
-        private static IEnumerable<IColumnDataGenerator> GetTextDataGenerators(ColumnPOCO columnPOCO)
-        {
-            var textColumnPOCO = (TextColumnPOCO)columnPOCO;
-            return new List<IColumnDataGenerator>()
-            {
-                new DbPlainTextDataGenerator(textColumnPOCO),
-                new NullDataGenerator(columnPOCO),
-            };
-        }
-
-        private static IEnumerable<IColumnDataGenerator> GetMultilineTextDataGenerators(ColumnPOCO columnPOCO)
-        {
-            var multilineTextColumnPOCO = columnPOCO as MultilineTextColumnPOCO;
-            return new List<IColumnDataGenerator>()
-            {
-                new DbPlainMultilineTextDataGenerator(multilineTextColumnPOCO),
-                new NullDataGenerator(columnPOCO),
-            };
-        }
-
-        private static IEnumerable<IColumnDataGenerator> GetChoiceDataGenerators(ColumnPOCO columnPOCO)
-        {
-            var choiceColumnPOCO = columnPOCO as ChoiceColumnPOCO;
-            return new List<IColumnDataGenerator>()
-            {
-                new RandomChoiceDataGenerator(choiceColumnPOCO),
-                new NullDataGenerator(choiceColumnPOCO),
-            };
-        }
-
-        private static IEnumerable<IColumnDataGenerator> GetDateTimeDataGeerators(ColumnPOCO columnPOCO)
-        {
-            var dateTimeColumnPOCO = columnPOCO as DateTimeColumnPOCO;
-            return new List<IColumnDataGenerator>()
-            {
-                new RandomDateTimeDataGenerator(dateTimeColumnPOCO),
-                new BoundaryDateTimeDataGenerator(dateTimeColumnPOCO),
-                new NullDataGenerator(dateTimeColumnPOCO),
-            };
-        }
-
-        private static IEnumerable<IColumnDataGenerator> GetBooleanDataGenerators(ColumnPOCO columnPOCO)
-        {
-            var booleanColumn = columnPOCO as BooleanColumnPOCO;
-            return new List<IColumnDataGenerator>()
-            {
-                new RandomBooleanDataGenerator(booleanColumn),
-                new NullDataGenerator(booleanColumn),
-            };
+                generators = generators.Where(g => g.CanGenerateData(columnPOCO));
+                if(generators.Any())
+                {
+                    return generators;
+                }
+            }
+            throw new GUIVisibleException("Nie udało się znaleźć generatorów danych dla kolumny " + columnPOCO.DisplayName);
         }
     }
 

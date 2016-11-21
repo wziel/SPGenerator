@@ -34,28 +34,6 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             Assert.AreEqual(columnPOCO.MinLength, columnVM.MinLength);
         }
 
-        [TestMethod]
-        public void ColumnPOCO_TranslatesSelectedProperties()
-        {
-            //given
-            var columnVM = new MultilineTextColumnVM()
-            {
-                InternalName = "test column name",
-                DisplayName = "test column display name",
-                Required = true,
-                MaxLength = 100,
-                MinLength = 10,
-            };
-            //when
-            var columnPOCO = columnVM.ColumnPOCO as MultilineTextColumnPOCO;
-            //then
-            Assert.AreEqual(columnPOCO.InternalName, columnVM.InternalName);
-            Assert.AreEqual(columnPOCO.DisplayName, columnVM.DisplayName);
-            Assert.AreEqual(columnPOCO.Required, columnVM.Required);
-            Assert.AreEqual(columnPOCO.MaxLength, columnVM.MaxLength);
-            Assert.AreEqual(columnPOCO.MinLength, columnVM.MinLength);
-        }
-
 
         [TestMethod]
         public void Validate_MinMaxCondition()

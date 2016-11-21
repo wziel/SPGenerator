@@ -16,7 +16,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator
         [TestInitialize]
         public void TestInitialize()
         {
-            generator = new NullDataGenerator(null);
+            generator = new NullDataGenerator();
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator
             //given
             var recordsCount = 10;
             //when
-            var data = generator.GenerateData(recordsCount);
+            var data = generator.GenerateData(null, recordsCount);
             //then
             Assert.AreEqual(recordsCount, data.Count());
             foreach(var dataPiece in data)

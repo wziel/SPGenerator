@@ -7,24 +7,16 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.DateTime
 {
-    public class RandomDateTimeDataGenerator : ColumnDataGenerator<DateTimeColumnPOCO>
+    public class RandomDateTimeDataGenerator : ColumnDataGenerator<DateTimeColumnPOCO>, IDateTimeDataGenerator
     {
-        public RandomDateTimeDataGenerator(DateTimeColumnPOCO column) : base(column)
+        protected override IEnumerable<object> GenerateData(DateTimeColumnPOCO column, int recordsCount)
         {
-            //left empty
-        }
-
-        public override IEnumerable<object> GenerateData(int recordsCount)
-        {
-            var data = new List<object>(recordsCount);
             var milisecondsRange = (column.MaxValue - column.MinValue).TotalMilliseconds;
             while (recordsCount-- > 0)
             {
                 var miliseconds = RANDOM.NextDouble() * milisecondsRange;
-                var resultDate = column.MinValue.AddMilliseconds(miliseconds);
-                data.Add(resultDate);
+                yield return column.MinValue.AddMilliseconds(miliseconds);
             }
-            return data;
         }
     }
 }

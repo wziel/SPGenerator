@@ -37,31 +37,6 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
         }
 
         [TestMethod]
-        public void ColumnPOCO_TranslatesSelectedProperties()
-        {
-            //given
-            var columnVM = new TextColumnVM()
-            {
-                InternalName = "test column name",
-                DisplayName = "test column display name",
-                Required = true,
-                MaxLength = 100,
-                MinLength = 10,
-                InternalMaxLength = 100
-            };
-            //when
-            var columnPOCO = columnVM.ColumnPOCO as TextColumnPOCO;
-            //then
-            Assert.AreEqual(columnPOCO.InternalName, columnVM.InternalName);
-            Assert.AreEqual(columnPOCO.DisplayName, columnVM.DisplayName);
-            Assert.AreEqual(columnPOCO.Required, columnVM.Required);
-            Assert.AreEqual(columnPOCO.MaxLength, columnVM.MaxLength);
-            Assert.AreEqual(columnPOCO.MinLength, columnVM.MinLength);
-            Assert.AreEqual(columnPOCO.InternalMaxLength, columnVM.InternalMaxLength);
-        }
-
-
-        [TestMethod]
         public void Validate_MinMaxCondition()
         {
             //given

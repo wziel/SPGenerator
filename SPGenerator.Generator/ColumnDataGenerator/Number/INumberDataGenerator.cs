@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Number
 {
-    public class RandomIntegerDataGenerator : AbstractRandomIntegerDataGenerator
+    public interface INumberDataGenerator : IColumnDataGenerator
     {
         //left empty
     }

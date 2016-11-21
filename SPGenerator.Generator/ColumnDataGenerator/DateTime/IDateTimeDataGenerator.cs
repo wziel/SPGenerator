@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SPGenerator.Generator.ColumnDataGenerator.Number
+namespace SPGenerator.Generator.ColumnDataGenerator.DateTime
 {
-    public class RandomIntegerDataGenerator : AbstractRandomIntegerDataGenerator
+    public interface IDateTimeDataGenerator : IColumnDataGenerator
     {
         //left empty
     }

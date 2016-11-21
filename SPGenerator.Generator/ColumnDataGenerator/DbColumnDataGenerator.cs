@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace SPGenerator.Generator.ColumnDataGenerator
 {
-    public abstract class DbColumnDataGenerator<TColumnPOCO> : ColumnDataGenerator<TColumnPOCO> where TColumnPOCO : ColumnPOCO
+    public abstract class DbColumnDataGenerator<TColumnPOCO, TDbReturn> : ColumnDataGenerator<TColumnPOCO> 
+        where TColumnPOCO : ColumnPOCO
     {
-        protected DbColumnDataGenerator(TColumnPOCO column) : base(column)
+        protected sealed override IEnumerable<object> GenerateData(TColumnPOCO column, int recordsCount)
         {
-            //left empty
-        }
-
-        public sealed override IEnumerable<object> GenerateData(int recordsCount)
-        {
+            List<TDbReturn> dbData;
             using (var db = new GeneratorDbContext())
             {
-                return GenerateData(db, recordsCount);
+                dbData = FetchData(db, column, recordsCount);
             }
+            return GenerateData(dbData, column, recordsCount);
         }
 
-        protected abstract IEnumerable<object> GenerateData(GeneratorDbContext db, int recordsCount);
+        protected abstract List<TDbReturn> FetchData(GeneratorDbContext db, TColumnPOCO column, int recordsCount);
+
+        protected abstract IEnumerable<object> GenerateData(List<TDbReturn> dbData, TColumnPOCO column, int recordsCount);
     }
 }
