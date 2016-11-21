@@ -1,0 +1,32 @@
+﻿@model SPGenerator.AddinWeb.ViewModels.Home.Column.CurrencyColumnVM
+
+@Html.HiddenFor(m => m.InternalName)
+<div class="form-group">
+    @Html.Label("", "Typ", new { @class = "control-label col-sm-5" })
+    <span class="form-control-static col-sm-7">Waluta</span>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.GenerateData, new { @class = "control-label col-sm-5" })
+    @if (Model.Required)
+    {
+    <span class="form-control-static col-sm-7">Pole wymagane</span>
+    }
+    else
+    {
+    @Html.CheckBoxFor(m => m.GenerateData, new { @style = "vertical-align: middle;" })
+    }
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.OnlyIntegers, new { @class = "control-label col-sm-5" })
+    @Html.CheckBoxFor(m => m.OnlyIntegers, new { @style = "vertical-align: middle;" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.MinValue, new { @class = "control-label col-sm-5" })
+    @Html.TextBoxFor(m => m.MinValue,
+    new { @class = "form-control col-sm-7", @type = "number", @min = Model.InternalMinValue, @max = Model.InternalMaxValue })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.MaxValue, new { @class = "control-label col-sm-5" })
+    @Html.TextBoxFor(m => m.MaxValue,
+    new { @class = "form-control col-sm-7", @type = "number", @min = Model.InternalMinValue, @max = Model.InternalMaxValue })
+</div>

@@ -95,6 +95,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 allColumnVMs.AddRange(ChoiceColumnVMs);
                 allColumnVMs.AddRange(DateTimeColumnVMs);
                 allColumnVMs.AddRange(BooleanColumnVMs);
+                allColumnVMs.AddRange(CurrencyColumnVMs);
                 return allColumnVMs;
             }
         }
@@ -105,6 +106,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         public List<ChoiceColumnVM> ChoiceColumnVMs { get; set; } = new List<ChoiceColumnVM>();
         public List<DateTimeColumnVM> DateTimeColumnVMs { get; set; } = new List<DateTimeColumnVM>();
         public List<BooleanColumnVM> BooleanColumnVMs { get; set; } = new List<BooleanColumnVM>();
+        public List<CurrencyColumnVM> CurrencyColumnVMs { get; set; } = new List<CurrencyColumnVM>();
 
     }
 }

@@ -19,6 +19,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 { typeof(ChoiceColumnPOCO), (indexVM, column) => indexVM.ChoiceColumnVMs.Add(new ChoiceColumnVM((ChoiceColumnPOCO) column)) },
                 { typeof(DateTimeColumnPOCO), (indexVM, column) => indexVM.DateTimeColumnVMs.Add(new DateTimeColumnVM((DateTimeColumnPOCO) column)) },
                 { typeof(BooleanColumnPOCO), (indexVM, column) => indexVM.BooleanColumnVMs.Add(new BooleanColumnVM((BooleanColumnPOCO) column)) },
+                { typeof(CurrencyColumnPOCO), (indexVM, column) => indexVM.CurrencyColumnVMs.Add(new CurrencyColumnVM((CurrencyColumnPOCO) column)) },
             };
 
         public IndexVM GetDefaultIndexVM(List<ListPOCO> allLists, string hostWebUrl)
@@ -46,6 +47,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
             indexVM.ChoiceColumnVMs = new List<ChoiceColumnVM>();
             indexVM.DateTimeColumnVMs = new List<DateTimeColumnVM>();
             indexVM.BooleanColumnVMs = new List<BooleanColumnVM>();
+            indexVM.CurrencyColumnVMs = new List<CurrencyColumnVM>();
         }
     }
 

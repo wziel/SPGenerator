@@ -1,5 +1,6 @@
 ﻿using SPGenerator.Generator.ColumnDataGenerator.Boolean;
 using SPGenerator.Generator.ColumnDataGenerator.Choice;
+using SPGenerator.Generator.ColumnDataGenerator.Currency;
 using SPGenerator.Generator.ColumnDataGenerator.DateTime;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace SPGenerator.Generator.ColumnDataGenerator.Shared
 {
     public interface ISharedDataGenerator: IBooleanDataGenerator, IChoiceDataGenerator, IDateTimeDataGenerator,
-        IMultilineTextDataGenerator, INumberDataGenerator, ITextDataGenerator
+        IMultilineTextDataGenerator, INumberDataGenerator, ITextDataGenerator, ICurrencyDataGenerator
     {
     }
 }

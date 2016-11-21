@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SPGenerator.Model.Column;
+using SPGenerator.Generator.ColumnDataGenerator.Currency;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.Number
 {

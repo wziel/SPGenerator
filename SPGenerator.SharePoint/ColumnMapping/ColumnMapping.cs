@@ -3,7 +3,7 @@ using SPGenerator.Model.Column;
 
 namespace SPGenerator.SharePoint.ColumnMapping
 {
-    internal abstract class ColumnMapping<TInputField, TResultColumnPOCO> : ICOlumnMapping 
+    internal abstract class ColumnMapping<TInputField, TResultColumnPOCO> : IColumnMapping 
         where TResultColumnPOCO : ColumnPOCO
         where TInputField : Field
     {
@@ -26,7 +26,7 @@ namespace SPGenerator.SharePoint.ColumnMapping
         protected abstract TResultColumnPOCO CreateColumnPOCO();
     }
 
-    internal interface ICOlumnMapping
+    internal interface IColumnMapping
     {
         ColumnPOCO Map(Field field);
     }

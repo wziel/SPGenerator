@@ -118,6 +118,7 @@
     <Compile Include="ColumnMapping\ChoiceColumnMapping.cs" />
     <Compile Include="ColumnMapping\ColumnMapping.cs" />
     <Compile Include="ColumnMapping\ColumnMappingResolver.cs" />
+    <Compile Include="ColumnMapping\CurrencyColumnMapping.cs" />
     <Compile Include="ColumnMapping\DateTimeColumnMapping.cs" />
     <Compile Include="ColumnMapping\MultilineTextColumnMapping.cs" />
     <Compile Include="ColumnMapping\NumberColumnMapping.cs" />

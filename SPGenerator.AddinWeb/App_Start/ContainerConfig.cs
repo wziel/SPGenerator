@@ -5,6 +5,7 @@ using SPGenerator.AddinWeb.ViewModels.Home;
 using SPGenerator.Generator;
 using SPGenerator.Generator.ColumnDataGenerator.Boolean;
 using SPGenerator.Generator.ColumnDataGenerator.Choice;
+using SPGenerator.Generator.ColumnDataGenerator.Currency;
 using SPGenerator.Generator.ColumnDataGenerator.DateTime;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
@@ -52,6 +53,17 @@ namespace SPGenerator.AddinWeb.App_Start
             });
             container.RegisterCollection<IChoiceDataGenerator>(new[] {
                 typeof(RandomChoiceDataGenerator),
+                typeof(NullDataGenerator),
+            });
+            container.RegisterCollection<ICurrencyDataGenerator>(new[] {
+                typeof(BoundaryDoubleDataGenerator),
+                typeof(BoundaryIntegerDataGenerator),
+                typeof(NegativeRandomDoubleDataGenerator),
+                typeof(NegativeRandomIntegerDataGenerator),
+                typeof(PositiveRandomDoubleDataGenerator),
+                typeof(PositiveRandomIntegerDataGenerator),
+                typeof(RandomDoubleDataGenerator),
+                typeof(RandomIntegerDataGenerator),
                 typeof(NullDataGenerator),
             });
             container.RegisterCollection<IDateTimeDataGenerator>(new[] {

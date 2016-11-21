@@ -1,6 +1,7 @@
 ﻿using SPGenerator.Generator.ColumnDataGenerator;
 using SPGenerator.Generator.ColumnDataGenerator.Boolean;
 using SPGenerator.Generator.ColumnDataGenerator.Choice;
+using SPGenerator.Generator.ColumnDataGenerator.Currency;
 using SPGenerator.Generator.ColumnDataGenerator.DateTime;
 using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
@@ -26,6 +27,7 @@ namespace SPGenerator.Generator
         public ColumnDataGeneratorFactory(
             IEnumerable<IBooleanDataGenerator> booleanGenerators,
             IEnumerable<IChoiceDataGenerator> choiceGenerators,
+            IEnumerable<ICurrencyDataGenerator> currencyGenerators,
             IEnumerable<IDateTimeDataGenerator> dateTimeGenerators,
             IEnumerable<IMultilineTextDataGenerator> multilineTextGenerators,
             IEnumerable<INumberDataGenerator> numberGenerators,
@@ -33,6 +35,7 @@ namespace SPGenerator.Generator
         {
             generatorsDic.Add(typeof(BooleanColumnPOCO), booleanGenerators.ToList());
             generatorsDic.Add(typeof(ChoiceColumnPOCO), choiceGenerators.ToList());
+            generatorsDic.Add(typeof(CurrencyColumnPOCO), currencyGenerators.ToList());
             generatorsDic.Add(typeof(DateTimeColumnPOCO), dateTimeGenerators.ToList());
             generatorsDic.Add(typeof(MultilineTextColumnPOCO), multilineTextGenerators.ToList());
             generatorsDic.Add(typeof(NumberColumnPOCO), numberGenerators.ToList());

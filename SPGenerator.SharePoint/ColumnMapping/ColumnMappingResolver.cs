@@ -11,19 +11,20 @@ namespace SPGenerator.SharePoint.ColumnMapping
 {
     public class ColumnMappingResolver : IColumnMappingResolver
     {
-        private Dictionary<FieldType, ICOlumnMapping> columnMappings = new Dictionary<FieldType, ICOlumnMapping>()
+        private Dictionary<FieldType, IColumnMapping> columnMappings = new Dictionary<FieldType, IColumnMapping>()
         {
-            { FieldType.Text, new TextColumnMapping() },
-            { FieldType.Number, new NumberColumnMapping() },
-            { FieldType.Note, new MultilineTextColumnMapping() },
+            { FieldType.Boolean, new BooleanColumnMapping() },
             { FieldType.Choice, new ChoiceColumnMapping() },
+            { FieldType.Currency, new CurrencyColumnMapping() },
             { FieldType.DateTime, new DateTimeColumnMapping() },
-            { FieldType.Boolean, new BooleanColumnMapping() }
+            { FieldType.Note, new MultilineTextColumnMapping() },
+            { FieldType.Number, new NumberColumnMapping() },
+            { FieldType.Text, new TextColumnMapping() },
         };
 
         public ColumnPOCO Map(Field field)
         {
-            ICOlumnMapping mapping;
+            IColumnMapping mapping;
             columnMappings.TryGetValue(field.FieldTypeKind, out mapping);
             if(mapping == null)
             {

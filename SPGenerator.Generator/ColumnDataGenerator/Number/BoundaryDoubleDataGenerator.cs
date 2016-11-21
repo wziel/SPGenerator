@@ -1,4 +1,5 @@
-﻿using SPGenerator.Model.Column;
+﻿using SPGenerator.Generator.ColumnDataGenerator.Currency;
+using SPGenerator.Model.Column;
 using System;
 using System.Collections.Generic;
 using System.Linq;
