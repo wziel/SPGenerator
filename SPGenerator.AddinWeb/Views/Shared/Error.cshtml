@@ -1,4 +1,6 @@
-﻿@{
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
     Layout = null;
 }
 
@@ -12,16 +14,10 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            @if (ViewBag.Error != null)
+            <h2>Wystąpił błąd w aplikacji.</h2>
+            @if (Model?.Exception?.Message != null)
             {
-                <h2>Wystąpił błąd w aplikacji.</h2>
-                <p>Proszę skontaktować się z administartorem w celu rozwiązania problemu.</p>
-                <p>@ViewBag.Error</p>
-            }
-            else
-            {
-                <h2>Wystąpił nieoczekiwany błąd w aplikacji.</h2>
-                <p>Proszę spróbować ponownie poprzez uruchomienie aplikacji z poziomu zbioru witryn.</p>
+                <p>@Model.Exception.Message</p>
             }
         </div>
     </div>

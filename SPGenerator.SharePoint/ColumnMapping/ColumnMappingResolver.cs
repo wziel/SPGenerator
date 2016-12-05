@@ -11,6 +11,37 @@ namespace SPGenerator.SharePoint.ColumnMapping
 {
     public class ColumnMappingResolver : IColumnMappingResolver
     {
+        private HashSet<FieldType> unsupportedFieldTypes = new HashSet<FieldType>()
+        {
+            FieldType.AllDayEvent,
+            FieldType.Attachments,
+            FieldType.Calculated,
+            FieldType.Computed,
+            FieldType.ContentTypeId,
+            FieldType.Counter,
+            FieldType.CrossProjectLink,
+            FieldType.Error,
+            FieldType.File,
+            FieldType.Geolocation,
+            FieldType.GridChoice,
+            FieldType.Guid,
+            FieldType.Integer,
+            FieldType.Invalid,
+            FieldType.Lookup,
+            FieldType.MaxItems,
+            FieldType.ModStat,
+            FieldType.MultiChoice,
+            FieldType.OutcomeChoice,
+            FieldType.PageSeparator,
+            FieldType.Recurrence,
+            FieldType.ThreadIndex,
+            FieldType.Threading,
+            FieldType.URL,
+            FieldType.User,
+            FieldType.WorkflowEventType,
+            FieldType.WorkflowStatus,
+        };
+
         private Dictionary<FieldType, IColumnMapping> columnMappings = new Dictionary<FieldType, IColumnMapping>()
         {
             { FieldType.Boolean, new BooleanColumnMapping() },

@@ -23,11 +23,9 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         }
 
         [DisplayName("Maksymalna długość")]
-        [Range(MultilineTextColumnPOCO.MIN_LENGTH, MultilineTextColumnPOCO.MAX_LENGTH)]
         public int MaxLength { get; set; }
 
         [DisplayName("Minimalna długość")]
-        [Range(MultilineTextColumnPOCO.MIN_LENGTH, MultilineTextColumnPOCO.MAX_LENGTH)]
         public int MinLength { get; set; }
 
         public override void ApplyTo(ColumnPOCO columnPOCO)
@@ -38,27 +36,26 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             multilineTextColumnPOCO.MinLength = MinLength;
         }
 
-        public override void AssertCanApplyTo(ColumnPOCO columnPOCO)
-        {
-            base.AssertCanApplyTo(columnPOCO);
-            if (MaxLength > MultilineTextColumnPOCO.MAX_LENGTH)
-            {
-                throw new GUIVisibleException("Długość wartości kolumny " + InternalName + " typu Wiele wierszy tesktu nie może przekraczać " +
-                    MultilineTextColumnPOCO.MAX_LENGTH + " znaków");
-            }
-            if(MinLength < MultilineTextColumnPOCO.MIN_LENGTH)
-            {
-                throw new GUIVisibleException("Długość wartości kolumny " + InternalName + " typu Wiele wierszy tesktu nie może być mniejsza od " +
-                    MultilineTextColumnPOCO.MIN_LENGTH + " znaków");
-            }
-        }
-
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (MinLength > MaxLength)
             {
-                yield return new ValidationResult("Minimalna długość nie może być większa niż maksymalna",
+                yield return new ValidationResult($"Minimalna długość kolumny {InternalName} nie może być większa niż maksymalna",
                     new[] { nameof(MaxLength), nameof(MinLength) });
+            }
+            if (MaxLength > MultilineTextColumnPOCO.MAX_LENGTH)
+            {
+                yield return new ValidationResult($"Długość wartości kolumny {InternalName} nie może przekraczać {MultilineTextColumnPOCO.MAX_LENGTH} znaków", 
+                    new[] { nameof(MaxLength)});
+            }
+            if (MinLength < MultilineTextColumnPOCO.MIN_LENGTH)
+            {
+                yield return new ValidationResult($"Długość wartości kolumny {InternalName} nie może być mniejsza od {MultilineTextColumnPOCO.MIN_LENGTH} znaków", 
+                    new[] { nameof(MinLength) });
+            }
+            foreach (var baseResult in base.Validate(validationContext))
+            {
+                yield return baseResult;
             }
         }
     }

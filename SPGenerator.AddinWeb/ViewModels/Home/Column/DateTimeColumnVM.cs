@@ -39,8 +39,12 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             if (MinValue > MaxValue)
             {
-                yield return new ValidationResult("Minimalna wartość daty nie może być większa niż maksymalna",
+                yield return new ValidationResult($"Minimalna wartość kolumny {InternalName} nie może być większa niż maksymalna",
                     new[] { nameof(MaxValue), nameof(MinValue) });
+            }
+            foreach(var baseResult in base.Validate(validationContext))
+            {
+                yield return baseResult;
             }
         }
     }

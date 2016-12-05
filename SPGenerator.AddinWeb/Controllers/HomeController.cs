@@ -36,10 +36,15 @@ namespace SPGenerator.AddinWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
+            var indexVM = GetDefaultIndexVM();
+            return View(indexVM);
+        }
+
+        private IndexVM GetDefaultIndexVM()
+        {
             var allLists = sharePointService.AllListPOCO;
             var hostWebUrl = sharePointService.HostWebUrl;
-            var indexVM = indexVMFactory.GetDefaultIndexVM(allLists, hostWebUrl);
-            return View(indexVM);
+            return indexVMFactory.GetDefaultIndexVM(allLists, hostWebUrl);
         }
 
         /// <summary>
@@ -50,7 +55,12 @@ namespace SPGenerator.AddinWeb.Controllers
         public ActionResult ListSelect(IndexVM indexVM)
         {
             var selectedList = sharePointService.GetListPOCO(indexVM.SelectedListVM.Title);
-            indexVM = indexVMFactory.GetIndexVMWithSelectedList(indexVM, selectedList);
+            indexVM = GetDefaultIndexVM();
+            if(selectedList != null)
+            {
+                indexVMFactory.GetIndexVMWithSelectedList(indexVM, selectedList);
+            }
+            ModelState.Clear();
             return View("Index", indexVM);
         }
 
@@ -62,12 +72,15 @@ namespace SPGenerator.AddinWeb.Controllers
         public ActionResult GenerateData(IndexVM indexVM)
         {
             var listPOCO = sharePointService.GetListPOCO(indexVM.SelectedListVM.Title);
+            indexVM.ApplyTo(listPOCO);
+            ModelState.Clear();
+            TryValidateModel(indexVM);
             if (ModelState.IsValid)
             {
-                indexVM.ApplyTo(listPOCO);
                 var data = dataGenerator.GenerateData(listPOCO, indexVM.RecordsToGenerateCount);
                 sharePointService.Save(data, listPOCO);
             }
+            indexVM = GetDefaultIndexVM();
             indexVM = indexVMFactory.GetIndexVMWithSelectedList(indexVM, listPOCO);
             return View("Index", indexVM);
         }

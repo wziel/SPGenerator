@@ -14,7 +14,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
     /// <summary>
     /// View Model for Index View in Home Controller.
     /// </summary>
-    public class IndexVM
+    public class IndexVM : IValidatableObject
     {
         /// <summary>
         /// Lists available for generation in Site Collection.
@@ -79,8 +79,18 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 {
                     throw new GUIVisibleException("Nie znaleziono kolumny o nazwie " + columnVM.InternalName);
                 }
-                columnVM.AssertCanApplyTo(columnPOCO);
                 columnVM.ApplyTo(columnPOCO);
+            }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            foreach(var columnVM in AllColumnVMs)
+            {
+                foreach(var validationResult in columnVM.Validate(validationContext))
+                {
+                    yield return validationResult;
+                }
             }
         }
 

@@ -25,7 +25,7 @@ if (Model.ShowListVMs)
     {
         Text = listVM.Title,
         Value = listVM.Title,
-        Selected = listVM == Model.SelectedListVM
+        Selected = (Model.SelectedListVM != null && listVM.Title == Model.SelectedListVM.Title)
     }).ToList();
     var selectList = new SelectList(selectListItems, "Text", "Value");
         <form method="post" id="mainForm" class="form-horizontal">
@@ -128,6 +128,13 @@ if (Model.ShowColumnVMs)
                     var columnId = "column" + columnSequence++;
                     MvcHtmlString result = Html.EditorFor(m => m.CurrencyColumnVMs[i]);
                     @ColumnCollapse(Model.CurrencyColumnVMs[i].DisplayName, columnId, result);
+                }
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div style="color:darkred">
+                        <h3>Błędy:</h3>
+                        @Html.ValidationSummary()
+                    </div>
                 }
             </div>
         </div>

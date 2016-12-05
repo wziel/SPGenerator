@@ -24,11 +24,9 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         }
 
         [DisplayName("Maksymalna długość")]
-        [Range(TextColumnPOCO.MIN_LENGTH, TextColumnPOCO.MAX_LENGTH)]
         public int MaxLength { get; set; }
 
         [DisplayName("Minimalna długość")]
-        [Range(TextColumnPOCO.MIN_LENGTH, TextColumnPOCO.MAX_LENGTH)]
         public int MinLength { get; set; }
 
         public int InternalMaxLength { get; set; }
@@ -41,28 +39,22 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             textColumnPOCO.MinLength = MinLength;
         }
 
-        public override void AssertCanApplyTo(ColumnPOCO columnPOCO)
-        {
-            base.AssertCanApplyTo(columnPOCO);
-            var textColumnPOCO = columnPOCO as TextColumnPOCO;
-            if (MaxLength > TextColumnPOCO.MAX_LENGTH)
-            {
-                throw new GUIVisibleException("Długość wartości kolumny " + InternalName + " typu Pojedynczy wiersz tesktu " +
-                    "nie może przekraczać " + textColumnPOCO.InternalMaxLength);
-            }
-            if (MinLength > TextColumnPOCO.MIN_LENGTH)
-            {
-                throw new GUIVisibleException("Długość wartości kolumny " + InternalName + " typu Pojedynczy wiersz tesktu " +
-                    "nie może być mniejsza od " + TextColumnPOCO.MIN_LENGTH);
-            }
-        }
-
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (MinLength > MaxLength)
             {
-                yield return new ValidationResult("Minimalna długość nie może być większa niż maksymalna",
+                yield return new ValidationResult($"Minimalna długość kolumny {InternalName} nie może być większa niż maksymalna",
                     new[] { nameof(MaxLength), nameof(MinLength) });
+            }
+            if (columnPOCO != null && MaxLength > columnPOCO.InternalMaxLength)
+            {
+                yield return new ValidationResult($"Maksymalna długość kolumny {InternalName} nie może przekraczać {columnPOCO.InternalMaxLength}",
+                    new[] { nameof(MaxLength)});
+            }
+            if (MinLength < TextColumnPOCO.MIN_LENGTH)
+            {
+                yield return new ValidationResult($"Minimalna długość kolumny {InternalName} nie może być mniejsza od {TextColumnPOCO.MIN_LENGTH}",
+                    new[] { nameof(MinLength) });
             }
         }
     }

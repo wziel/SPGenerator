@@ -26,11 +26,9 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         }
 
         [DisplayName("Minimalna wartość")]
-        [Range(NumberColumnPOCO.MIN_VALUE, NumberColumnPOCO.MAX_VALUE)]
         public double MinValue { get; set; }
 
         [DisplayName("Maksymalna wartość")]
-        [Range(NumberColumnPOCO.MIN_VALUE, NumberColumnPOCO.MAX_VALUE)]
         public double MaxValue { get; set; }
 
         [DisplayName("Tylko całkowite")]
@@ -49,22 +47,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             numberColumnPOCO.OnlyIntegers = OnlyIntegers;
         }
 
-        public override void AssertCanApplyTo(ColumnPOCO columnPOCO)
-        {
-            base.AssertCanApplyTo(columnPOCO);
-            var numberColumnPOCO = columnPOCO as NumberColumnPOCO;
-            if (MinValue < NumberColumnPOCO.MIN_VALUE)
-            {
-                throw new GUIVisibleException("Wartość w kolumnie " + InternalName + " typu Liczba nie może być mniejsza od "
-                    + numberColumnPOCO.InternalMinValue);
-            }
-            if (MaxValue > NumberColumnPOCO.MAX_VALUE)
-            {
-                throw new GUIVisibleException("Wartość w kolumnie " + InternalName + " typu Liczba nie może przekraczać "
-                    + numberColumnPOCO.InternalMaxValue);
-            }
-        }
-
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (MaxValue < MinValue)
@@ -74,8 +56,22 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
             }
             if(OnlyIntegers && (MaxValue - MinValue < 1))
             {
-                yield return new ValidationResult("Przedział musi zawierać co najmniej jedną wartość całkowitą",
+                yield return new ValidationResult($"Przedział wartości w kolumnie {InternalName} musi zawierać co najmniej jedną wartość całkowitą",
                     new[] { nameof(MinValue), nameof(MaxValue), nameof(OnlyIntegers) });
+            }
+            if (columnPOCO != null && MinValue < columnPOCO.InternalMinValue)
+            {
+                yield return new ValidationResult($"Wartość minimalna w kolumnie {InternalName} nie może być mniejsza od {columnPOCO.InternalMinValue}",
+                    new[] { nameof(MinValue)});
+            }
+            if (columnPOCO != null && MaxValue > columnPOCO.InternalMaxValue)
+            {
+                yield return new ValidationResult($"Wartość maksymalna w kolumnie {InternalName} nie może przekraczać {columnPOCO.InternalMaxValue}",
+                    new[] { nameof(MaxValue) });
+            }
+            foreach(var baseResult in base.Validate(validationContext))
+            {
+                yield return baseResult;
             }
         }
     }

@@ -34,20 +34,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         public IndexVM GetIndexVMWithSelectedList(IndexVM indexVM, ListPOCO selectedList)
         {
             indexVM.SelectedListVM = new ListVM(selectedList);
-            ClearAllColumnVMs(indexVM);
             selectedList.ColumnPOCOList.ForEach(c => addColumnStrategies[c.GetType()].Invoke(indexVM, c));
             return indexVM;
-        }
-
-        private void ClearAllColumnVMs(IndexVM indexVM)
-        {
-            indexVM.NumberColumnVMs = new List<NumberColumnVM>();
-            indexVM.TextColumnVMs = new List<TextColumnVM>();
-            indexVM.MultilineTextColumnVMs = new List<MultilineTextColumnVM>();
-            indexVM.ChoiceColumnVMs = new List<ChoiceColumnVM>();
-            indexVM.DateTimeColumnVMs = new List<DateTimeColumnVM>();
-            indexVM.BooleanColumnVMs = new List<BooleanColumnVM>();
-            indexVM.CurrencyColumnVMs = new List<CurrencyColumnVM>();
         }
     }
 

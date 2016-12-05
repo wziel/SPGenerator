@@ -11,12 +11,14 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 {
     public abstract class ColumnVM<TMappedColumnPOCO> : IColumnVM where TMappedColumnPOCO : ColumnPOCO
     {
+        protected TMappedColumnPOCO columnPOCO;
+
         protected ColumnVM()
         {
             //intentionally left empty, constructor for Razor
         }
 
-        protected ColumnVM(ColumnPOCO columnPOCO)
+        protected ColumnVM(TMappedColumnPOCO columnPOCO)
         {
             InternalName = columnPOCO.InternalName;
             DisplayName = columnPOCO.DisplayName;
@@ -35,21 +37,21 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            return new List<ValidationResult>();
+            if(columnPOCO != null && !GenerateData && columnPOCO.Required)
+            {
+                yield return new ValidationResult($"Kolumna {InternalName} jest wymagana i nie można nie generować na nią danych");
+            }
         }
 
         public virtual void ApplyTo(ColumnPOCO columnPOCO)
         {
-            columnPOCO.GenerateData = columnPOCO.Required ? true : GenerateData;
-        }
-
-        public virtual void AssertCanApplyTo(ColumnPOCO columnPOCO)
-        {
-            var specificColumnPOCO = columnPOCO as TMappedColumnPOCO;
-            if (specificColumnPOCO == null)
+            var specificColumn = columnPOCO as TMappedColumnPOCO;
+            if(specificColumn == null)
             {
-                throw new GUIVisibleException("Kolumna " + InternalName + " nie jest poprawnego typu");
+                throw new GUIVisibleException($"Kolumna {InternalName} nie jest odpowiedniego typu");
             }
+            this.columnPOCO = specificColumn;
+            columnPOCO.GenerateData = columnPOCO.Required ? true : GenerateData;
         }
     }
 
@@ -80,11 +82,5 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         /// </summary>
         /// <param name="columnPOCO">POCO to which values should be applied.</param>
         void ApplyTo(ColumnPOCO columnPOCO);
-
-        /// <summary>
-        /// Asert that this VM can be applied to given POCO. If not throws exception.
-        /// </summary>
-        /// <param name="columnPOCO">POCO to which values should be applied.</param>
-        void AssertCanApplyTo(ColumnPOCO columnPOCO);
     }
 }
