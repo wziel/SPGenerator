@@ -55,12 +55,12 @@ if (Model.ShowListVMs)
                 </div>
             </div>
             @Columns()
-            <a class="btn btn-info col-sm-offset-9 col-sm-3 
+            <a class="btn btn-info col-sm-offset-9 col-sm-3
                     @(Model.SelectedListVM == null ? "disabled" : "")" href="javascript:generateData()">
-                    <span class="glyphicon glyphicon-save pull-left"></span>
+                <span class="glyphicon glyphicon-save pull-left"></span>
                 Generuj dane
             </a>
-            @if(Model.SelectedListVM != null)
+            @if (Model.SelectedListVM != null)
             {
                 @Html.HiddenFor(m => m.SelectedListVM.ServerRelativeUrl)
             }
@@ -129,13 +129,7 @@ if (Model.ShowColumnVMs)
                     MvcHtmlString result = Html.EditorFor(m => m.CurrencyColumnVMs[i]);
                     @ColumnCollapse(Model.CurrencyColumnVMs[i].DisplayName, columnId, result);
                 }
-                @if (!ViewData.ModelState.IsValid)
-                {
-                    <div style="color:darkred">
-                        <h3>Błędy:</h3>
-                        @Html.ValidationSummary()
-                    </div>
-                }
+                @ValidationSummary()
             </div>
         </div>
 }
@@ -161,17 +155,75 @@ var collapseId = columnId + "collapse";
     </div>
 }
 
-<script type="text/javascript">
+@helper ValidationSummary()
+{
+if (!ViewData.ModelState.IsValid)
+{
+    HashSet<string> validationMessages = new HashSet<string>();
+    foreach (ModelState modelState in ViewData.ModelState.Values)
+    {
+        foreach (ModelError error in modelState.Errors)
+        {
+            validationMessages.Add(error.ErrorMessage);
+        }
+    }
+    <div style="color:darkred">
+        <h3>Błędy konfiguracji generatora:</h3>
+        <ul>
+            @foreach (var validationMessage in validationMessages)
+            {
+                <li>@validationMessage</li>
+            }
+        </ul>
+    </div>
+}
+}
+
+
+@if (Model.ShowSuccessGeneration || Model.ShowFailedGeneration)
+{
+    <div class="modal fade" id="messageModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>@(Model.ShowSuccessGeneration ? "Sukces" : "Błąd")</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@(Model.ShowSuccessGeneration ? "Generacja danych zakończyła się sukcesem" : "Generacja danych nie powiodła się. Przed ponowieniem próby należy poprawić błędy konfiguracji generatora.")</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+
+    <script type="text/javascript">
     @{
         var listSelectActionUrl = Url.Action("ListSelect", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
         var generateDataActionUrl = Url.Action("GenerateData", "Home", new { @SPHostUrl = Request.QueryString["SPHostUrl"] });
     }
-    selectList = function () {
-        mainForm.action = "@listSelectActionUrl";
-        mainForm.submit();
+        selectList = function () {
+            mainForm.action = "@listSelectActionUrl";
+            mainForm.submit();
+        }
+        generateData = function () {
+            mainForm.action = "@generateDataActionUrl";
+            mainForm.submit();
+        }
+    </script>
+
+    @if (Model.ShowSuccessGeneration || Model.ShowFailedGeneration)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#messageModal').modal('show');
+            });
+        </script>
     }
-    generateData = function () {
-        mainForm.action = "@generateDataActionUrl";
-        mainForm.submit();
-    }
-</script>
+}

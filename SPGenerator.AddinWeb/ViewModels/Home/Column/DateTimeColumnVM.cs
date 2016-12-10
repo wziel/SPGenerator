@@ -27,9 +27,9 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         [DisplayName("Maksymalna wartość")]
         public DateTime MaxValue { get; set; }
 
-        public override void ApplyTo(ColumnPOCO columnPOCO)
+        public override void SyncModels(ColumnPOCO columnPOCO)
         {
-            base.ApplyTo(columnPOCO);
+            base.SyncModels(columnPOCO);
             var dateTimeColumnPOCO = columnPOCO as DateTimeColumnPOCO;
             dateTimeColumnPOCO.MinValue = MinValue;
             dateTimeColumnPOCO.MaxValue = MaxValue;
@@ -39,7 +39,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             if (MinValue > MaxValue)
             {
-                yield return new ValidationResult($"Minimalna wartość kolumny {InternalName} nie może być większa niż maksymalna",
+                yield return new ValidationResult($"Minimalna wartość kolumny {DisplayName} nie może być większa niż maksymalna",
                     new[] { nameof(MaxValue), nameof(MinValue) });
             }
             foreach(var baseResult in base.Validate(validationContext))

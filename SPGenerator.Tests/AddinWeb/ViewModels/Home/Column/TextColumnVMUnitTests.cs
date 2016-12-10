@@ -50,7 +50,8 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             var validationResults = columnVM.Validate(null);
             //then
             Assert.AreEqual(validationResults.Count(), 1);
-            Assert.AreEqual(validationResults.First().ErrorMessage, "Minimalna długość nie może być większa niż maksymalna");
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(TextColumnVM.MaxLength)));
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(TextColumnVM.MinLength)));
         }
     }
 }

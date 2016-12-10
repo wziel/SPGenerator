@@ -101,7 +101,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
                 MaxLength = 100,
                 MinLength = 10
             };
-            columnVM.ApplyTo(columnPOCO);
+            columnVM.SyncModels(columnPOCO);
             //when
             var validationResults = columnVM.Validate(null);
             //then
@@ -110,7 +110,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
         }
 
         [TestMethod]
-        public void ApplyTo()
+        public void SyncModels()
         {
             //given
             var columnPOCO = new MultilineTextColumnPOCO();
@@ -120,7 +120,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
                 MinLength = 10
             };
             //when
-            columnVM.ApplyTo(columnPOCO);
+            columnVM.SyncModels(columnPOCO);
             //then
             Assert.AreEqual(columnPOCO.MinLength, columnVM.MinLength);
             Assert.AreEqual(columnPOCO.MaxLength, columnVM.MaxLength);

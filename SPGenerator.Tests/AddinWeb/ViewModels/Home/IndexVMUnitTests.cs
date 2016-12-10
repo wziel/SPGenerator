@@ -105,7 +105,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
         }
 
         [TestMethod]
-        public void ApplyTo()
+        public void SyncModels()
         {
             //can't test it beacuse VM needs concrete column VM classes not interfaces.
         }

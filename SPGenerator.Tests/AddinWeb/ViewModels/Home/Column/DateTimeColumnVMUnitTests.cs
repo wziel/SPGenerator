@@ -29,7 +29,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
         }
 
         [TestMethod]
-        public void ApplyTo()
+        public void SyncModels()
         {
             //given
             var columnPOCO = new DateTimeColumnPOCO();
@@ -39,7 +39,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
                 MaxValue = new DateTime(2010, 1, 1)
             };
             //when
-            columnVM.ApplyTo(columnPOCO);
+            columnVM.SyncModels(columnPOCO);
             //then
             Assert.AreEqual(columnVM.MinValue, columnPOCO.MinValue);
             Assert.AreEqual(columnVM.MaxValue, columnPOCO.MaxValue);
@@ -77,7 +77,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
                 MinValue = new DateTime(2000, 1, 1),
                 MaxValue = new DateTime(2010, 1, 1)
             };
-            columnVM.ApplyTo(columnPOCO);
+            columnVM.SyncModels(columnPOCO);
             //when
             var validationResults = columnVM.Validate(null);
             //then

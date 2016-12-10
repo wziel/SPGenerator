@@ -28,9 +28,9 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         [DisplayName("Minimalna długość")]
         public int MinLength { get; set; }
 
-        public override void ApplyTo(ColumnPOCO columnPOCO)
+        public override void SyncModels(ColumnPOCO columnPOCO)
         {
-            base.ApplyTo(columnPOCO);
+            base.SyncModels(columnPOCO);
             var multilineTextColumnPOCO = columnPOCO as MultilineTextColumnPOCO;
             multilineTextColumnPOCO.MaxLength = MaxLength;
             multilineTextColumnPOCO.MinLength = MinLength;
@@ -40,17 +40,17 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             if (MinLength > MaxLength)
             {
-                yield return new ValidationResult($"Minimalna długość kolumny {InternalName} nie może być większa niż maksymalna",
+                yield return new ValidationResult($"Minimalna długość kolumny {DisplayName} nie może być większa niż maksymalna",
                     new[] { nameof(MaxLength), nameof(MinLength) });
             }
             if (MaxLength > MultilineTextColumnPOCO.MAX_LENGTH)
             {
-                yield return new ValidationResult($"Długość wartości kolumny {InternalName} nie może przekraczać {MultilineTextColumnPOCO.MAX_LENGTH} znaków", 
+                yield return new ValidationResult($"Długość wartości kolumny {DisplayName} nie może przekraczać {MultilineTextColumnPOCO.MAX_LENGTH} znaków", 
                     new[] { nameof(MaxLength)});
             }
             if (MinLength < MultilineTextColumnPOCO.MIN_LENGTH)
             {
-                yield return new ValidationResult($"Długość wartości kolumny {InternalName} nie może być mniejsza od {MultilineTextColumnPOCO.MIN_LENGTH} znaków", 
+                yield return new ValidationResult($"Długość wartości kolumny {DisplayName} nie może być mniejsza od {MultilineTextColumnPOCO.MIN_LENGTH} znaków", 
                     new[] { nameof(MinLength) });
             }
             foreach (var baseResult in base.Validate(validationContext))

@@ -48,13 +48,12 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             {
                 InternalName = "test column name",
                 MinValue = 100,
-                MaxValue = 10,
-                OnlyIntegers = true,
+                MaxValue = 10
             };
             //when
             var validationResults = columnVM.Validate(null);
             //then
-            Assert.AreEqual(validationResults.Count(), 1);
+            Assert.AreEqual(1, validationResults.Count());
             Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(NumberColumnVM.MinValue)));
             Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(NumberColumnVM.MaxValue)));
         }

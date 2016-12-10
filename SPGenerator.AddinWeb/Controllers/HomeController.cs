@@ -72,7 +72,7 @@ namespace SPGenerator.AddinWeb.Controllers
         public ActionResult GenerateData(IndexVM indexVM)
         {
             var listPOCO = sharePointService.GetListPOCO(indexVM.SelectedListVM.Title);
-            indexVM.ApplyTo(listPOCO);
+            indexVM.SyncModels(listPOCO);
             ModelState.Clear();
             TryValidateModel(indexVM);
             if (ModelState.IsValid)
@@ -82,6 +82,8 @@ namespace SPGenerator.AddinWeb.Controllers
             }
             indexVM = GetDefaultIndexVM();
             indexVM = indexVMFactory.GetIndexVMWithSelectedList(indexVM, listPOCO);
+            indexVM.ShowSuccessGeneration = ModelState.IsValid;
+            indexVM.ShowFailedGeneration = !ModelState.IsValid;
             return View("Index", indexVM);
         }
     }

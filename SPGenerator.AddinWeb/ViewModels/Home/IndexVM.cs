@@ -39,6 +39,16 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
         public ListVM SelectedListVM { get; set; }
 
         /// <summary>
+        /// True if message should be shown that generation was successful.
+        /// </summary>
+        public bool ShowSuccessGeneration { get; set; } = false;
+
+        /// <summary>
+        /// True if message should be shown that generation was successful.
+        /// </summary>
+        public bool ShowFailedGeneration { get; set; } = false;
+
+        /// <summary>
         /// Url to currently selected list's default view.
         /// </summary>
         public string SelectedListAbsoluteUrl
@@ -70,7 +80,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
             }
         }
 
-        internal void ApplyTo(ListPOCO listPOCO)
+        internal void SyncModels(ListPOCO listPOCO)
         {
             foreach(var columnVM in AllColumnVMs)
             {
@@ -79,7 +89,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home
                 {
                     throw new GUIVisibleException("Nie znaleziono kolumny o nazwie " + columnVM.InternalName);
                 }
-                columnVM.ApplyTo(columnPOCO);
+                columnVM.SyncModels(columnPOCO);
             }
         }
 

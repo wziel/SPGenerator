@@ -11,8 +11,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 {
     public abstract class ColumnVM<TMappedColumnPOCO> : IColumnVM where TMappedColumnPOCO : ColumnPOCO
     {
-        protected TMappedColumnPOCO columnPOCO;
-
         protected ColumnVM()
         {
             //intentionally left empty, constructor for Razor
@@ -20,10 +18,7 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 
         protected ColumnVM(TMappedColumnPOCO columnPOCO)
         {
-            InternalName = columnPOCO.InternalName;
-            DisplayName = columnPOCO.DisplayName;
-            GenerateData = columnPOCO.GenerateData;
-            Required = columnPOCO.Required;
+            SetPropertiesFromColumnPOCO(columnPOCO);
         }
 
         [DisplayName("Generuj dane")]
@@ -37,22 +32,30 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(columnPOCO != null && !GenerateData && columnPOCO.Required)
+            if(!GenerateData && Required)
             {
-                yield return new ValidationResult($"Kolumna {InternalName} jest wymagana i nie można nie generować na nią danych",
+                yield return new ValidationResult($"Kolumna {DisplayName} jest wymagana i nie można nie generować na nią danych",
                     new[] { nameof(GenerateData)});
             }
         }
 
-        public virtual void ApplyTo(ColumnPOCO columnPOCO)
+        public virtual void SyncModels(ColumnPOCO columnPOCO)
         {
-            var specificColumn = columnPOCO as TMappedColumnPOCO;
-            if(specificColumn == null)
+            var specificColumnPOCO = columnPOCO as TMappedColumnPOCO;
+            if(specificColumnPOCO == null)
             {
-                throw new GUIVisibleException($"Kolumna {InternalName} nie jest odpowiedniego typu");
+                throw new GUIVisibleException($"Kolumna {DisplayName} nie jest odpowiedniego typu");
             }
-            this.columnPOCO = specificColumn;
-            columnPOCO.GenerateData = columnPOCO.Required ? true : GenerateData;
+            SetPropertiesFromColumnPOCO(specificColumnPOCO);
+            columnPOCO.GenerateData = Required ? true : GenerateData;
+        }
+
+        private void SetPropertiesFromColumnPOCO(TMappedColumnPOCO columnPOCO)
+        {
+            InternalName = columnPOCO.InternalName;
+            DisplayName = columnPOCO.DisplayName;
+            GenerateData = columnPOCO.GenerateData;
+            Required = columnPOCO.Required;
         }
     }
 
@@ -82,6 +85,6 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         /// Aplies field values to POCO from this VM.
         /// </summary>
         /// <param name="columnPOCO">POCO to which values should be applied.</param>
-        void ApplyTo(ColumnPOCO columnPOCO);
+        void SyncModels(ColumnPOCO columnPOCO);
     }
 }
