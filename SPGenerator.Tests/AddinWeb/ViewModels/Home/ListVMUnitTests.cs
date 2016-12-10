@@ -29,7 +29,7 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
         }
 
         [TestMethod]
-        public void ListPOCO_TranslatesSelectedProperties()
+        public void ListPOCO_Get()
         {
             //given
             var listVM = new ListVM()

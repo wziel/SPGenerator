@@ -62,8 +62,7 @@
     <Compile Include="ColumnDataGenerator\DateTime\BoundaryDateTimeDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DateTime\IDateTimeDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\DateTime\RandomDateTimeDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\DbColumnDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\MultilineText\DbPlainMultilineTextDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\MultilineText\MultilineTextDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\MultilineText\IMultilineTextDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Number\RandomDoubleDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Number\RandomIntegerDataGenerator.cs" />
@@ -78,8 +77,9 @@
     <Compile Include="ColumnDataGenerator\Number\NegativeRandomIntegerDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Number\PositiveRandomDoubleDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Number\NegativeRandomDoubleDataGenerator.cs" />
-    <Compile Include="ColumnDataGenerator\Text\DbPlainTextDataGenerator.cs" />
+    <Compile Include="ColumnDataGenerator\Text\TextDataGenerator.cs" />
     <Compile Include="ColumnDataGenerator\Text\ITextDataGenerator.cs" />
+    <Compile Include="DAO\TextDAO.cs" />
     <Compile Include="Database\Model\Text.cs" />
     <Compile Include="DataGenerator.cs" />
     <Compile Include="Database\GeneratorDbContext.cs" />

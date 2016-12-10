@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using SPGenerator.AddinWeb.ViewModels.Home;
 using SPGenerator.AddinWeb.ViewModels.Home.Column;
 using System;
@@ -24,27 +25,28 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
                 ChoiceColumnVMs = new List<ChoiceColumnVM>() { new ChoiceColumnVM() },
                 BooleanColumnVMs = new List<BooleanColumnVM>() {  new BooleanColumnVM() },
                 DateTimeColumnVMs = new List<DateTimeColumnVM>() { new DateTimeColumnVM() },
+                CurrencyColumnVMs = new List<CurrencyColumnVM> { new CurrencyColumnVM() },
             };
             //when
             var columns = vm.AllColumnVMs;
             //then
-            Assert.AreEqual(6, columns.Count);
+            Assert.AreEqual(7, columns.Count);
         }
 
         [TestMethod]
         public void SelectedListAbsoluteUrl_ReturnsProperListUrl()
         {
             //given
-            var listVM = new ListVM() { ServerRelativeUrl = "/sites/lists/list" };
+            var listVM = new ListVM() { ServerRelativeUrl = "/sites/site/list" };
             var indexVM = new IndexVM()
             {
                 SelectedListVM = listVM,
-                HostWebUrl = "http://hostWebUtl/sites/testsite"
+                HostWebUrl = "http://hostWebUtl/sites/site"
             };
             //when
             var listUrl = indexVM.SelectedListAbsoluteUrl;
             //then
-            Assert.AreEqual("http://hostWebUtl/sites/lists/list", listUrl);
+            Assert.AreEqual("http://hostWebUtl/sites/site/list", listUrl);
         }
 
         [TestMethod]
@@ -100,6 +102,18 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home
             var showColumns = indexVM.ShowColumnVMs;
             //then
             Assert.IsTrue(showColumns);
+        }
+
+        [TestMethod]
+        public void ApplyTo()
+        {
+            //can't test it beacuse VM needs concrete column VM classes not interfaces.
+        }
+
+        [TestMethod]
+        public void Validate()
+        {
+            //can't test it beacuse VM needs concrete column VM classes not interfaces.
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SPGenerator.Generator.ColumnDataGenerator.Number;
+using SPGenerator.Generator.ColumnDataGenerator;
+using SPGenerator.Generator.ColumnDataGenerator.Shared;
 using SPGenerator.Model.Column;
 using System;
 using System.Collections.Generic;
@@ -7,30 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
+namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Shared
 {
     [TestClass]
-    public class RandomDoubleDataGeneratorUnitTests
+    public class NullDataGeneratorUnitTests
     {
-        private NumberColumnPOCO column;
-        private RandomDoubleDataGenerator generator;
+        private ColumnPOCO column;
+        private NullDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            column = new NumberColumnPOCO()
-            {
-                MaxValue = 100,
-                MinValue = -10
-            };
-            generator = new RandomDoubleDataGenerator();
+            column = new NumberColumnPOCO() { GenerateData = true };
+            generator = new NullDataGenerator();
         }
 
         [TestMethod]
-        public void CanGenerateData_FalseIfOnlyIntegers()
+        public void CanGenerateData_FalseIfColumnRequired()
         {
             //given
-            column.OnlyIntegers = true;
+            column.Required = true;
             //when
             var canGenerate = generator.CanGenerateData(column);
             //then
@@ -60,44 +57,29 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
         }
 
         [TestMethod]
-        public void GenerateData_ReturnsDoubles()
+        public void GenerateData_ReturnsNullValuesOnly()
         {
             //given
             var recordsCount = 100;
             //when
-            var data = generator.GenerateData(column, recordsCount);
-            //then
-            foreach (var dataPiece in data)
-            {
-                Assert.IsTrue(dataPiece is double);
-            }
-        }
-
-        [TestMethod]
-        public void GenerateData_ExactCount()
-        {
-            //given
-            var recordsCount = 100;
-            //when
-            var data = generator.GenerateData(column, recordsCount);
+            var data = generator.GenerateData(null, recordsCount);
             //then
             Assert.AreEqual(recordsCount, data.Count());
+            foreach (var dataPiece in data)
+            {
+                Assert.IsNull(dataPiece);
+            }
         }
 
         [TestMethod]
-        public void GenerateData_DataPiecesDontExceedMinMax()
+        public void GenerateData_ReturnsExactCount()
         {
             //given
             var recordsCount = 100;
             //when
-            var data = generator.GenerateData(column, recordsCount);
+            var data = generator.GenerateData(null, recordsCount);
             //then
-            foreach (var dataPiece in data)
-            {
-                var doubleVale = (double)dataPiece;
-                Assert.IsTrue(column.MinValue <= doubleVale);
-                Assert.IsTrue(column.MaxValue >= doubleVale);
-            }
+            Assert.AreEqual(recordsCount, data.Count());
         }
     }
 }

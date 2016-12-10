@@ -137,23 +137,37 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AddinWeb\Controllers\HomeController.cs" />
+    <Compile Include="AddinWeb\ViewModels\Home\Column\DateTimeColumnVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\Column\MultilineTextColumnVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\Column\NumberColumnVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\Column\TextColumnVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\IndexVMFactoryUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\IndexVMUnitTests.cs" />
     <Compile Include="AddinWeb\ViewModels\Home\ListVMUnitTests.cs" />
-    <Compile Include="Generator\ColumnDataGenerator\NullDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Boolean\FalseBooleanDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Boolean\RandomBooleanDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Boolean\TrueBooleanDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Choice\RandomChoiceDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\DateTime\BoundaryDateTimeDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\DateTime\RandomDateTimeDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\MultilineText\MultilineTextDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Shared\NullDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\BoundaryDoubleDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\BoundaryIntegerDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\NegativeRandomDoubleDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\NegativeRandomIntegerDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\PositiveRandomDoubleDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Number\PositiveRandomIntegerDataGeneratorUnitTests.cs" />
     <Compile Include="Generator\ColumnDataGenerator\Number\RandomDoubleDataGeneratorUnitTests.cs" />
     <Compile Include="Generator\ColumnDataGenerator\Number\RandomIntegerDataGeneratorUnitTests.cs" />
+    <Compile Include="Generator\ColumnDataGenerator\Text\TextDataGeneratorUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePoint\ColumnMappingUnitTests.cs" />
     <Compile Include="SharePoint\SharePointServiceUnitTests.cs" />
     <Compile Include="ShimTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Generator\ColumnDataGenerator\MultilineText\" />
-    <Folder Include="Generator\ColumnDataGenerator\Text\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>

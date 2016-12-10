@@ -34,7 +34,6 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             Assert.AreEqual(columnPOCO.MinLength, columnVM.MinLength);
         }
 
-
         [TestMethod]
         public void Validate_MinMaxCondition()
         {
@@ -48,8 +47,83 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             //when
             var validationResults = columnVM.Validate(null);
             //then
-            Assert.AreEqual(validationResults.Count(), 1);
-            Assert.AreEqual(validationResults.First().ErrorMessage, "Minimalna długość nie może być większa niż maksymalna");
+            Assert.AreEqual(1, validationResults.Count());
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(MultilineTextColumnVM.MinLength)));
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(MultilineTextColumnVM.MaxLength)));
+        }
+
+        [TestMethod]
+        public void Validate_MinCondition()
+        {
+            //given
+            var columnVM = new MultilineTextColumnVM()
+            {
+                InternalName = "test column name",
+                MaxLength = 100,
+                MinLength = MultilineTextColumnPOCO.MIN_LENGTH - 1
+            };
+            //when
+            var validationResults = columnVM.Validate(null);
+            //then
+            Assert.AreEqual(1, validationResults.Count());
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(MultilineTextColumnVM.MinLength)));
+        }
+
+        [TestMethod]
+        public void Validate_MaxCondition()
+        {
+            //given
+            var columnVM = new MultilineTextColumnVM()
+            {
+                InternalName = "test column name",
+                MaxLength = MultilineTextColumnPOCO.MAX_LENGTH + 1,
+                MinLength = 1
+            };
+            //when
+            var validationResults = columnVM.Validate(null);
+            //then
+            Assert.AreEqual(1, validationResults.Count());
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(MultilineTextColumnVM.MaxLength)));
+        }
+
+        [TestMethod]
+        public void Validate_GenerateDataWhenRequired()
+        {
+            //given
+            var columnPOCO = new MultilineTextColumnPOCO()
+            {
+                Required = true
+            };
+            var columnVM = new MultilineTextColumnVM()
+            {
+                InternalName = "test column name",
+                GenerateData = false,
+                MaxLength = 100,
+                MinLength = 10
+            };
+            columnVM.ApplyTo(columnPOCO);
+            //when
+            var validationResults = columnVM.Validate(null);
+            //then
+            Assert.AreEqual(1, validationResults.Count());
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(MultilineTextColumnVM.GenerateData)));
+        }
+
+        [TestMethod]
+        public void ApplyTo()
+        {
+            //given
+            var columnPOCO = new MultilineTextColumnPOCO();
+            var columnVM = new MultilineTextColumnVM()
+            {
+                MaxLength = 100,
+                MinLength = 10
+            };
+            //when
+            columnVM.ApplyTo(columnPOCO);
+            //then
+            Assert.AreEqual(columnPOCO.MinLength, columnVM.MinLength);
+            Assert.AreEqual(columnPOCO.MaxLength, columnVM.MaxLength);
         }
     }
 }

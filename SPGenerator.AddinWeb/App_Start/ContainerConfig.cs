@@ -11,6 +11,7 @@ using SPGenerator.Generator.ColumnDataGenerator.MultilineText;
 using SPGenerator.Generator.ColumnDataGenerator.Number;
 using SPGenerator.Generator.ColumnDataGenerator.Shared;
 using SPGenerator.Generator.ColumnDataGenerator.Text;
+using SPGenerator.Generator.DAO;
 using SPGenerator.SharePoint;
 using SPGenerator.SharePoint.ColumnMapping;
 using System;
@@ -45,6 +46,7 @@ namespace SPGenerator.AddinWeb.App_Start
         {
             container.Register<IDataGenerator, DataGenerator>();
             container.Register<IColumnDataGeneratorFactory, ColumnDataGeneratorFactory>();
+            container.Register<ITextDAO, TextDAO>();
             container.RegisterCollection<IBooleanDataGenerator>(new[] {
                 typeof(FalseBooleanDataGenerator),
                 typeof(TrueBooleanDataGenerator),
@@ -72,7 +74,7 @@ namespace SPGenerator.AddinWeb.App_Start
                 typeof(NullDataGenerator),
             });
             container.RegisterCollection<IMultilineTextDataGenerator>(new[] {
-                typeof(DbPlainMultilineTextDataGenerator),
+                typeof(MultilineTextDataGenerator),
                 typeof(NullDataGenerator),
             });
             container.RegisterCollection<INumberDataGenerator>(new[] {
@@ -87,7 +89,7 @@ namespace SPGenerator.AddinWeb.App_Start
                 typeof(NullDataGenerator),
             });
             container.RegisterCollection<ITextDataGenerator>(new[] {
-                typeof(DbPlainTextDataGenerator),
+                typeof(TextDataGenerator),
                 typeof(NullDataGenerator),
             });
         }

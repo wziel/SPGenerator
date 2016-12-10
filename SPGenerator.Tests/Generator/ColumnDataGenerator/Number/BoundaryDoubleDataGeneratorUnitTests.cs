@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
 {
     [TestClass]
-    public class RandomDoubleDataGeneratorUnitTests
+    public class BoundaryDoubleDataGeneratorUnitTests
     {
         private NumberColumnPOCO column;
-        private RandomDoubleDataGenerator generator;
+        private BoundaryDoubleDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -23,7 +23,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
                 MaxValue = 100,
                 MinValue = -10
             };
-            generator = new RandomDoubleDataGenerator();
+            generator = new BoundaryDoubleDataGenerator();
         }
 
         [TestMethod]

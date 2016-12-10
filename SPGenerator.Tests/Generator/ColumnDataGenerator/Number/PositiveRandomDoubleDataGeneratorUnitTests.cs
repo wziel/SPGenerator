@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
 {
     [TestClass]
-    public class RandomDoubleDataGeneratorUnitTests
+    public class PositiveRandomDoubleDataGeneratorUnitTests
     {
         private NumberColumnPOCO column;
-        private RandomDoubleDataGenerator generator;
+        private PositiveRandomDoubleDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -23,7 +23,18 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
                 MaxValue = 100,
                 MinValue = -10
             };
-            generator = new RandomDoubleDataGenerator();
+            generator = new PositiveRandomDoubleDataGenerator();
+        }
+
+        [TestMethod]
+        public void CanGenerateData_FalseIfColumnMaxLessThanZero()
+        {
+            //given
+            column.MaxValue = -0.1;
+            //when
+            var canGenerate = generator.CanGenerateData(column);
+            //then
+            Assert.IsFalse(canGenerate);
         }
 
         [TestMethod]
@@ -95,7 +106,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             foreach (var dataPiece in data)
             {
                 var doubleVale = (double)dataPiece;
-                Assert.IsTrue(column.MinValue <= doubleVale);
+                Assert.IsTrue(0 < doubleVale);
                 Assert.IsTrue(column.MaxValue >= doubleVale);
             }
         }

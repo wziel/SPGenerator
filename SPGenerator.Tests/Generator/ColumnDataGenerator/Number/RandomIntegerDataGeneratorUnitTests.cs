@@ -13,7 +13,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
     public class RandomIntegerDataGeneratorUnitTests
     {
         private NumberColumnPOCO column;
-        private AbstractRandomIntegerDataGenerator generator;
+        private RandomIntegerDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -21,13 +21,59 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             column = new NumberColumnPOCO()
             {
                 MaxValue = 100,
-                MinValue = -10
+                MinValue = -10,
+                GenerateData = true
             };
-            generator = new AbstractRandomIntegerDataGenerator();
+            generator = new RandomIntegerDataGenerator();
         }
 
         [TestMethod]
-        public void GenerateData_ReturnIntegersOnly()
+        public void CanGenerateData_FalseIfNoIntegersInRange()
+        {
+            //given
+            column.MaxValue = 10.9;
+            column.MinValue = 10.1;
+            //when
+            var canGenerate = generator.CanGenerateData(column);
+            //then
+            Assert.IsFalse(canGenerate);
+        }
+
+        [TestMethod]
+        public void CanGenerateData_TrueIfOnlyIntegers()
+        {
+            //given
+            column.OnlyIntegers = true;
+            //when
+            var canGenerate = generator.CanGenerateData(column);
+            //then
+            Assert.IsTrue(canGenerate);
+        }
+
+        [TestMethod]
+        public void CanGenerateData_FalseIfFalseGenerateData()
+        {
+            //given
+            column.GenerateData = false;
+            //when
+            var canGenerate = generator.CanGenerateData(column);
+            //then
+            Assert.IsFalse(canGenerate);
+        }
+
+        [TestMethod]
+        public void CanGenerateData_TrueIfTrueGenerateData()
+        {
+            //given
+            column.GenerateData = true;
+            //when
+            var canGenerate = generator.CanGenerateData(column);
+            //then
+            Assert.IsTrue(canGenerate);
+        }
+
+        [TestMethod]
+        public void GenerateData_ReturnsInts()
         {
             //given
             var recordsCount = 100;
@@ -61,9 +107,9 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //then
             foreach (var dataPiece in data)
             {
-                var doubleVale = (int)dataPiece;
-                Assert.IsTrue(column.MinValue <= doubleVale);
-                Assert.IsTrue(column.MaxValue >= doubleVale);
+                var intValue = (int)dataPiece;
+                Assert.IsTrue(column.MinValue <= intValue);
+                Assert.IsTrue(column.MaxValue >= intValue);
             }
         }
     }

@@ -5,19 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SPGenerator.Generator.Database;
+using SPGenerator.Generator.DAO;
 
 namespace SPGenerator.Generator.ColumnDataGenerator.MultilineText
 {
-    public class DbPlainMultilineTextDataGenerator : DbColumnDataGenerator<MultilineTextColumnPOCO, string>,
-        IMultilineTextDataGenerator
+    public class MultilineTextDataGenerator : ColumnDataGenerator<MultilineTextColumnPOCO>, IMultilineTextDataGenerator
     {
-        protected override List<string> FetchData(GeneratorDbContext db, MultilineTextColumnPOCO column, int recordsCount)
+        private ITextDAO textDAO;
+
+        public MultilineTextDataGenerator(ITextDAO textDAO)
         {
-            return db.Texts.OrderBy(x => Guid.NewGuid()).Take(recordsCount).Select(x => x.Content).ToList();
+            this.textDAO = textDAO;
         }
 
-        protected override IEnumerable<object> GenerateData(List<string> textSamples, MultilineTextColumnPOCO column, int recordsCount)
+        protected override IEnumerable<object> GenerateData(MultilineTextColumnPOCO column, int recordsCount)
         {
+            var textSamples = textDAO.GetRandomTexts(recordsCount);
             while (recordsCount-- > 0)
             {
                 var text = textSamples[recordsCount % textSamples.Count];

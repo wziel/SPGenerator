@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
 {
     [TestClass]
-    public class RandomDoubleDataGeneratorUnitTests
+    public class BoundaryIntegerDataGeneratorUnitTests
     {
         private NumberColumnPOCO column;
-        private RandomDoubleDataGenerator generator;
+        private BoundaryIntegerDataGenerator generator;
 
         [TestInitialize]
         public void TestInitialize()
@@ -21,20 +21,33 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             column = new NumberColumnPOCO()
             {
                 MaxValue = 100,
-                MinValue = -10
+                MinValue = -10,
+                GenerateData = true
             };
-            generator = new RandomDoubleDataGenerator();
+            generator = new BoundaryIntegerDataGenerator();
         }
 
         [TestMethod]
-        public void CanGenerateData_FalseIfOnlyIntegers()
+        public void CanGenerateData_FalseIfNoIntegersInRange()
+        {
+            //given
+            column.MaxValue = 10.9;
+            column.MinValue = 10.1;
+            //when
+            var canGenerate = generator.CanGenerateData(column);
+            //then
+            Assert.IsFalse(canGenerate);
+        }
+
+        [TestMethod]
+        public void CanGenerateData_TrueIfOnlyIntegers()
         {
             //given
             column.OnlyIntegers = true;
             //when
             var canGenerate = generator.CanGenerateData(column);
             //then
-            Assert.IsFalse(canGenerate);
+            Assert.IsTrue(canGenerate);
         }
 
         [TestMethod]
@@ -60,7 +73,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
         }
 
         [TestMethod]
-        public void GenerateData_ReturnsDoubles()
+        public void GenerateData_ReturnsInts()
         {
             //given
             var recordsCount = 100;
@@ -69,7 +82,7 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //then
             foreach (var dataPiece in data)
             {
-                Assert.IsTrue(dataPiece is double);
+                Assert.IsTrue(dataPiece is int);
             }
         }
 
@@ -94,9 +107,9 @@ namespace SPGenerator.Tests.Generator.ColumnDataGenerator.Number
             //then
             foreach (var dataPiece in data)
             {
-                var doubleVale = (double)dataPiece;
-                Assert.IsTrue(column.MinValue <= doubleVale);
-                Assert.IsTrue(column.MaxValue >= doubleVale);
+                var intValue = (int)dataPiece;
+                Assert.IsTrue(column.MinValue <= intValue);
+                Assert.IsTrue(column.MaxValue >= intValue);
             }
         }
     }

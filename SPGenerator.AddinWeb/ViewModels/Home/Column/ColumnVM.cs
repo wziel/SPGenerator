@@ -39,7 +39,8 @@ namespace SPGenerator.AddinWeb.ViewModels.Home.Column
         {
             if(columnPOCO != null && !GenerateData && columnPOCO.Required)
             {
-                yield return new ValidationResult($"Kolumna {InternalName} jest wymagana i nie można nie generować na nią danych");
+                yield return new ValidationResult($"Kolumna {InternalName} jest wymagana i nie można nie generować na nią danych",
+                    new[] { nameof(GenerateData)});
             }
         }
 

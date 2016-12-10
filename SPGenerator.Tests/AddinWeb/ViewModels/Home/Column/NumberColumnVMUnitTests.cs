@@ -54,8 +54,9 @@ namespace SPGenerator.Tests.AddinWeb.ViewModels.Home.Column
             //when
             var validationResults = columnVM.Validate(null);
             //then
-            Assert.AreEqual(validationResults.Count(), 2);
-            Assert.AreEqual(validationResults.First().ErrorMessage, "Minimalna wartość nie może być większa niż maksymalna");
+            Assert.AreEqual(validationResults.Count(), 1);
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(NumberColumnVM.MinValue)));
+            Assert.IsTrue(validationResults.First().MemberNames.Contains(nameof(NumberColumnVM.MaxValue)));
         }
     }
 }
