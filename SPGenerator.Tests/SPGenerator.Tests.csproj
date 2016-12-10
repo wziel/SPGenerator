@@ -163,7 +163,7 @@
     <Compile Include="Generator\ColumnDataGenerator\Number\RandomIntegerDataGeneratorUnitTests.cs" />
     <Compile Include="Generator\ColumnDataGenerator\Text\TextDataGeneratorUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharePoint\ColumnMappingUnitTests.cs" />
+    <Compile Include="SharePoint\ColumnMappingResolverUnitTests.cs" />
     <Compile Include="SharePoint\SharePointServiceUnitTests.cs" />
     <Compile Include="ShimTests.cs" />
   </ItemGroup>
