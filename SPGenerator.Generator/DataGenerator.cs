@@ -37,7 +37,7 @@ namespace SPGenerator.Generator
                 var entry = new EntryPOCO();
                 foreach(var dataDictionaryEntry in columnsRawData)
                 {
-                    entry.AddValue(
+                    entry.SetValue(
                         dataDictionaryEntry.Key, 
                         dataDictionaryEntry.Value[i]);
                 }

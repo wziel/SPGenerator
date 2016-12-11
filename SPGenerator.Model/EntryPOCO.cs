@@ -26,11 +26,11 @@ namespace SPGenerator.Model
         }
 
         /// <summary>
-        /// Adds value of a column to this entry.
+        /// Sets value of a column to this entry.
         /// </summary>
         /// <param name="column">Column for which value is to be added.</param>
         /// <param name="value">Value of the column.</param>
-        public void AddValue(ColumnPOCO column, object value)
+        public void SetValue(ColumnPOCO column, object value)
         {
             columnValues.Add(column, value);
         }
