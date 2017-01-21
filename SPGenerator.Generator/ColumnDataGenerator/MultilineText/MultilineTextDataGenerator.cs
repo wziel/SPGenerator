@@ -24,7 +24,8 @@ namespace SPGenerator.Generator.ColumnDataGenerator.MultilineText
             while (recordsCount-- > 0)
             {
                 var text = textSamples[recordsCount % textSamples.Count];
-                var length = RANDOM.Next(column.MinLength, column.MaxLength);
+                var maxLength = Math.Min(text.Length, column.MaxLength);
+                var length = RANDOM.Next(column.MinLength, maxLength);
                 yield return text.Substring(0, length);
             }
         }
